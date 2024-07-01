@@ -1,12 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity">
-
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
 
     <LinearLayout
@@ -18,21 +15,21 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="1.5"
+            android:layout_weight="0.5"
             android:orientation="vertical"
             android:background="@color/main_grey">
+
             <ImageView
                 android:id="@+id/imageView"
-                android:layout_gravity="center"
-                android:layout_marginTop="15dp"
-                android:layout_marginBottom="8dp"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:srcCompat="@drawable/logo" />
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
+
                 <SearchView
                     android:id="@+id/searchView"
                     android:layout_width="wrap_content"
@@ -42,7 +39,8 @@
                     android:layout_gravity="center"
                     android:layout_marginStart="10dp"
                     android:iconifiedByDefault="false"
-                    android:queryHint="Search" />
+                    android:queryHint="Search"/>
+
                 <ImageButton
                     android:id="@+id/imageButton7"
                     android:layout_width="wrap_content"
@@ -52,128 +50,127 @@
                     android:layout_height="wrap_content"
                     android:background="@android:color/transparent"
                     app:srcCompat="@drawable/profile_icon" />
+
             </LinearLayout>
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="6.25"
+            android:layout_weight="2"
+            android:layout_marginTop="25dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="10dp"
             android:orientation="vertical"
-            android:background="@color/main_grey">
-             <TableLayout
-                 android:layout_width="match_parent"
-                 android:layout_height="0dp"
-                 android:layout_weight="1.5"
-                 android:layout_marginTop="5dp"
-                 android:layout_marginStart="10dp"
-                 android:layout_marginEnd="10dp"
-                 android:background="@drawable/container_radius">
-                 <TableRow
-                     android:layout_width="match_parent"
-                     android:layout_height="wrap_content"
-                     android:layout_marginStart="20dp"
-                     android:layout_marginTop="10dp"
-                     >
-                     <TextView
-                         android:layout_width="wrap_content"
-                         android:layout_height="wrap_content"
-                         android:layout_weight="1.75"
-                         android:text="@string/My_Upcoming_Fosa7"
-                         android:textColor="@color/light_grey"
-                         android:textStyle="bold"
-                         android:textSize="20sp"
-                         android:fontFamily="sans-serif"
-                         />
-                     <Button
-                         android:layout_width="wrap_content"
-                         android:layout_height="wrap_content"
-                         android:layout_marginEnd="15dp"
-                         android:text="MORE"
-                         android:textColor="@color/red"
-                         android:textStyle="bold"
-                         android:backgroundTint="@color/light_grey"
-                         />
-                 </TableRow>
+            android:background="@drawable/container_radius">
 
-                 <ListView
-                     android:layout_width="wrap_content"
-                     android:layout_height="wrap_content"
-                     android:li
-                     >
-                 </ListView>
-             </TableLayout>
-            <TableLayout android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="2"
-                android:layout_marginTop="10dp"
-                android:layout_marginStart="10dp"
-                android:layout_marginEnd="10dp"
-                android:background="@drawable/container_radius"
-                >
-            </TableLayout>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="28dp"
+                android:layout_marginTop="30dp"
+                android:text="Recommender"
+                android:textColor="@color/light_grey"
+                android:textStyle="bold"
+                android:textSize="30sp"
+                android:fontFamily="sans-serif"/>
 
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="55dp"
+                android:background="@drawable/email_password_shape"
+                android:layout_marginTop="30dp"
+                android:layout_marginStart="25dp"
+                android:layout_marginEnd="60dp"
+                android:paddingLeft="20dp"
+                android:hint="Capacity"/>
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="55dp"
+                android:background="@drawable/email_password_shape"
+                android:layout_marginTop="20dp"
+                android:layout_marginStart="25dp"
+                android:layout_marginEnd="60dp"
+                android:paddingLeft="20dp"
+                android:hint="Location"/>
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="55dp"
+                android:background="@drawable/email_password_shape"
+                android:layout_marginTop="20dp"
+                android:layout_marginStart="25dp"
+                android:layout_marginEnd="60dp"
+                android:paddingLeft="20dp"
+                android:hint="Date (DD/MM/YYYY)"/>
+
+            <Spinner
+                android:id="@+id/country_spinner"
+                android:layout_width="match_parent"
+                android:layout_height="55dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginStart="25dp"
+                android:layout_marginEnd="60dp"
+                android:background="@drawable/email_password_shape"
+                android:paddingLeft="10dp"
+                android:entries="@array/categories" />
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="0.75"
+            android:layout_weight="0.3"
             android:orientation="horizontal"
-            android:gravity="center"
-
-            >
+            android:gravity="center">
 
             <ImageButton
-                android:id="@+id/imageButton6"
+                android:id="@+id/List"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_margin="-15dp"
                 android:layout_marginStart="8dp"
                 android:layout_marginEnd="8dp"
                 android:background="@android:color/transparent"
                 app:srcCompat="@drawable/small_list_btn" />
 
             <ImageButton
-                android:id="@+id/imageButton5"
+                android:id="@+id/Events"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_margin="-15dp"
                 android:background="@android:color/transparent"
                 android:layout_marginStart="8dp"
                 android:layout_marginEnd="8dp"
                 app:srcCompat="@drawable/small_event_btn" />
 
             <ImageButton
-                android:id="@+id/imageButton4"
+                android:id="@+id/Home"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_margin="-15dp"
+                android:layout_marginTop="4dp"
                 android:background="@android:color/transparent"
                 android:layout_marginStart="8dp"
                 android:layout_marginEnd="8dp"
-                app:srcCompat="@drawable/big_home_btn" />
+                app:srcCompat="@drawable/small_home_btn" />
 
             <ImageButton
-                android:id="@+id/imageButton3"
+                android:id="@+id/Friends"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_margin="-15dp"
                 android:background="@android:color/transparent"
                 android:layout_marginStart="8dp"
                 android:layout_marginEnd="8dp"
                 app:srcCompat="@drawable/small_friends_btn" />
 
             <ImageButton
-                android:id="@+id/imageButton2"
+                android:id="@+id/Big_Recommender"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_margin="-15dp"
                 android:background="@android:color/transparent"
                 android:layout_marginStart="8dp"
                 android:layout_marginEnd="8dp"
-                app:srcCompat="@drawable/small_recommender_btn" />
+                app:srcCompat="@drawable/big_recommender_btn" />
         </LinearLayout>
+
     </LinearLayout>
 
 

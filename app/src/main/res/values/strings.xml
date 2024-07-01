@@ -1,4 +1,11 @@
 <resources>
     <string name="app_name">Fasa7ni</string>
     <string name="My_Upcoming_Fosa7">My Upcoming Fosa7</string>
+    <string-array name="categories">
+        <item>All</item>
+        <item>Sports</item>
+        <item>Food</item>
+        <item>Activities</item>
+        <item>Sightseeing</item>
+    </string-array>
 </resources>
