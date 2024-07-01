@@ -57,96 +57,98 @@
             </LinearLayout>
         </LinearLayout>
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="5"
-        android:layout_marginTop="10dp"
-        android:orientation="vertical"
-        android:background="@drawable/container_radius"
-        android:paddingTop="15dp"
-        android:layout_marginStart="10dp"
-        android:layout_marginEnd="10dp"
-        >
-        <HorizontalScrollView
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@color/support_grey"
-            android:layout_marginStart="5dp"
-            android:layout_marginEnd="5dp"
-            >
+            android:layout_height="0dp"
+            android:layout_weight="5"
+            android:layout_marginTop="10dp"
+            android:orientation="vertical"
+            android:background="@drawable/container_radius"
+            android:paddingTop="15dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="10dp">
+
             <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                android:gravity="top">
+                android:layout_marginEnd="5dp">
+
+
+                <HorizontalScrollView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:background="@color/support_grey"
+                    android:layout_marginStart="5dp"
+                    android:layout_marginEnd="5dp"
+                    android:layout_weight="0.42">
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:orientation="horizontal"
+                        android:gravity="top">
+
+                        <Button
+                            android:id="@+id/All"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="All"
+                            android:backgroundTint="@color/blue"
+                            android:textColor="@color/main_grey"
+                            android:layout_margin="5dp"/>
+
+                        <Button
+                            android:id="@+id/Public"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="Public"
+                            android:backgroundTint="@color/blue"
+                            android:textColor="@color/main_grey"
+                            android:layout_margin="5dp"/>
+
+                        <Button
+                            android:id="@+id/Private"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="Private"
+                            android:backgroundTint="@color/blue"
+                            android:textColor="@color/main_grey"
+                            android:layout_margin="5dp"/>
+
+                        <Button
+                            android:id="@+id/Mine"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="Mine"
+                            android:backgroundTint="@color/blue"
+                            android:textColor="@color/main_grey"
+                            android:layout_margin="5dp"/>
+
+                        </LinearLayout>
+                </HorizontalScrollView>
 
                 <ImageButton
-                    android:id="@+id/Filter"
+                    android:id="@+id/plus"
                     android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.04"
+                    android:layout_gravity="center"
                     android:background="@android:color/transparent"
-                    app:srcCompat="@drawable/filter_btn"
+                    app:srcCompat="@drawable/plus_sign"
                     android:layout_margin="5dp"/>
 
-
-                <Button
-                    android:id="@+id/All"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="All"
-                    android:backgroundTint="@color/blue"
-                    android:textColor="@color/main_grey"
-                    android:layout_margin="5dp"/>
-
-                <Button
-                    android:id="@+id/Sports"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="Sports"
-                    android:backgroundTint="@color/blue"
-                    android:textColor="@color/main_grey"
-                    android:layout_margin="5dp"/>
-
-                <Button
-                    android:id="@+id/Food"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="Food"
-                    android:backgroundTint="@color/blue"
-                    android:textColor="@color/main_grey"
-                    android:layout_margin="5dp"/>
-
-                <Button
-                    android:id="@+id/Activities"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="Activities"
-                    android:backgroundTint="@color/blue"
-                    android:textColor="@color/main_grey"
-                    android:layout_margin="5dp"/>
-
-                <Button
-                    android:id="@+id/Sightseeing"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="Sightseeing"
-                    android:backgroundTint="@color/blue"
-                    android:textColor="@color/main_grey"
-                    android:layout_margin="5dp"/>
             </LinearLayout>
-        </HorizontalScrollView>
             <ListView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginTop="10dp">
             </ListView>
-    </LinearLayout>
+        </LinearLayout>
+
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -156,22 +158,22 @@
             android:gravity="center">
 
             <ImageButton
-                android:id="@+id/Big_List"
+                android:id="@+id/List"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
                 android:layout_marginEnd="8dp"
                 android:background="@android:color/transparent"
-                app:srcCompat="@drawable/big_list_btn" />
+                app:srcCompat="@drawable/small_list_btn" />
 
             <ImageButton
-                android:id="@+id/Events"
+                android:id="@+id/Big_Events"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="@android:color/transparent"
                 android:layout_marginStart="8dp"
                 android:layout_marginEnd="8dp"
-                app:srcCompat="@drawable/small_event_btn" />
+                app:srcCompat="@drawable/big_event_btn" />
 
             <ImageButton
                 android:id="@+id/Home"

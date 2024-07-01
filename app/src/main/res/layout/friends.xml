@@ -7,8 +7,6 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
-
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -24,11 +22,11 @@
             <ImageView
                 android:id="@+id/imageView"
                 android:layout_gravity="center"
-                android:layout_marginTop="15dp"
+                android:layout_marginTop="8dp"
                 android:layout_marginBottom="8dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                app:srcCompat="@drawable/possible_winner__6__1" />
+                app:srcCompat="@drawable/logo" />
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -73,10 +71,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
                     android:layout_marginStart="20dp"
-                    android:layout_marginTop="10dp"
-
-
-                    >
+                    android:layout_marginTop="10dp">
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -173,47 +168,45 @@
                 android:layout_marginStart="8dp"
                 android:layout_marginEnd="8dp"
                 android:background="@android:color/transparent"
-                app:srcCompat="@drawable/list" />
+                app:srcCompat="@drawable/small_list_btn" />
 
             <ImageButton
                 android:id="@+id/imageButton5"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_margin="-15dp"
                 android:background="@android:color/transparent"
                 android:layout_marginStart="8dp"
                 android:layout_marginEnd="8dp"
-                app:srcCompat="@drawable/events" />
+                app:srcCompat="@drawable/small_event_btn" />
 
             <ImageButton
                 android:id="@+id/imageButton4"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_margin="-15dp"
+                android:layout_marginTop="4dp"
+
                 android:background="@android:color/transparent"
                 android:layout_marginStart="8dp"
                 android:layout_marginEnd="8dp"
-                app:srcCompat="@drawable/home" />
+                app:srcCompat="@drawable/small_home_btn" />
 
             <ImageButton
                 android:id="@+id/imageButton3"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_margin="-15dp"
                 android:background="@android:color/transparent"
                 android:layout_marginStart="8dp"
                 android:layout_marginEnd="8dp"
-                app:srcCompat="@drawable/friends" />
+                app:srcCompat="@drawable/big_friends_btn" />
 
             <ImageButton
                 android:id="@+id/imageButton2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_margin="-15dp"
                 android:background="@android:color/transparent"
                 android:layout_marginStart="8dp"
                 android:layout_marginEnd="8dp"
-                app:srcCompat="@drawable/recommender" />
+                app:srcCompat="@drawable/small_recommender_btn" />
         </LinearLayout>
     </LinearLayout>
 
