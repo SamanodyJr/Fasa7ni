@@ -115,6 +115,23 @@
                 android:background="@drawable/email_password_shape"
                 android:paddingLeft="10dp"
                 android:entries="@array/categories" />
+
+            <Button
+                android:id="@+id/Generate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:backgroundTint="@color/red"
+                android:layout_marginTop="35dp"
+                android:paddingLeft="50dp"
+                android:paddingRight="50dp"
+                android:paddingBottom="16dp"
+                android:paddingTop="16dp"
+                android:layout_gravity="center"
+                android:text="Generate"
+                android:textAlignment="center"
+                android:textColor="@color/white"
+                android:textSize="16sp" />
+
         </LinearLayout>
 
         <LinearLayout
