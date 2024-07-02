@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="16dp">
+
+    <TextView
+        android:id="@+id/tvLocation"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Select Location"
+        android:textSize="18sp"
+        android:layout_marginTop="16dp"
+        android:layout_centerHorizontal="true"/>
+
+    <Spinner
+        android:id="@+id/spinnerLocation"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tvLocation"
+        android:layout_marginTop="8dp"/>
+
+    <!-- Header -->
+    <TextView
+        android:id="@+id/tvInterestsHeader"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Interests"
+        android:textSize="24sp"
+        android:layout_below="@id/spinnerLocation"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="16dp"/>
+
+    <!-- Sports Section -->
+    <TextView
+        android:id="@+id/tvSports"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Sports"
+        android:textSize="18sp"
+        android:layout_below="@id/tvInterestsHeader"
+        android:layout_marginTop="16dp"/>
+
+    <GridLayout
+        android:id="@+id/glSports"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tvSports"
+        android:layout_marginTop="8dp"
+        android:columnCount="3"
+        android:rowCount="5"
+        android:orientation="horizontal">
+
+        <!-- Add your buttons for sports here -->
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Football" />
+
+        <!-- Repeat buttons for other sports -->
+
+    </GridLayout>
+
+    <!-- Music Section -->
+    <TextView
+        android:id="@+id/tvMusic"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Music"
+        android:textSize="18sp"
+        android:layout_below="@id/glSports"
+        android:layout_marginTop="16dp"/>
+
+    <GridLayout
+        android:id="@+id/glMusic"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tvMusic"
+        android:layout_marginTop="8dp"
+        android:columnCount="3"
+        android:rowCount="3"
+        android:orientation="horizontal">
+
+        <!-- Add your buttons for music here -->
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Singing" />
+
+        <!-- Repeat buttons for other music items -->
+
+    </GridLayout>
+
+    <!-- Lifestyle Section -->
+    <TextView
+        android:id="@+id/tvLifestyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Lifestyle"
+        android:textSize="18sp"
+        android:layout_below="@id/glMusic"
+        android:layout_marginTop="16dp"/>
+
+    <GridLayout
+        android:id="@+id/glLifestyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tvLifestyle"
+        android:layout_marginTop="8dp"
+        android:columnCount="3"
+        android:rowCount="3"
+        android:orientation="horizontal">
+
+        <!-- Add your buttons for lifestyle here -->
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="World Tour" />
+
+        <!-- Repeat buttons for other lifestyle items -->
+
+    </GridLayout>
+
+    <!-- Save Button -->
+    <Button
+        android:id="@+id/btnSave"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Save"
+        android:layout_below="@id/glLifestyle"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="16dp"/>
+
+</RelativeLayout>
