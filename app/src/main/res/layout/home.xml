@@ -5,7 +5,7 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity">
+    tools:context=".Home">
 
 
 
@@ -66,56 +66,88 @@
             android:layout_weight="6.25"
             android:orientation="vertical"
             android:background="@color/main_grey">
-             <TableLayout
-                 android:layout_width="match_parent"
-                 android:layout_height="0dp"
-                 android:layout_weight="1.5"
-                 android:layout_marginTop="5dp"
-                 android:layout_marginStart="10dp"
-                 android:layout_marginEnd="10dp"
-                 android:background="@drawable/container_radius">
-                 <TableRow
-                     android:layout_width="match_parent"
-                     android:layout_height="wrap_content"
-                     android:layout_marginStart="20dp"
-                     android:layout_marginTop="10dp"
-                     >
-                     <TextView
-                         android:layout_width="wrap_content"
-                         android:layout_height="wrap_content"
-                         android:layout_weight="1.75"
-                         android:text="@string/My_Upcoming_Fosa7"
-                         android:textColor="@color/light_grey"
-                         android:textStyle="bold"
-                         android:textSize="20sp"
-                         android:fontFamily="sans-serif"
-                         />
-                     <Button
-                         android:id="@+id/more_myevents_btn"
-                         android:layout_width="wrap_content"
-                         android:layout_height="wrap_content"
-                         android:layout_marginEnd="15dp"
-                         android:text="MORE"
-                         android:textColor="@color/red"
-                         android:textStyle="bold"
-                         android:backgroundTint="@color/light_grey"
-                         />
-                 </TableRow>
+            <TableLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1.5"
+                android:layout_marginTop="5dp"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="10dp"
+                android:background="@drawable/container_radius">
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginTop="10dp"
+                    >
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1.75"
+                        android:text="@string/My_Upcoming_Fosa7"
+                        android:textColor="@color/light_grey"
+                        android:textStyle="bold"
+                        android:textSize="20sp"
+                        android:fontFamily="sans-serif"
+                        />
+                    <Button
+                        android:id="@+id/more_myevents_btn"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="15dp"
+                        android:text="MORE"
+                        android:textColor="@color/red"
+                        android:textStyle="bold"
+                        android:backgroundTint="@color/light_grey"
+                        />
+                </TableRow>
 
-                 <ListView
-                     android:layout_width="wrap_content"
-                     android:layout_height="wrap_content"
-                     >
-                 </ListView>
-             </TableLayout>
+                <ListView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    >
+                </ListView>
+            </TableLayout>
+
             <TableLayout android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_weight="2"
                 android:layout_marginTop="10dp"
                 android:layout_marginStart="10dp"
                 android:layout_marginEnd="10dp"
-                android:background="@drawable/container_radius"
-                >
+                android:background="@drawable/container_radius">
+
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginTop="10dp"
+                    >
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1.75"
+                        android:text="@string/Places_For_You"
+                        android:textColor="@color/light_grey"
+                        android:textStyle="bold"
+                        android:textSize="20sp"
+                        android:fontFamily="sans-serif"/>
+                    <Button
+                        android:id="@+id/add_interests_btn"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="15dp"
+                        android:text="Interests"
+                        android:textColor="@color/red"
+                        android:textStyle="bold"
+                        android:backgroundTint="@color/light_grey"/>
+                </TableRow>
+
+                <ListView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+                </ListView>
+
             </TableLayout>
 
         </LinearLayout>

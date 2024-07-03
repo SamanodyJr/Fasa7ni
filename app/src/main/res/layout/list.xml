@@ -5,7 +5,7 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity">
+    tools:context=".List">
 
 
 
@@ -23,13 +23,13 @@
             android:background="@color/main_grey">
 
             <ImageView
-            android:id="@+id/imageView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginTop="15dp"
-            android:layout_marginBottom="8dp"
-            app:srcCompat="@drawable/logo" />
+                android:id="@+id/imageView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="15dp"
+                android:layout_marginBottom="8dp"
+                app:srcCompat="@drawable/logo" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -60,96 +60,96 @@
             </LinearLayout>
         </LinearLayout>
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="6.35"
-        android:layout_marginTop="10dp"
-        android:orientation="vertical"
-        android:background="@drawable/container_radius"
-        android:paddingTop="10dp"
-        android:layout_marginStart="10dp"
-        android:layout_marginEnd="10dp"
-        >
-        <HorizontalScrollView
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@color/support_grey"
-            android:layout_marginStart="5dp"
-            android:layout_marginEnd="5dp"
+            android:layout_height="0dp"
+            android:layout_weight="6.35"
+            android:layout_marginTop="10dp"
+            android:orientation="vertical"
+            android:background="@drawable/container_radius"
+            android:paddingTop="10dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="10dp"
             >
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:orientation="horizontal"
-                android:gravity="top">
-
-                <ImageButton
-                    android:id="@+id/filter_btn"
+            <HorizontalScrollView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/support_grey"
+                android:layout_marginStart="5dp"
+                android:layout_marginEnd="5dp"
+                >
+                <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
-                    android:background="@android:color/transparent"
-                    app:srcCompat="@drawable/filter_btn"
-                    android:layout_margin="5dp"/>
+                    android:orientation="horizontal"
+                    android:gravity="top">
+
+                    <ImageButton
+                        android:id="@+id/filter_btn"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:background="@android:color/transparent"
+                        app:srcCompat="@drawable/filter_btn"
+                        android:layout_margin="5dp"/>
 
 
-                <Button
-                    android:id="@+id/list_filter_btn"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="All"
-                    android:backgroundTint="@color/blue"
-                    android:textColor="@color/main_grey"
-                    android:layout_margin="5dp"/>
+                    <Button
+                        android:id="@+id/list_filter_btn"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="All"
+                        android:backgroundTint="@color/blue"
+                        android:textColor="@color/main_grey"
+                        android:layout_margin="5dp"/>
 
-                <Button
-                    android:id="@+id/sports_filter_btn"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="Sports"
-                    android:backgroundTint="@color/blue"
-                    android:textColor="@color/main_grey"
-                    android:layout_margin="5dp"/>
+                    <Button
+                        android:id="@+id/sports_filter_btn"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Sports"
+                        android:backgroundTint="@color/blue"
+                        android:textColor="@color/main_grey"
+                        android:layout_margin="5dp"/>
 
-                <Button
-                    android:id="@+id/food_filter_btn"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="Food"
-                    android:backgroundTint="@color/blue"
-                    android:textColor="@color/main_grey"
-                    android:layout_margin="5dp"/>
+                    <Button
+                        android:id="@+id/food_filter_btn"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Food"
+                        android:backgroundTint="@color/blue"
+                        android:textColor="@color/main_grey"
+                        android:layout_margin="5dp"/>
 
-                <Button
-                    android:id="@+id/activity_filter_btn"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="Activities"
-                    android:backgroundTint="@color/blue"
-                    android:textColor="@color/main_grey"
-                    android:layout_margin="5dp"/>
+                    <Button
+                        android:id="@+id/activity_filter_btn"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Activities"
+                        android:backgroundTint="@color/blue"
+                        android:textColor="@color/main_grey"
+                        android:layout_margin="5dp"/>
 
-                <Button
-                    android:id="@+id/sightseeing_filter_btn"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="Sightseeing"
-                    android:backgroundTint="@color/blue"
-                    android:textColor="@color/main_grey"
-                    android:layout_margin="5dp"/>
-            </LinearLayout>
-        </HorizontalScrollView>
+                    <Button
+                        android:id="@+id/sightseeing_filter_btn"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Sightseeing"
+                        android:backgroundTint="@color/blue"
+                        android:textColor="@color/main_grey"
+                        android:layout_margin="5dp"/>
+                </LinearLayout>
+            </HorizontalScrollView>
             <ListView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginTop="10dp">
             </ListView>
-    </LinearLayout>
+        </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
