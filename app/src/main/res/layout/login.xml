@@ -1,7 +1,6 @@
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -25,6 +24,7 @@
         android:gravity="center"
         android:layout_weight="0.5">
         <EditText
+            android:id="@+id/email"
             android:layout_width="match_parent"
             android:layout_height="55dp"
             android:background="@drawable/email_password_shape"
@@ -46,13 +46,14 @@
                 android:layout_marginEnd="40dp"
                 android:paddingLeft="20dp"
                 android:hint="Password"
-                android:id="@+id/editText" />
+                android:inputType="textPassword"
+                android:id="@+id/pass" />
 
             <Button
                 android:id="@+id/show_pass_btn"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignBaseline="@id/editText"
+                android:layout_alignBaseline="@id/pass"
                 android:layout_alignParentEnd="true"
                 android:layout_marginEnd="40dp"
                 android:backgroundTint="@android:color/transparent"
@@ -60,16 +61,6 @@
                 android:textColor="@color/red"
                 android:textSize="16sp" />
 
-            <Button
-                android:id="@+id/forget_pass_btn"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/editText"
-                android:layout_marginStart="40dp"
-                android:backgroundTint="@android:color/transparent"
-                android:text="Forgot your password?"
-                android:textColor="@color/red"
-                android:textSize="16sp" />
         </RelativeLayout>
 
     </LinearLayout>
