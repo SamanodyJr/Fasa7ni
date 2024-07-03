@@ -37,10 +37,13 @@
 
                 <SearchView
                     android:id="@+id/searchView"
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center"
+                    android:layout_alignParentStart="true"
+                    android:layout_toStartOf="@id/profile_btn"
+                    android:layout_centerVertical="true"
                     android:layout_marginStart="10dp"
+                    android:layout_marginEnd="10dp"
                     android:background="@drawable/round_search"
                     android:iconifiedByDefault="false"
                     android:queryHint="Search" />
@@ -49,11 +52,8 @@
                     android:id="@+id/profile_btn"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_alignRight="@id/searchView"
                     android:layout_alignParentEnd="true"
-                    android:layout_gravity="center"
-                    android:layout_marginEnd="12dp"
-                    android:layout_marginRight="-331dp"
+                    android:layout_marginEnd="6dp"
                     android:background="@android:color/transparent"
                     app:srcCompat="@drawable/profile_icon" />
 
@@ -128,7 +128,7 @@
                         android:layout_marginTop="20dp"
                         android:layout_marginEnd="30dp"
                         android:background="@drawable/email_password_shape"
-                        android:hint="Date (DD/MM)"
+                        android:hint="Date (DD/MM/YYYY)"
                         android:paddingLeft="20dp" />
 
                     <Spinner
