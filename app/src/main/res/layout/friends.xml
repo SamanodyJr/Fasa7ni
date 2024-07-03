@@ -79,40 +79,20 @@
                         android:textColor="@color/light_grey"
                         android:textStyle="bold"
                         android:textSize="20sp"
-                        android:fontFamily="sans-serif"
-                        />
+                        android:fontFamily="sans-serif" />
                 </TableRow>
                 <TableRow
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
-                    android:layout_weight="1"
-                  >
+                    android:layout_weight="1">
                     <ListView
                         android:layout_marginTop="10dp"
+                        android:layout_marginBottom="10dp"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        >
+                        android:layout_height="wrap_content">
                     </ListView>
                 </TableRow>
 
-
-                <TableRow
-                    android:layout_width="match_parent"
-                    android:layout_height="0dp"
-                    android:gravity="bottom"
-                    >
-                    <Button
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="150dp"
-                        android:layout_marginEnd="150dp"
-                        android:layout_marginBottom="2dp"
-                        android:text="MORE"
-                        android:textColor="@color/red"
-                        android:textStyle="bold"
-                        android:backgroundTint="@color/light_grey"
-                        />
-                </TableRow>
 
             </TableLayout>
             <TableLayout android:layout_width="match_parent"
@@ -143,9 +123,9 @@
 
                     <ListView
                         android:layout_marginTop="10dp"
+                        android:layout_marginBottom="10dp"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        >
+                        android:layout_height="wrap_content">
                     </ListView>
             </TableLayout>
 

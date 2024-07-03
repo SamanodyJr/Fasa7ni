@@ -14,18 +14,16 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="0dp"
+            android:layout_weight="0.5"
             android:orientation="vertical"
             android:background="@color/main_grey">
 
             <ImageView
                 android:id="@+id/imageView"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginTop="15dp"
-                android:layout_marginBottom="8dp"
-                app:srcCompat="@drawable/logo"  />
+                app:srcCompat="@drawable/logo" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -63,76 +61,144 @@
             android:layout_marginTop="25dp"
             android:layout_marginStart="10dp"
             android:layout_marginEnd="10dp"
+            android:paddingBottom="10dp"
             android:orientation="vertical"
             android:background="@drawable/container_radius">
 
-            <TextView
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+
+                >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="28dp"
+                    android:layout_marginTop="30dp"
+                    android:text="Fos7a Info"
+                    android:textColor="@color/light_grey"
+                    android:textStyle="bold"
+                    android:textSize="30sp"
+                    android:fontFamily="sans-serif"/>
+
+                <ImageButton
+                    android:id="@+id/Camera"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="30dp"
+                    app:srcCompat="@drawable/camera"
+                    android:backgroundTint="@color/support_grey"
+                    />
+
+
+            </LinearLayout>
+
+            <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="28dp"
+                android:orientation="horizontal"
                 android:layout_marginTop="30dp"
-                android:text="Recommender"
-                android:textColor="@color/light_grey"
-                android:textStyle="bold"
-                android:textSize="30sp"
-                android:fontFamily="sans-serif"/>
+                android:layout_marginStart="25dp"
+                android:layout_marginEnd="25dp"
+                android:paddingLeft="20dp"
+                android:layout_gravity="right">
+
+
+                <Button
+                    android:id="@+id/Private_Info"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Private"
+                    android:layout_marginEnd="5dp"
+                    android:backgroundTint="@color/blue"
+                    android:textColor="@color/main_grey"
+                    android:textStyle="bold"/>
+
+                <Button
+                    android:id="@+id/Public_Info"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Public"
+                    android:backgroundTint="@color/blue"
+                    android:textColor="@color/main_grey"
+                    android:textStyle="bold"/>
+            </LinearLayout>
 
             <EditText
                 android:layout_width="match_parent"
-                android:layout_height="55dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
                 android:background="@drawable/email_password_shape"
                 android:layout_marginTop="30dp"
                 android:layout_marginStart="25dp"
-                android:layout_marginEnd="60dp"
+                android:layout_marginEnd="25dp"
                 android:paddingLeft="20dp"
-                android:hint="Capacity"/>
+                android:hint="Name"/>
 
             <EditText
                 android:layout_width="match_parent"
-                android:layout_height="55dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
                 android:background="@drawable/email_password_shape"
                 android:layout_marginTop="20dp"
                 android:layout_marginStart="25dp"
-                android:layout_marginEnd="60dp"
+                android:layout_marginEnd="25dp"
                 android:paddingLeft="20dp"
                 android:hint="Location"/>
 
             <EditText
                 android:layout_width="match_parent"
-                android:layout_height="55dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
                 android:background="@drawable/email_password_shape"
                 android:layout_marginTop="20dp"
                 android:layout_marginStart="25dp"
-                android:layout_marginEnd="60dp"
+                android:layout_marginEnd="25dp"
                 android:paddingLeft="20dp"
                 android:hint="Date (DD/MM/YYYY)"/>
 
-            <Spinner
-                android:id="@+id/country_spinner"
+            <EditText
                 android:layout_width="match_parent"
-                android:layout_height="55dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@drawable/email_password_shape"
                 android:layout_marginTop="20dp"
                 android:layout_marginStart="25dp"
-                android:layout_marginEnd="60dp"
+                android:layout_marginEnd="25dp"
+                android:paddingLeft="20dp"
+                android:hint="Description"/>
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
                 android:background="@drawable/email_password_shape"
-                android:paddingLeft="10dp"
-                android:entries="@array/categories" />
+                android:layout_marginTop="20dp"
+                android:layout_marginStart="25dp"
+                android:layout_marginEnd="25dp"
+                android:paddingLeft="20dp"
+                android:hint="Capacity"/>
 
             <Button
                 android:id="@+id/Generate"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:backgroundTint="@color/red"
-                android:layout_marginTop="35dp"
+                android:layout_marginTop="10dp"
                 android:paddingLeft="50dp"
                 android:paddingRight="50dp"
                 android:paddingBottom="16dp"
                 android:paddingTop="16dp"
                 android:layout_gravity="center"
-                android:text="Generate"
+                android:text="Create"
                 android:textAlignment="center"
                 android:textColor="@color/white"
-                android:textSize="16sp" />
+                android:textSize="16sp"
+                />
 
         </LinearLayout>
 
@@ -187,7 +253,7 @@
                 android:background="@android:color/transparent"
                 android:layout_marginStart="8dp"
                 android:layout_marginEnd="8dp"
-                app:srcCompat="@drawable/big_recommender_btn" />
+                app:srcCompat="@drawable/small_recommender_btn" />
         </LinearLayout>
 
     </LinearLayout>
