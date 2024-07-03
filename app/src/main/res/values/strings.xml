@@ -8,4 +8,17 @@
         <item>Activities</item>
         <item>Sightseeing</item>
     </string-array>
+    <string-array name="locations">
+        <item>Maadi</item>
+        <item>New Cairo</item>
+        <item>Sheikh Zayed</item>
+        <item>6th of October</item>
+        <item>Nasr City</item>
+        <item>Zamalek</item>
+        <item>Heliopolis</item>
+        <item>Katameya</item>
+        <item>Mokattam</item>
+        <item>Downtown</item>
+    </string-array>
+
 </resources>

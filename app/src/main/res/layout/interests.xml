@@ -1,134 +1,507 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="16dp">
+    android:padding="16dp"
+    android:background="@color/main_grey">
 
-    <TextView
-        android:id="@+id/tvLocation"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Select Location"
-        android:textSize="18sp"
-        android:layout_marginTop="16dp"
-        android:layout_centerHorizontal="true"/>
-
-    <Spinner
-        android:id="@+id/spinnerLocation"
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/tvLocation"
-        android:layout_marginTop="8dp"/>
+        android:layout_height="wrap_content">
 
-    <!-- Header -->
-    <TextView
-        android:id="@+id/tvInterestsHeader"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Interests"
-        android:textSize="24sp"
-        android:layout_below="@id/spinnerLocation"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="16dp"/>
-
-    <!-- Sports Section -->
-    <TextView
-        android:id="@+id/tvSports"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Sports"
-        android:textSize="18sp"
-        android:layout_below="@id/tvInterestsHeader"
-        android:layout_marginTop="16dp"/>
-
-    <GridLayout
-        android:id="@+id/glSports"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/tvSports"
-        android:layout_marginTop="8dp"
-        android:columnCount="3"
-        android:rowCount="5"
-        android:orientation="horizontal">
-
-        <!-- Add your buttons for sports here -->
-        <Button
+        <TextView
+            android:id="@+id/UserLocation"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Football" />
+            android:text="Select Location"
+            android:textStyle="bold"
+            android:textColor="@color/light_grey"
+            android:textSize="22sp"
+            android:layout_marginTop="16dp"
+            android:layout_centerHorizontal="true"/>
 
-        <!-- Repeat buttons for other sports -->
+        <Spinner
+            android:id="@+id/spinnerLocation"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/UserLocation"
+            android:layout_marginTop="8dp"
+            android:entries="@array/locations"
+            />
 
-    </GridLayout>
-
-    <!-- Music Section -->
-    <TextView
-        android:id="@+id/tvMusic"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Music"
-        android:textSize="18sp"
-        android:layout_below="@id/glSports"
-        android:layout_marginTop="16dp"/>
-
-    <GridLayout
-        android:id="@+id/glMusic"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/tvMusic"
-        android:layout_marginTop="8dp"
-        android:columnCount="3"
-        android:rowCount="3"
-        android:orientation="horizontal">
-
-        <!-- Add your buttons for music here -->
-        <Button
+        <!-- Header -->
+        <TextView
+            android:id="@+id/tvInterestsHeader"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Singing" />
+            android:text="Interests"
+            android:textStyle="bold"
+            android:textColor="@color/light_grey"
+            android:textSize="24sp"
+            android:layout_below="@id/spinnerLocation"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="16dp"/>
 
-        <!-- Repeat buttons for other music items -->
-
-    </GridLayout>
-
-    <!-- Lifestyle Section -->
-    <TextView
-        android:id="@+id/tvLifestyle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Lifestyle"
-        android:textSize="18sp"
-        android:layout_below="@id/glMusic"
-        android:layout_marginTop="16dp"/>
-
-    <GridLayout
-        android:id="@+id/glLifestyle"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/tvLifestyle"
-        android:layout_marginTop="8dp"
-        android:columnCount="3"
-        android:rowCount="3"
-        android:orientation="horizontal">
-
-        <!-- Add your buttons for lifestyle here -->
-        <Button
+        <!-- Sports Section -->
+        <TextView
+            android:id="@+id/Sports"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="World Tour" />
+            android:text="Sports"
+            android:textStyle="bold"
+            android:textColor="@color/light_grey"
+            android:textSize="18sp"
+            android:layout_below="@id/tvInterestsHeader"
+            android:layout_marginTop="16dp"/>
 
-        <!-- Repeat buttons for other lifestyle items -->
+        <GridLayout
+            android:id="@+id/glSports"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/Sports"
+            android:layout_marginTop="8dp"
+            android:columnCount="3"
+            android:rowCount="5"
+            android:orientation="horizontal">
 
-    </GridLayout>
+            <!-- Add your buttons for sports here -->
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:backgroundTint="@color/red"
+                android:textStyle="bold"
+                android:textColor="@color/white"
+                android:text="Football"
+                />
 
-    <!-- Save Button -->
-    <Button
-        android:id="@+id/btnSave"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Save"
-        android:layout_below="@id/glLifestyle"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="16dp"/>
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_row="0"
+                android:layout_column="1"
+                android:backgroundTint="@color/red"
+                android:textColor="@color/white"
+                android:text="Tabel Tennis"
+                android:textStyle="bold" />
 
-</RelativeLayout>
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:backgroundTint="@color/red"
+                android:textColor="@color/white"
+                android:textStyle="bold"
+                android:layout_marginStart="9dp"
+                android:text="Padel"
+                />
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:backgroundTint="@color/red"
+                android:textColor="@color/white"
+                android:textStyle="bold"
+                android:layout_marginStart="9dp"
+                android:text="Squash" />
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/white"
+                android:textStyle="bold"
+                android:backgroundTint="@color/red"
+                android:layout_marginStart="9dp"
+                android:text="Tennis"
+                />
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/white"
+                android:textStyle="bold"
+                android:backgroundTint="@color/red"
+                android:text="Swimming"
+                />
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/white"
+                android:textStyle="bold"
+                android:backgroundTint="@color/red"
+                android:text="Swimming" />
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/white"
+                android:backgroundTint="@color/red"
+                android:textStyle="bold"
+                android:layout_marginStart="9dp"
+                android:text="Basketball" />
+
+            <!-- Repeat buttons for other sports -->
+
+        </GridLayout>
+
+        <!-- Music Section -->
+        <TextView
+            android:id="@+id/tvMusic"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Activities"
+            android:textStyle="bold"
+            android:textColor="@color/light_grey"
+            android:textSize="18sp"
+            android:layout_below="@id/glSports"
+            android:layout_marginTop="16dp"/>
+
+        <GridLayout
+            android:id="@+id/glMusic"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tvMusic"
+            android:layout_marginTop="8dp"
+            android:columnCount="3"
+            android:rowCount="3"
+            android:orientation="horizontal">
+
+            <!-- Add your buttons for music here -->
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:backgroundTint="@color/red"
+                android:textStyle="bold"
+                android:layout_marginStart="3dp"
+                android:textColor="@color/white"
+                android:layout_marginEnd="3dp"
+                android:text="Karaoke"
+                />
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:backgroundTint="@color/red"
+                android:textColor="@color/white"
+                android:textStyle="bold"
+                android:layout_marginEnd="3dp"
+                android:text="Arcade"
+                />
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:backgroundTint="@color/red"
+                android:textColor="@color/white"
+                android:textStyle="bold"
+                android:layout_marginEnd="3dp"
+                android:text="Bowling"
+                />
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:backgroundTint="@color/red"
+                android:textColor="@color/white"
+                android:layout_marginStart="9dp"
+                android:textStyle="bold"
+                android:layout_marginEnd="3dp"
+                android:text="Theatre"
+                />
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:backgroundTint="@color/red"
+                android:textColor="@color/white"
+                android:textStyle="bold"
+                android:layout_marginEnd="3dp"
+                android:layout_marginStart="9dp"
+                android:text="Cinema"
+                />
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:backgroundTint="@color/red"
+                android:textColor="@color/white"
+                android:textStyle="bold"
+                android:layout_marginStart="9dp"
+                android:layout_marginEnd="3dp"
+                android:text="Paint Ball"
+                />
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:backgroundTint="@color/red"
+                android:textColor="@color/white"
+                android:textStyle="bold"
+                android:layout_marginEnd="5dp"
+                android:layout_marginStart="3dp"
+                android:text="Concert"
+                />
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:backgroundTint="@color/red"
+                android:textColor="@color/white"
+                android:textStyle="bold"
+                android:layout_marginStart="9dp"
+                android:layout_marginEnd="3dp"
+                android:text="Picnic"
+                />
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:backgroundTint="@color/red"
+                android:textColor="@color/white"
+                android:textStyle="bold"
+                android:layout_marginEnd="3dp"
+                android:text="LaserTag"
+                />
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:backgroundTint="@color/red"
+                android:textColor="@color/white"
+                android:textStyle="bold"
+                android:layout_marginEnd="3dp"
+                android:layout_marginStart="9dp"
+                android:text="Party"
+                />
+
+            <!-- Repeat buttons for other music items -->
+
+        </GridLayout>
+
+        <!-- Lifestyle Section -->
+        <TextView
+            android:id="@+id/tvLifestyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Food"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:textColor="@color/light_grey"
+            android:layout_below="@id/glMusic"
+            android:layout_marginTop="16dp"/>
+
+        <GridLayout
+            android:id="@+id/glLifestyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tvLifestyle"
+            android:layout_marginTop="8dp"
+            android:columnCount="3"
+            android:rowCount="3"
+            android:orientation="horizontal">
+
+            <!-- Add your buttons for lifestyle here -->
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:backgroundTint="@color/red"
+                android:textStyle="bold"
+                android:layout_marginStart="3dp"
+                android:textColor="@color/white"
+                android:layout_marginEnd="3dp"
+                android:text="Mexican"
+                />
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:backgroundTint="@color/red"
+                android:textColor="@color/white"
+                android:textStyle="bold"
+                android:layout_marginStart="9dp"
+
+                android:layout_marginEnd="3dp"
+                android:text="Italian"
+                />
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:backgroundTint="@color/red"
+                android:textColor="@color/white"
+                android:textStyle="bold"
+                android:layout_marginEnd="3dp"
+                android:text="Dine In"
+                />
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:backgroundTint="@color/red"
+                android:textColor="@color/white"
+                android:textStyle="bold"
+                android:layout_marginEnd="3dp"
+                android:text="Dessert"
+                />
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:backgroundTint="@color/red"
+                android:textColor="@color/white"
+                android:textStyle="bold"
+                android:layout_marginEnd="3dp"
+                android:layout_marginStart="9dp"
+                android:text="Asian"
+                />
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:backgroundTint="@color/red"
+                android:textColor="@color/white"
+                android:textStyle="bold"
+                android:layout_marginEnd="3dp"
+                android:text="Oriental"
+                />
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:backgroundTint="@color/red"
+                android:textColor="@color/white"
+                android:textStyle="bold"
+                android:layout_marginStart="9dp"
+                android:layout_marginEnd="3dp"
+                android:text="Coffee"
+                />
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:backgroundTint="@color/red"
+                android:textColor="@color/white"
+                android:textStyle="bold"
+                android:layout_marginStart="9dp"
+                android:layout_marginEnd="3dp"
+                android:text="Boba"
+                />
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:backgroundTint="@color/red"
+                android:textColor="@color/white"
+                android:textStyle="bold"
+                android:layout_marginEnd="3dp"
+                android:text="Pizza"
+                />
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:backgroundTint="@color/red"
+                android:textColor="@color/white"
+                android:textStyle="bold"
+                android:layout_marginStart="9dp"
+                android:layout_marginEnd="3dp"
+                android:text="Burger"
+                />
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:backgroundTint="@color/red"
+                android:textColor="@color/white"
+                android:textStyle="bold"
+                android:layout_marginStart="9dp"
+
+                android:layout_marginEnd="3dp"
+                android:text="Sushi"
+                />
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:backgroundTint="@color/red"
+                android:textColor="@color/white"
+                android:textStyle="bold"
+                android:layout_marginEnd="3dp"
+                android:text="Pasta"
+                />
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:backgroundTint="@color/red"
+                android:textColor="@color/white"
+                android:textStyle="bold"
+                android:layout_marginEnd="3dp"
+                android:text="Sea Food"
+                />
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:backgroundTint="@color/red"
+                android:textColor="@color/white"
+                android:textStyle="bold"
+                android:layout_marginStart="3dp"
+                android:layout_marginEnd="3dp"
+                android:text="Take Away"
+                />
+
+            <!-- Repeat buttons for other lifestyle items -->
+
+        </GridLayout>
+
+        <!-- Lifestyle Section -->
+        <TextView
+            android:id="@+id/Sightseeing"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Sightseeing"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:textColor="@color/light_grey"
+            android:layout_below="@id/glLifestyle"
+            android:layout_marginTop="16dp"/>
+
+        <GridLayout
+            android:id="@+id/glSightseeing"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/Sightseeing"
+            android:layout_marginTop="8dp"
+            android:columnCount="3"
+            android:rowCount="3"
+            android:orientation="horizontal">
+            <Button
+                android:id="@+id/Museum"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:backgroundTint="@color/red"
+                android:layout_marginEnd="3dp"
+                android:text="Museum" />
+            <Button
+                android:id="@+id/Palace"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:backgroundTint="@color/red"
+                android:layout_marginStart="9dp"
+                android:text="Palace" />
+            <Button
+                android:id="@+id/Mosque"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:backgroundTint="@color/red"
+                android:layout_marginEnd="3dp"
+                android:text="Mosque" />
+            <Button
+                android:id="@+id/Church"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:backgroundTint="@color/red"
+                android:layout_marginEnd="3dp"
+                android:text="Church" />
+            <Button
+                android:id="@+id/Synagoupe"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:backgroundTint="@color/red"
+                android:layout_marginEnd="3dp"
+                android:text="Synagoupe" />
+
+
+
+        </GridLayout>
+
+        <!-- Save Button -->
+        <Button
+            android:id="@+id/btnSave"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="3dp"
+            android:backgroundTint="@color/red"
+            android:text="Save"
+            android:layout_below="@id/glSightseeing"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="16dp"/>
+
+    </RelativeLayout>
+
+</ScrollView>
+
+

@@ -51,7 +51,7 @@
                 android:id="@+id/editText" />
 
             <Button
-                android:id="@+id/Show"
+                android:id="@+id/show_pass_btn"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignBaseline="@id/editText"
@@ -85,6 +85,7 @@
         >
 
         <Button
+            android:id="@+id/signup_btn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:backgroundTint="@color/red"

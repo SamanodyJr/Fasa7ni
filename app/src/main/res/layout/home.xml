@@ -16,14 +16,15 @@
         android:background="@color/main_grey">
 
         <LinearLayout
+            android:id="@+id/HomeHeader"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="0.2"
+            android:layout_weight="0.1"
             android:orientation="vertical"
             android:background="@color/main_grey">
 
             <ImageView
-                android:id="@+id/imageView"
+                android:id="@+id/logo"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
@@ -48,7 +49,7 @@
                     android:queryHint="Search" />
 
                 <ImageButton
-                    android:id="@+id/imageButton7"
+                    android:id="@+id/profile_btn"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
@@ -90,6 +91,7 @@
                          android:fontFamily="sans-serif"
                          />
                      <Button
+                         android:id="@+id/more_myevents_btn"
                          android:layout_width="wrap_content"
                          android:layout_height="wrap_content"
                          android:layout_marginEnd="15dp"
@@ -103,7 +105,6 @@
                  <ListView
                      android:layout_width="wrap_content"
                      android:layout_height="wrap_content"
-                     android:li
                      >
                  </ListView>
              </TableLayout>
@@ -121,15 +122,13 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="0.75"
+            android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:gravity="center"
-
             >
 
             <ImageButton
-                android:id="@+id/imageButton6"
+                android:id="@+id/small_list_btn"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="-15dp"
@@ -139,7 +138,7 @@
                 app:srcCompat="@drawable/small_list_btn" />
 
             <ImageButton
-                android:id="@+id/imageButton5"
+                android:id="@+id/small_event_btn"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="-15dp"
@@ -149,17 +148,16 @@
                 app:srcCompat="@drawable/small_event_btn" />
 
             <ImageButton
-                android:id="@+id/imageButton4"
+                android:id="@+id/big_home_btn"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_margin="-15dp"
                 android:background="@android:color/transparent"
                 android:layout_marginStart="8dp"
                 android:layout_marginEnd="8dp"
                 app:srcCompat="@drawable/big_home_btn" />
 
             <ImageButton
-                android:id="@+id/imageButton3"
+                android:id="@+id/small_friends_btn"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="-15dp"
@@ -169,7 +167,7 @@
                 app:srcCompat="@drawable/small_friends_btn" />
 
             <ImageButton
-                android:id="@+id/imageButton2"
+                android:id="@+id/small_recommender_btn"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="-15dp"

@@ -18,7 +18,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="0.2"
+            android:layout_weight="0.1"
             android:orientation="vertical"
             android:background="@color/main_grey">
 
@@ -48,7 +48,7 @@
                     android:queryHint="Search"/>
 
                 <ImageButton
-                    android:id="@+id/imageButton7"
+                    android:id="@+id/profile_btn"
                     android:layout_width="wrap_content"
                     android:layout_weight="1"
                     android:layout_marginEnd="10dp"
@@ -63,11 +63,11 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="5"
+        android:layout_weight="6.35"
         android:layout_marginTop="10dp"
         android:orientation="vertical"
         android:background="@drawable/container_radius"
-        android:paddingTop="15dp"
+        android:paddingTop="10dp"
         android:layout_marginStart="10dp"
         android:layout_marginEnd="10dp"
         >
@@ -85,7 +85,7 @@
                 android:gravity="top">
 
                 <ImageButton
-                    android:id="@+id/Filter"
+                    android:id="@+id/filter_btn"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:background="@android:color/transparent"
@@ -94,7 +94,7 @@
 
 
                 <Button
-                    android:id="@+id/All"
+                    android:id="@+id/list_filter_btn"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -104,7 +104,7 @@
                     android:layout_margin="5dp"/>
 
                 <Button
-                    android:id="@+id/Sports"
+                    android:id="@+id/sports_filter_btn"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -114,7 +114,7 @@
                     android:layout_margin="5dp"/>
 
                 <Button
-                    android:id="@+id/Food"
+                    android:id="@+id/food_filter_btn"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -124,7 +124,7 @@
                     android:layout_margin="5dp"/>
 
                 <Button
-                    android:id="@+id/Activities"
+                    android:id="@+id/activity_filter_btn"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -134,7 +134,7 @@
                     android:layout_margin="5dp"/>
 
                 <Button
-                    android:id="@+id/Sightseeing"
+                    android:id="@+id/sightseeing_filter_btn"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -153,13 +153,12 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="0.75"
+            android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:gravity="center">
 
             <ImageButton
-                android:id="@+id/Big_List"
+                android:id="@+id/big_list_btn"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
@@ -168,7 +167,7 @@
                 app:srcCompat="@drawable/big_list_btn" />
 
             <ImageButton
-                android:id="@+id/Events"
+                android:id="@+id/small_event_btn"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="@android:color/transparent"
@@ -177,7 +176,7 @@
                 app:srcCompat="@drawable/small_event_btn" />
 
             <ImageButton
-                android:id="@+id/Home"
+                android:id="@+id/small_home_btn"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="4dp"
@@ -187,7 +186,7 @@
                 app:srcCompat="@drawable/small_home_btn" />
 
             <ImageButton
-                android:id="@+id/Friends"
+                android:id="@+id/small_friends_btn"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="@android:color/transparent"
@@ -196,7 +195,7 @@
                 app:srcCompat="@drawable/small_friends_btn" />
 
             <ImageButton
-                android:id="@+id/Recommender"
+                android:id="@+id/small_recommender_btn"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="@android:color/transparent"
