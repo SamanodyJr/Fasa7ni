@@ -13,12 +13,6 @@
         android:theme="@style/Theme.Fasa7ni"
         tools:targetApi="31">
         <activity
-            android:name=".Fos7aProfile"
-            android:exported="false" />
-        <activity
-            android:name=".PlaceProfile"
-            android:exported="false" />
-        <activity
             android:name=".Create"
             android:exported="false" />
         <activity
@@ -53,7 +47,6 @@
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>

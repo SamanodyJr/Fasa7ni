@@ -6,8 +6,6 @@ import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
-import android.util.Log;
-
 import android.widget.ImageButton;
 import android.widget.Toast;
 
@@ -58,6 +56,7 @@ public class Home extends AppCompatActivity implements View.OnClickListener
         Profile.setOnClickListener(this);
 
     }
+
 
     @Override
     public void onClick(View v) {
