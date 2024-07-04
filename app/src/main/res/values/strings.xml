@@ -21,5 +21,7 @@
         <item>Mokattam</item>
         <item>Downtown</item>
     </string-array>
-
+    <string name="read_more">
+        <u>Read More</u>
+    </string>
 </resources>
