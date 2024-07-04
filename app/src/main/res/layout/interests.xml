@@ -8,7 +8,8 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        >
 
         <!-- Header -->
         <RelativeLayout
@@ -31,14 +32,13 @@
                 android:id="@+id/UserLocation"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/backButton"
-                android:layout_marginStart="68dp"
-                android:layout_marginTop="2dp"
-                android:layout_toEndOf="@+id/backButton"
-                android:text="Select Location"
+                android:text="Location"
+                android:textStyle="bold"
                 android:textColor="@color/light_grey"
-                android:textSize="22sp"
-                android:textStyle="bold" />
+                android:textSize="24sp"
+                android:layout_below="@id/backButton"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="16dp" />
 
             <Spinner
                 android:id="@+id/spinnerLocation"
@@ -82,26 +82,24 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/Sports"
-            android:layout_marginTop="8dp"
-            android:columnCount="3"
-            android:rowCount="3"
-            android:orientation="horizontal"
             android:layout_alignStart="@+id/Sports"
-            android:layout_marginEnd="15dp"
-            android:layout_centerInParent="true">
+            android:layout_centerInParent="true"
+            android:layout_marginTop="21dp"
+            android:columnCount="3"
+            android:orientation="horizontal"
+            android:rowCount="3">
 
             <!-- Add your buttons for sports here -->
             <Button
                 android:id="@+id/football_btn"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:backgroundTint="@color/red"
-                android:textStyle="bold"
-                android:textColor="@color/white"
-                android:text="Football"
-                android:layout_marginLeft="9dp"
                 android:layout_columnWeight="1"
-                android:layout_gravity="center"/>
+                android:layout_gravity="center"
+                android:backgroundTint="@color/red"
+                android:text="Football"
+                android:textColor="@color/white"
+                android:textStyle="bold" />
 
 
             <Button
@@ -114,7 +112,7 @@
                 android:layout_gravity="center"
                 android:layout_marginStart="4dp"
                 android:backgroundTint="@color/red"
-                android:text="Table Tennis"
+                android:text="TabelTennis"
                 android:textColor="@color/white"
                 android:textStyle="bold" />
 
@@ -134,70 +132,71 @@
                 android:id="@+id/volleyball_btn"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textColor="@color/white"
-                android:textStyle="bold"
-                android:backgroundTint="@color/red"
-                android:text="Volleyball"
                 android:layout_columnWeight="1"
-                android:layout_gravity="center"/>
+                android:layout_gravity="center"
+                android:backgroundTint="@color/red"
+                android:text="Volley"
+                android:textColor="@color/white"
+                android:textStyle="bold" />
 
             <Button
                 android:id="@+id/swimming_btn"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textColor="@color/white"
-                android:textStyle="bold"
-                android:backgroundTint="@color/red"
-                android:text="Swimming"
                 android:layout_columnWeight="1"
                 android:layout_gravity="center"
-                />
+                android:backgroundTint="@color/red"
+                android:text="Swimming"
+                android:textColor="@color/white"
+                android:textStyle="bold" />
+
             <Button
                 android:id="@+id/tennis_btn"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textColor="@color/white"
-                android:textStyle="bold"
-                android:backgroundTint="@color/red"
-                android:text="Tennis"
                 android:layout_columnWeight="1"
                 android:layout_gravity="center"
-                />
+                android:backgroundTint="@color/red"
+                android:layout_marginEnd="15dp"
+                android:text="Tennis"
+                android:textColor="@color/white"
+                android:textStyle="bold" />
+
             <Button
                 android:id="@+id/handball_btn"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:backgroundTint="@color/red"
-                android:textColor="@color/white"
-                android:textStyle="bold"
-                android:text="Handball"
-                android:layout_marginLeft="9dp"
                 android:layout_columnWeight="1"
-                android:layout_gravity="center"/>
+                android:layout_gravity="center"
+
+                android:backgroundTint="@color/red"
+                android:text="Handball"
+                android:textColor="@color/white"
+                android:textStyle="bold" />
 
             <Button
                 android:id="@+id/basketball_btn"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textColor="@color/white"
-                android:backgroundTint="@color/red"
-                android:textStyle="bold"
-                android:layout_marginStart="4dp"
-                android:text="Basketball"
                 android:layout_columnWeight="1"
-                android:layout_gravity="center"/>
+                android:layout_gravity="center"
+                android:layout_marginStart="4dp"
+                android:backgroundTint="@color/red"
+                android:text="Basketball"
+                android:textColor="@color/white"
+                android:textStyle="bold" />
 
             <Button
                 android:id="@+id/Squash_btn"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:backgroundTint="@color/red"
-                android:textColor="@color/white"
-                android:textStyle="bold"
-                android:text="Squash"
-                android:layout_marginEnd="8dp"
                 android:layout_columnWeight="1"
-                android:layout_gravity="center"/>
+                android:layout_gravity="center"
+                android:layout_marginEnd="8dp"
+                android:backgroundTint="@color/red"
+                android:text="Squash"
+                android:textColor="@color/white"
+                android:textStyle="bold" />
         </GridLayout>
 
         <TextView
@@ -218,11 +217,10 @@
             android:layout_height="wrap_content"
             android:layout_below="@id/Activities"
             android:layout_marginTop="8dp"
-            android:layout_marginEnd="15dp"
             android:columnCount="3"
             android:rowCount="3"
             android:orientation="horizontal"
-            android:layout_alignStart="@+id/Activities">
+            >
 
             <!-- Add your buttons for music here -->
             <Button
@@ -334,6 +332,7 @@
             android:layout_height="wrap_content"
             android:text="Food"
             android:layout_marginStart="15dp"
+
             android:textSize="18sp"
             android:textStyle="bold"
             android:textColor="@color/light_grey"
@@ -349,9 +348,8 @@
             android:columnCount="3"
             android:rowCount="3"
             android:orientation="horizontal"
-            android:layout_marginEnd="15dp"
 
-            android:layout_alignStart="@+id/Food">
+            >
 
             <!-- Add your buttons for lifestyle here -->
             <Button
@@ -459,7 +457,6 @@
                 android:text="Burger"
                 android:layout_columnWeight="1"
                 android:layout_gravity="center"
-                android:layout_marginEnd="8dp"
                 />
             <Button
                 android:layout_width="wrap_content"
@@ -526,52 +523,71 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/Sightseeing"
+            android:layout_alignParentEnd="true"
             android:layout_marginTop="8dp"
             android:columnCount="3"
-            android:rowCount="3"
             android:orientation="horizontal"
-            android:layout_marginEnd="15dp"
-            android:layout_alignStart="@+id/Sightseeing">
+            android:rowCount="3">
+
             <Button
-                android:id="@+id/Museum"
+                android:id="@+id/museum_btn"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_columnWeight="1"
+                android:layout_gravity="center"
                 android:backgroundTint="@color/red"
                 android:text="Museum"
-                android:layout_marginLeft="9dp"
-                android:layout_columnWeight="1"
-                android:layout_gravity="center"/>
-            <Button
-                android:id="@+id/Palace"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:backgroundTint="@color/red"
-                android:layout_marginStart="9dp"
-                android:text="Palace" />
-            <Button
-                android:id="@+id/Mosque"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:backgroundTint="@color/red"
-                android:layout_marginEnd="3dp"
-                android:text="Mosque" />
-            <Button
-                android:id="@+id/Church"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:backgroundTint="@color/red"
-                android:layout_marginEnd="3dp"
-                android:text="Church"
-                android:layout_columnWeight="1"
-                android:layout_gravity="center"/>
-            <Button
-                android:id="@+id/Synagoupe"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:backgroundTint="@color/red"
-                android:layout_marginEnd="3dp"
-                android:text="Synagogue" />
+                android:textColor="@color/white"
+                android:textStyle="bold" />
 
+
+            <Button
+                android:id="@+id/palace_btn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_row="0"
+                android:layout_column="1"
+                android:layout_columnWeight="1"
+                android:layout_gravity="center"
+                android:layout_marginStart="4dp"
+                android:backgroundTint="@color/red"
+                android:text="Palace"
+                android:textColor="@color/white"
+                android:textStyle="bold" />
+
+            <Button
+                android:id="@+id/mosque_btn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_columnWeight="1"
+                android:layout_gravity="center"
+                android:layout_marginEnd="8dp"
+                android:backgroundTint="@color/red"
+                android:text="Mosque"
+                android:textColor="@color/white"
+                android:textStyle="bold" />
+
+            <Button
+                android:id="@+id/church_btn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_columnWeight="1"
+                android:layout_gravity="center"
+                android:backgroundTint="@color/red"
+                android:text="Church"
+                android:textColor="@color/white"
+                android:textStyle="bold" />
+
+            <Button
+                android:id="@+id/synagouge_btn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_columnWeight="1"
+                android:layout_gravity="center"
+                android:backgroundTint="@color/red"
+                android:text="Synagouge"
+                android:textColor="@color/white"
+                android:textStyle="bold" />
 
 
         </GridLayout>
