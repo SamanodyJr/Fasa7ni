@@ -3,7 +3,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:tools="http://schemas.android.com/tools"
-    android:padding="16dp"
     android:background="@color/main_grey"
     tools:context=".Interests">
 
@@ -11,27 +10,48 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <TextView
-            android:id="@+id/UserLocation"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Select Location"
-            android:textStyle="bold"
-            android:textColor="@color/light_grey"
-            android:textSize="22sp"
-            android:layout_marginTop="16dp"
-            android:layout_centerHorizontal="true"/>
-
-        <Spinner
-            android:id="@+id/spinnerLocation"
+        <!-- Header -->
+        <RelativeLayout
+            android:id="@+id/LocationBody"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@id/UserLocation"
-            android:layout_marginTop="8dp"
-            android:entries="@array/locations"
-            />
+            android:orientation="vertical">
 
-        <!-- Header -->
+            <ImageButton
+                android:id="@+id/backButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:backgroundTint="@android:color/transparent"
+                android:src="@drawable/back_btn" />
+
+            <!-- Spinner - spinnerLocation -->
+
+            <TextView
+                android:id="@+id/UserLocation"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/backButton"
+                android:layout_marginStart="68dp"
+                android:layout_marginTop="2dp"
+                android:layout_toEndOf="@+id/backButton"
+                android:text="Select Location"
+                android:textColor="@color/light_grey"
+                android:textSize="22sp"
+                android:textStyle="bold" />
+
+            <Spinner
+                android:id="@+id/spinnerLocation"
+                android:layout_width="match_parent"
+                android:layout_height="55dp"
+                android:layout_below="@id/UserLocation"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginEnd="10dp"
+                android:background="@drawable/container_radius"
+                android:entries="@array/locations" />
+        </RelativeLayout>
+
         <TextView
             android:id="@+id/tvInterestsHeader"
             android:layout_width="wrap_content"
@@ -40,21 +60,22 @@
             android:textStyle="bold"
             android:textColor="@color/light_grey"
             android:textSize="24sp"
-            android:layout_below="@id/spinnerLocation"
+            android:layout_below="@id/LocationBody"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="16dp"/>
 
         <!-- Sports Section -->
+
         <TextView
             android:id="@+id/Sports"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_below="@id/tvInterestsHeader"
             android:text="Sports"
-            android:textStyle="bold"
+            android:layout_marginStart="15dp"
             android:textColor="@color/light_grey"
             android:textSize="18sp"
-            android:layout_below="@id/tvInterestsHeader"
-            android:layout_marginTop="16dp"/>
+            android:textStyle="bold" />
 
         <GridLayout
             android:id="@+id/glSports"
@@ -63,88 +84,127 @@
             android:layout_below="@id/Sports"
             android:layout_marginTop="8dp"
             android:columnCount="3"
-            android:rowCount="5"
-            android:orientation="horizontal">
+            android:rowCount="3"
+            android:orientation="horizontal"
+            android:layout_alignStart="@+id/Sports"
+            android:layout_marginEnd="15dp"
+            android:layout_centerInParent="true">
 
             <!-- Add your buttons for sports here -->
             <Button
+                android:id="@+id/football_btn"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:backgroundTint="@color/red"
                 android:textStyle="bold"
                 android:textColor="@color/white"
                 android:text="Football"
-                />
+                android:layout_marginLeft="9dp"
+                android:layout_columnWeight="1"
+                android:layout_gravity="center"/>
+
 
             <Button
+                android:id="@+id/tabeltennis_btn"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_row="0"
                 android:layout_column="1"
+                android:layout_columnWeight="1"
+                android:layout_gravity="center"
+                android:layout_marginStart="4dp"
                 android:backgroundTint="@color/red"
+                android:text="Table Tennis"
                 android:textColor="@color/white"
-                android:text="Tabel Tennis"
                 android:textStyle="bold" />
 
             <Button
+                android:id="@+id/padel_btn"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_columnWeight="1"
+                android:layout_gravity="center"
+                android:layout_marginEnd="8dp"
                 android:backgroundTint="@color/red"
-                android:textColor="@color/white"
-                android:textStyle="bold"
-                android:layout_marginStart="9dp"
                 android:text="Padel"
-                />
-            <Button
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:backgroundTint="@color/red"
                 android:textColor="@color/white"
-                android:textStyle="bold"
-                android:layout_marginStart="9dp"
-                android:text="Squash" />
+                android:textStyle="bold" />
+
             <Button
+                android:id="@+id/volleyball_btn"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textColor="@color/white"
                 android:textStyle="bold"
                 android:backgroundTint="@color/red"
-                android:layout_marginStart="9dp"
-                android:text="Tennis"
-                />
+                android:text="Volleyball"
+                android:layout_columnWeight="1"
+                android:layout_gravity="center"/>
+
             <Button
+                android:id="@+id/swimming_btn"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textColor="@color/white"
                 android:textStyle="bold"
                 android:backgroundTint="@color/red"
                 android:text="Swimming"
+                android:layout_columnWeight="1"
+                android:layout_gravity="center"
                 />
             <Button
+                android:id="@+id/tennis_btn"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textColor="@color/white"
                 android:textStyle="bold"
                 android:backgroundTint="@color/red"
-                android:text="Swimming" />
+                android:text="Tennis"
+                android:layout_columnWeight="1"
+                android:layout_gravity="center"
+                />
             <Button
+                android:id="@+id/handball_btn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:backgroundTint="@color/red"
+                android:textColor="@color/white"
+                android:textStyle="bold"
+                android:text="Handball"
+                android:layout_marginLeft="9dp"
+                android:layout_columnWeight="1"
+                android:layout_gravity="center"/>
+
+            <Button
+                android:id="@+id/basketball_btn"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textColor="@color/white"
                 android:backgroundTint="@color/red"
                 android:textStyle="bold"
-                android:layout_marginStart="9dp"
-                android:text="Basketball" />
+                android:layout_marginStart="4dp"
+                android:text="Basketball"
+                android:layout_columnWeight="1"
+                android:layout_gravity="center"/>
 
-            <!-- Repeat buttons for other sports -->
-
+            <Button
+                android:id="@+id/Squash_btn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:backgroundTint="@color/red"
+                android:textColor="@color/white"
+                android:textStyle="bold"
+                android:text="Squash"
+                android:layout_marginEnd="8dp"
+                android:layout_columnWeight="1"
+                android:layout_gravity="center"/>
         </GridLayout>
 
-        <!-- Music Section -->
         <TextView
-            android:id="@+id/tvMusic"
+            android:id="@+id/Activities"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginStart="15dp"
             android:text="Activities"
             android:textStyle="bold"
             android:textColor="@color/light_grey"
@@ -153,14 +213,16 @@
             android:layout_marginTop="16dp"/>
 
         <GridLayout
-            android:id="@+id/glMusic"
+            android:id="@+id/glActivities"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@id/tvMusic"
+            android:layout_below="@id/Activities"
             android:layout_marginTop="8dp"
+            android:layout_marginEnd="15dp"
             android:columnCount="3"
             android:rowCount="3"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:layout_alignStart="@+id/Activities">
 
             <!-- Add your buttons for music here -->
             <Button
@@ -168,10 +230,11 @@
                 android:layout_height="wrap_content"
                 android:backgroundTint="@color/red"
                 android:textStyle="bold"
-                android:layout_marginStart="3dp"
                 android:textColor="@color/white"
-                android:layout_marginEnd="3dp"
                 android:text="Karaoke"
+                android:layout_marginLeft="9dp"
+                android:layout_columnWeight="1"
+                android:layout_gravity="center"
                 />
             <Button
                 android:layout_width="wrap_content"
@@ -179,8 +242,10 @@
                 android:backgroundTint="@color/red"
                 android:textColor="@color/white"
                 android:textStyle="bold"
-                android:layout_marginEnd="3dp"
                 android:text="Arcade"
+                android:layout_columnWeight="1"
+                android:layout_gravity="center"
+                android:layout_marginStart="4dp"
                 />
             <Button
                 android:layout_width="wrap_content"
@@ -188,18 +253,20 @@
                 android:backgroundTint="@color/red"
                 android:textColor="@color/white"
                 android:textStyle="bold"
-                android:layout_marginEnd="3dp"
                 android:text="Bowling"
+                android:layout_columnWeight="1"
+                android:layout_gravity="center"
+                android:layout_marginEnd="8dp"
                 />
             <Button
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:backgroundTint="@color/red"
                 android:textColor="@color/white"
-                android:layout_marginStart="9dp"
                 android:textStyle="bold"
-                android:layout_marginEnd="3dp"
                 android:text="Theatre"
+                android:layout_columnWeight="1"
+                android:layout_gravity="center"
                 />
             <Button
                 android:layout_width="wrap_content"
@@ -207,9 +274,9 @@
                 android:backgroundTint="@color/red"
                 android:textColor="@color/white"
                 android:textStyle="bold"
-                android:layout_marginEnd="3dp"
-                android:layout_marginStart="9dp"
                 android:text="Cinema"
+                android:layout_columnWeight="1"
+                android:layout_gravity="center"
                 />
             <Button
                 android:layout_width="wrap_content"
@@ -217,9 +284,9 @@
                 android:backgroundTint="@color/red"
                 android:textColor="@color/white"
                 android:textStyle="bold"
-                android:layout_marginStart="9dp"
-                android:layout_marginEnd="3dp"
                 android:text="Paint Ball"
+                android:layout_columnWeight="1"
+                android:layout_gravity="center"
                 />
             <Button
                 android:layout_width="wrap_content"
@@ -227,9 +294,10 @@
                 android:backgroundTint="@color/red"
                 android:textColor="@color/white"
                 android:textStyle="bold"
-                android:layout_marginEnd="5dp"
-                android:layout_marginStart="3dp"
                 android:text="Concert"
+                android:layout_marginLeft="9dp"
+                android:layout_columnWeight="1"
+                android:layout_gravity="center"
                 />
             <Button
                 android:layout_width="wrap_content"
@@ -237,9 +305,10 @@
                 android:backgroundTint="@color/red"
                 android:textColor="@color/white"
                 android:textStyle="bold"
-                android:layout_marginStart="9dp"
-                android:layout_marginEnd="3dp"
                 android:text="Picnic"
+                android:layout_columnWeight="1"
+                android:layout_gravity="center"
+                android:layout_marginStart="4dp"
                 />
             <Button
                 android:layout_width="wrap_content"
@@ -247,19 +316,12 @@
                 android:backgroundTint="@color/red"
                 android:textColor="@color/white"
                 android:textStyle="bold"
-                android:layout_marginEnd="3dp"
                 android:text="LaserTag"
+                android:layout_columnWeight="1"
+                android:layout_gravity="center"
+                android:layout_marginEnd="8dp"
                 />
-            <Button
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:backgroundTint="@color/red"
-                android:textColor="@color/white"
-                android:textStyle="bold"
-                android:layout_marginEnd="3dp"
-                android:layout_marginStart="9dp"
-                android:text="Party"
-                />
+
 
             <!-- Repeat buttons for other music items -->
 
@@ -267,25 +329,29 @@
 
         <!-- Lifestyle Section -->
         <TextView
-            android:id="@+id/tvLifestyle"
+            android:id="@+id/Food"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Food"
+            android:layout_marginStart="15dp"
             android:textSize="18sp"
             android:textStyle="bold"
             android:textColor="@color/light_grey"
-            android:layout_below="@id/glMusic"
+            android:layout_below="@id/glActivities"
             android:layout_marginTop="16dp"/>
 
         <GridLayout
-            android:id="@+id/glLifestyle"
+            android:id="@+id/glFood"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@id/tvLifestyle"
+            android:layout_below="@id/Food"
             android:layout_marginTop="8dp"
             android:columnCount="3"
             android:rowCount="3"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:layout_marginEnd="15dp"
+
+            android:layout_alignStart="@+id/Food">
 
             <!-- Add your buttons for lifestyle here -->
             <Button
@@ -293,10 +359,12 @@
                 android:layout_height="wrap_content"
                 android:backgroundTint="@color/red"
                 android:textStyle="bold"
-                android:layout_marginStart="3dp"
                 android:textColor="@color/white"
-                android:layout_marginEnd="3dp"
+                android:layout_alignStart="@+id/Food"
                 android:text="Mexican"
+                android:layout_marginLeft="9dp"
+                android:layout_columnWeight="1"
+                android:layout_gravity="center"
                 />
             <Button
                 android:layout_width="wrap_content"
@@ -304,10 +372,10 @@
                 android:backgroundTint="@color/red"
                 android:textColor="@color/white"
                 android:textStyle="bold"
-                android:layout_marginStart="9dp"
-
-                android:layout_marginEnd="3dp"
                 android:text="Italian"
+                android:layout_columnWeight="1"
+                android:layout_gravity="center"
+                android:layout_marginStart="4dp"
                 />
             <Button
                 android:layout_width="wrap_content"
@@ -315,8 +383,10 @@
                 android:backgroundTint="@color/red"
                 android:textColor="@color/white"
                 android:textStyle="bold"
-                android:layout_marginEnd="3dp"
                 android:text="Dine In"
+                android:layout_columnWeight="1"
+                android:layout_gravity="center"
+                android:layout_marginEnd="8dp"
                 />
             <Button
                 android:layout_width="wrap_content"
@@ -324,8 +394,9 @@
                 android:backgroundTint="@color/red"
                 android:textColor="@color/white"
                 android:textStyle="bold"
-                android:layout_marginEnd="3dp"
                 android:text="Dessert"
+                android:layout_columnWeight="1"
+                android:layout_gravity="center"
                 />
             <Button
                 android:layout_width="wrap_content"
@@ -333,9 +404,9 @@
                 android:backgroundTint="@color/red"
                 android:textColor="@color/white"
                 android:textStyle="bold"
-                android:layout_marginEnd="3dp"
-                android:layout_marginStart="9dp"
                 android:text="Asian"
+                android:layout_columnWeight="1"
+                android:layout_gravity="center"
                 />
             <Button
                 android:layout_width="wrap_content"
@@ -343,8 +414,9 @@
                 android:backgroundTint="@color/red"
                 android:textColor="@color/white"
                 android:textStyle="bold"
-                android:layout_marginEnd="3dp"
                 android:text="Oriental"
+                android:layout_columnWeight="1"
+                android:layout_gravity="center"
                 />
             <Button
                 android:layout_width="wrap_content"
@@ -352,9 +424,10 @@
                 android:backgroundTint="@color/red"
                 android:textColor="@color/white"
                 android:textStyle="bold"
-                android:layout_marginStart="9dp"
-                android:layout_marginEnd="3dp"
                 android:text="Coffee"
+                android:layout_marginLeft="9dp"
+                android:layout_columnWeight="1"
+                android:layout_gravity="center"
                 />
             <Button
                 android:layout_width="wrap_content"
@@ -362,9 +435,10 @@
                 android:backgroundTint="@color/red"
                 android:textColor="@color/white"
                 android:textStyle="bold"
-                android:layout_marginStart="9dp"
-                android:layout_marginEnd="3dp"
                 android:text="Boba"
+                android:layout_columnWeight="1"
+                android:layout_gravity="center"
+                android:layout_marginStart="4dp"
                 />
             <Button
                 android:layout_width="wrap_content"
@@ -372,8 +446,9 @@
                 android:backgroundTint="@color/red"
                 android:textColor="@color/white"
                 android:textStyle="bold"
-                android:layout_marginEnd="3dp"
                 android:text="Pizza"
+                android:layout_columnWeight="1"
+                android:layout_gravity="center"
                 />
             <Button
                 android:layout_width="wrap_content"
@@ -381,9 +456,10 @@
                 android:backgroundTint="@color/red"
                 android:textColor="@color/white"
                 android:textStyle="bold"
-                android:layout_marginStart="9dp"
-                android:layout_marginEnd="3dp"
                 android:text="Burger"
+                android:layout_columnWeight="1"
+                android:layout_gravity="center"
+                android:layout_marginEnd="8dp"
                 />
             <Button
                 android:layout_width="wrap_content"
@@ -391,10 +467,9 @@
                 android:backgroundTint="@color/red"
                 android:textColor="@color/white"
                 android:textStyle="bold"
-                android:layout_marginStart="9dp"
-
-                android:layout_marginEnd="3dp"
                 android:text="Sushi"
+                android:layout_columnWeight="1"
+                android:layout_gravity="center"
                 />
             <Button
                 android:layout_width="wrap_content"
@@ -402,8 +477,9 @@
                 android:backgroundTint="@color/red"
                 android:textColor="@color/white"
                 android:textStyle="bold"
-                android:layout_marginEnd="3dp"
                 android:text="Pasta"
+                android:layout_columnWeight="1"
+                android:layout_gravity="center"
                 />
             <Button
                 android:layout_width="wrap_content"
@@ -411,8 +487,10 @@
                 android:backgroundTint="@color/red"
                 android:textColor="@color/white"
                 android:textStyle="bold"
-                android:layout_marginEnd="3dp"
                 android:text="Sea Food"
+                android:layout_marginLeft="9dp"
+                android:layout_columnWeight="1"
+                android:layout_gravity="center"
                 />
             <Button
                 android:layout_width="wrap_content"
@@ -420,9 +498,10 @@
                 android:backgroundTint="@color/red"
                 android:textColor="@color/white"
                 android:textStyle="bold"
-                android:layout_marginStart="3dp"
-                android:layout_marginEnd="3dp"
                 android:text="Take Away"
+                android:layout_columnWeight="1"
+                android:layout_gravity="center"
+                android:layout_marginStart="4dp"
                 />
 
             <!-- Repeat buttons for other lifestyle items -->
@@ -435,10 +514,11 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Sightseeing"
+            android:layout_marginStart="15dp"
             android:textSize="18sp"
             android:textStyle="bold"
             android:textColor="@color/light_grey"
-            android:layout_below="@id/glLifestyle"
+            android:layout_below="@id/glFood"
             android:layout_marginTop="16dp"/>
 
         <GridLayout
@@ -449,14 +529,18 @@
             android:layout_marginTop="8dp"
             android:columnCount="3"
             android:rowCount="3"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:layout_marginEnd="15dp"
+            android:layout_alignStart="@+id/Sightseeing">
             <Button
                 android:id="@+id/Museum"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:backgroundTint="@color/red"
-                android:layout_marginEnd="3dp"
-                android:text="Museum" />
+                android:text="Museum"
+                android:layout_marginLeft="9dp"
+                android:layout_columnWeight="1"
+                android:layout_gravity="center"/>
             <Button
                 android:id="@+id/Palace"
                 android:layout_width="wrap_content"
@@ -477,14 +561,16 @@
                 android:layout_height="wrap_content"
                 android:backgroundTint="@color/red"
                 android:layout_marginEnd="3dp"
-                android:text="Church" />
+                android:text="Church"
+                android:layout_columnWeight="1"
+                android:layout_gravity="center"/>
             <Button
                 android:id="@+id/Synagoupe"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:backgroundTint="@color/red"
                 android:layout_marginEnd="3dp"
-                android:text="Synagoupe" />
+                android:text="Synagogue" />
 
 
 
@@ -505,5 +591,3 @@
     </RelativeLayout>
 
 </ScrollView>
-
-
