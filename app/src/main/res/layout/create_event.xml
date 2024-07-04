@@ -164,9 +164,7 @@
                     android:textColor="@color/light_grey"
                     android:textSize="8sp"
                     android:textStyle="bold" />
-
             </RelativeLayout>
-
 
             <ScrollView
                 android:layout_width="match_parent"

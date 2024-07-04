@@ -3,16 +3,16 @@
   <component name="AndroidLayouts">
     <shared>
       <config>
+        <device id="3.7in WVGA (Nexus One)" />
         <device id="_device_class_phone" />
-        <device id="_device_class_foldable" />
         <device id="small_phone" />
+        <device id="_device_class_foldable" />
         <device id="Nexus 6" />
         <device id="_device_class_tablet" />
         <device id="pixel_4a" />
         <device id="Nexus 9" />
         <device id="Nexus 6P" />
         <device id="_android_virtual_device_id_Medium_Phone_API_35" />
-        <device id="pixel_8" />
       </config>
     </shared>
     <layouts>
@@ -97,16 +97,12 @@
     <option name="autoReloadType" value="NONE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="c7791726-d729-428e-8a21-a06e431a2793" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.gradle/8.7/fileHashes/fileHashes.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/8.7/fileHashes/fileHashes.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/file-system.probe" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/file-system.probe" afterDir="false" />
+    <list default="true" id="c7791726-d729-428e-8a21-a06e431a2793" name="Changes" comment="fixed conflict">
+      <change beforePath="$PROJECT_DIR$/.idea/deploymentTargetSelector.xml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/events_row.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/events_row.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/interests.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/interests.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/login.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/login.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/profile.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/profile.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/create_event.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/create_event.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/home.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/home.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/recommender.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/recommender.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/local.properties" beforeDir="false" afterPath="$PROJECT_DIR$/local.properties" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -163,18 +159,18 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
-  <component name="GitHubPullRequestSearchHistory"><![CDATA[{
-  "lastFilter": {
-    "state": "OPEN",
-    "assignee": "SamanodyJr"
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;,
+    &quot;assignee&quot;: &quot;SamanodyJr&quot;
   }
-}]]></component>
-  <component name="GithubPullRequestsUISettings"><![CDATA[{
-  "selectedUrlAndAccountId": {
-    "url": "git@github.com:SamanodyJr/Fasa7ni.git",
-    "accountId": "cc05f856-1423-4cd6-838b-f8304320e998"
+}</component>
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;git@github.com:SamanodyJr/Fasa7ni.git&quot;,
+    &quot;accountId&quot;: &quot;cc05f856-1423-4cd6-838b-f8304320e998&quot;
   }
-}]]></component>
+}</component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 8
 }</component>
@@ -290,6 +286,15 @@
       <workItem from="1719830467151" duration="4000" />
       <workItem from="1719841298241" duration="49000" />
     </task>
+    <task id="LOCAL-00001" summary="fixed conflict">
+      <option name="closed" value="true" />
+      <created>1720050470183</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1720050470183</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -297,6 +302,7 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Merge pull request #6 from SamanodyJr/Team-Katkoota&#10;&#10;Team katkoota" />
-    <option name="LAST_COMMIT_MESSAGE" value="" />
+    <MESSAGE value="fixed conflict" />
+    <option name="LAST_COMMIT_MESSAGE" value="fixed conflict" />
   </component>
 </project>
