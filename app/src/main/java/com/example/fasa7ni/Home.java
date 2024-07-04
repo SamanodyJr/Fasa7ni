@@ -26,9 +26,6 @@ public class Home extends AppCompatActivity implements View.OnClickListener
     private ImageButton Recommender;
     private ImageButton Profile;
 
-    private static final String TAG = "HomeActivity";
-
-
     @SuppressLint("SourceLockedOrientationActivity")
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -86,16 +83,9 @@ public class Home extends AppCompatActivity implements View.OnClickListener
 
     private void Go_List()
     {
-        Log.d(TAG, "Go_List: Starting List activity");
-
-
         Intent H_L = new Intent(Home.this, List.class);
-//        H_L.putExtra("Email", email);
+        H_L.putExtra("Email", email);
         startActivity(H_L);
-
-//        Log.d(TAG, "Go_List: List activity started with email: " + email);
-
-
     }
 
     private void Go_Events()
