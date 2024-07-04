@@ -6,6 +6,8 @@ import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.util.Log;
+
 import android.widget.ImageButton;
 import android.widget.Toast;
 
@@ -23,6 +25,9 @@ public class Home extends AppCompatActivity implements View.OnClickListener
     private ImageButton Friends;
     private ImageButton Recommender;
     private ImageButton Profile;
+
+    private static final String TAG = "HomeActivity";
+
 
     @SuppressLint("SourceLockedOrientationActivity")
     @Override
@@ -57,7 +62,6 @@ public class Home extends AppCompatActivity implements View.OnClickListener
 
     }
 
-
     @Override
     public void onClick(View v) {
         if(v.getId()==List.getId())
@@ -82,9 +86,16 @@ public class Home extends AppCompatActivity implements View.OnClickListener
 
     private void Go_List()
     {
+        Log.d(TAG, "Go_List: Starting List activity");
+
+
         Intent H_L = new Intent(Home.this, List.class);
-        H_L.putExtra("Email", email);
+//        H_L.putExtra("Email", email);
         startActivity(H_L);
+
+//        Log.d(TAG, "Go_List: List activity started with email: " + email);
+
+
     }
 
     private void Go_Events()
