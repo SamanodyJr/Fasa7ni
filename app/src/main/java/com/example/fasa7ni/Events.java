@@ -7,13 +7,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageButton;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -23,7 +17,7 @@ import java.util.List;
 public class Events extends AppCompatActivity implements View.OnClickListener
 {
     private String email;
-    private ImageButton List;
+    private ImageButton Listat;
     private ImageButton Home;
     private ImageButton Friends;
     private ImageButton Recommender;
@@ -39,35 +33,35 @@ public class Events extends AppCompatActivity implements View.OnClickListener
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         Start();
 
-        List<Fos7a> list = new ArrayList<Fos7a>();
-        list.add(new Fos7a("Yalla Bowling","AUC","Friday","Heggi",R.drawable.paintball_fos7a_image));
-        list.add(new Fos7a("Yalla Koraa","AUC","Friday","Heggi",R.drawable.paintball_fos7a_image));
-        list.add(new Fos7a("Yalla Basket","AUC","Friday","Heggi",R.drawable.paintball_fos7a_image));
-        list.add(new Fos7a("Yalla bs","AUC","Friday","Heggi",R.drawable.paintball_fos7a_image));
-        list.add(new Fos7a("Yalla Bowling","AUC","Friday","Heggi",R.drawable.paintball_fos7a_image));
-        list.add(new Fos7a("Yalla Bowling","AUC","Friday","Heggi",R.drawable.paintball_fos7a_image));
-        list.add(new Fos7a("Yalla Bowling","AUC","Friday","Heggi",R.drawable.paintball_fos7a_image));
+        List<Event> list = new ArrayList<Event>();
+        list.add(new Event("Yalla Bowling","AUC","Friday","Heggi",R.drawable.paintball_image));
+        list.add(new Event("Yalla Koraa","AUC","Friday","Heggi",R.drawable.paintball_image));
+        list.add(new Event("Yalla Basket","AUC","Friday","Heggi",R.drawable.paintball_image));
+        list.add(new Event("Yalla bs","AUC","Friday","Heggi",R.drawable.paintball_image));
+        list.add(new Event("Yalla Bowling","AUC","Friday","Heggi",R.drawable.paintball_image));
+        list.add(new Event("Yalla Bowling","AUC","Friday","Heggi",R.drawable.paintball_image));
+        list.add(new Event("Yalla Bowling","AUC","Friday","Heggi",R.drawable.paintball_image));
         RecyclerView recyclerView = findViewById(R.id.fosa7_recylcerview);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        recyclerView.setAdapter(new Adapter(getApplicationContext(),list));
+        recyclerView.setAdapter(new EventAdapter(getApplicationContext(),list));
     }
 
-    private void Start() {
-
+    private void Start()
+    {
         Bundle bundle = getIntent().getExtras();
         if (bundle != null)
         {
             email = bundle.getString("Email");
         }
 
-        List = findViewById(R.id.small_list_btn);
+        Listat = findViewById(R.id.small_list_btn);
         Home = findViewById(R.id.small_home_btn);
         Friends = findViewById(R.id.small_friends_btn);
         Recommender = findViewById(R.id.small_recommender_btn);
         Profile = findViewById(R.id.profile_btn);
         AddFos7a = findViewById(R.id.add_fos7a_btn);
 
-        List.setOnClickListener(this);
+        Listat.setOnClickListener(this);
         Home.setOnClickListener(this);
         Friends.setOnClickListener(this);
         Recommender.setOnClickListener(this);
@@ -76,9 +70,10 @@ public class Events extends AppCompatActivity implements View.OnClickListener
     }
 
     @Override
-    public void onClick(View v) {
+    public void onClick(View v)
+    {
 
-        if(v.getId()==List.getId())
+        if(v.getId()==Listat.getId())
             Go_List();
 
         else if (v.getId()==Home.getId())
@@ -100,37 +95,43 @@ public class Events extends AppCompatActivity implements View.OnClickListener
 
     }
 
-    private void Go_List() {
-        Intent E_L = new Intent(Events.this, List.class);
+    private void Go_List()
+    {
+        Intent E_L = new Intent(Events.this, Listat.class);
         E_L.putExtra("Email", email);
         startActivity(E_L);
     }
 
-    private void Go_Home() {
+    private void Go_Home()
+    {
         Intent E_H = new Intent(Events.this, Home.class);
         E_H.putExtra("Email", email);
         startActivity(E_H);
     }
 
-    private void Go_Friends() {
+    private void Go_Friends()
+    {
         Intent E_F = new Intent(Events.this, Friends.class);
         E_F.putExtra("Email", email);
         startActivity(E_F);
     }
 
-    private void Go_Profile() {
+    private void Go_Profile()
+    {
         Intent E_P = new Intent(Events.this, Profile.class);
         E_P.putExtra("Email", email);
         startActivity(E_P);
     }
 
-    private void Go_Recommender() {
+    private void Go_Recommender()
+    {
         Intent E_R = new Intent(Events.this, Recommender.class);
         E_R.putExtra("Email", email);
         startActivity(E_R);
     }
 
-    private void Go_Create() {
+    private void Go_Create()
+    {
         Intent E_C = new Intent(Events.this, Create.class);
         E_C.putExtra("Email", email);
         startActivity(E_C);

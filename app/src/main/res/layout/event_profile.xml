@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="@color/lightBlack"
     android:paddingBottom="5dp"
-    tools:context=".Fos7aProfile">
+    tools:context=".EventProfile">
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -32,7 +32,7 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintVertical_bias="1.0"
-                app:srcCompat="@drawable/paintball_fos7a_image" />
+                app:srcCompat="@drawable/paintball_image" />
 
             <ImageButton
 
@@ -61,7 +61,7 @@
                 app:layout_constraintVertical_bias="0.076" />
 
             <ImageButton
-
+                android:id="@+id/backButton"
                 android:layout_width="40dp"
                 android:layout_height="32dp"
                 android:background="@drawable/circle_background"
@@ -89,7 +89,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Paintball War Fos7a"
+                android:text="Paitball War Fos7a"
                 android:textColor="@color/white"
                 android:textSize="34sp"
 
@@ -242,6 +242,7 @@
 
 
                 <Button
+                    android:id="@+id/Join_btn"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentEnd="true"

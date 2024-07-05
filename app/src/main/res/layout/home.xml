@@ -16,7 +16,7 @@
         android:background="@color/main_grey">
 
         <LinearLayout
-            android:id="@+id/HomeHeader"
+            android:id="@+id/RecHeader"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="15dp"
@@ -25,26 +25,28 @@
             android:background="@color/main_grey">
 
             <ImageView
-                android:id="@+id/logo"
+                android:id="@+id/imageView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_marginTop="15dp"
                 android:layout_marginBottom="8dp"
-                app:srcCompat="@drawable/logo" />
+                app:srcCompat="@drawable/logo"  />
 
-            <LinearLayout
+            <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
 
                 <SearchView
                     android:id="@+id/searchView"
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center"
+                    android:layout_alignParentStart="true"
+                    android:layout_toStartOf="@id/profile_btn"
+                    android:layout_centerVertical="true"
                     android:layout_marginStart="10dp"
-                    android:layout_weight="2"
+                    android:layout_marginEnd="10dp"
                     android:background="@drawable/round_search"
                     android:iconifiedByDefault="false"
                     android:queryHint="Search" />
@@ -53,12 +55,12 @@
                     android:id="@+id/profile_btn"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_marginEnd="10dp"
-                    android:layout_weight="1"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginEnd="6dp"
                     android:background="@android:color/transparent"
                     app:srcCompat="@drawable/profile_icon" />
-            </LinearLayout>
+
+            </RelativeLayout>
         </LinearLayout>
 
         <LinearLayout
@@ -91,23 +93,17 @@
                         android:textSize="20sp"
                         android:fontFamily="sans-serif"
                         />
-                    <Button
-                        android:id="@+id/more_myevents_btn"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginEnd="15dp"
-                        android:text="MORE"
-                        android:textColor="@color/red"
-                        android:textStyle="bold"
-                        android:backgroundTint="@color/light_grey"
-                        />
                 </TableRow>
 
-                <ListView
-                    android:layout_width="wrap_content"
+                <androidx.recyclerview.widget.RecyclerView
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    >
-                </ListView>
+                    android:layout_marginBottom="15dp"
+                    android:layout_marginStart="5dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginEnd="5dp"
+                    android:id="@+id/upcoming_fosa7_recyclerView"/>
+
             </TableLayout>
 
             <TableLayout android:layout_width="match_parent"
@@ -133,21 +129,15 @@
                         android:textStyle="bold"
                         android:textSize="20sp"
                         android:fontFamily="sans-serif"/>
-                    <Button
-                        android:id="@+id/add_interests_btn"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginEnd="15dp"
-                        android:text="Interests"
-                        android:textColor="@color/red"
-                        android:textStyle="bold"
-                        android:backgroundTint="@color/light_grey"/>
                 </TableRow>
 
-                <ListView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content">
-                </ListView>
+                <androidx.recyclerview.widget.RecyclerView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="5dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginEnd="5dp"
+                    android:id="@+id/intrests_recyclerView"/>
 
             </TableLayout>
 

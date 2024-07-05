@@ -5,7 +5,7 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".List">
+    tools:context=".Listat">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -145,11 +145,13 @@
                         android:layout_margin="5dp"/>
                 </LinearLayout>
             </HorizontalScrollView>
-            <ListView
+
+            <androidx.recyclerview.widget.RecyclerView
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginTop="10dp">
-            </ListView>
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:id="@+id/places_recyclerview"/>
+
         </LinearLayout>
 
         <LinearLayout

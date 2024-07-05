@@ -96,7 +96,7 @@
                     android:id="@+id/RecBody"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center"
+                    android:gravity="center"
                     android:orientation="vertical">
 
                     <EditText
@@ -104,6 +104,7 @@
                         android:layout_height="55dp"
                         android:layout_marginStart="30dp"
                         android:layout_marginEnd="30dp"
+                        android:layout_marginTop="20dp"
                         android:background="@drawable/email_password_shape"
                         android:hint="Capacity"
                         android:paddingLeft="20dp" />
@@ -112,7 +113,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="55dp"
                         android:layout_marginStart="30dp"
-                        android:layout_marginTop="5dp"
+                        android:layout_marginTop="20dp"
                         android:layout_marginEnd="30dp"
                         android:background="@drawable/email_password_shape"
                         android:hint="Location"
@@ -122,7 +123,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="55dp"
                         android:layout_marginStart="30dp"
-                        android:layout_marginTop="5dp"
+                        android:layout_marginTop="20dp"
                         android:layout_marginEnd="30dp"
                         android:background="@drawable/email_password_shape"
                         android:hint="Date (DD/MM/YYYY)"
@@ -133,8 +134,9 @@
                         android:layout_width="match_parent"
                         android:layout_height="55dp"
                         android:layout_marginStart="30dp"
-                        android:layout_marginTop="5dp"
+                        android:layout_marginTop="20dp"
                         android:layout_marginEnd="30dp"
+                        android:layout_marginBottom="30dp"
                         android:background="@drawable/email_password_shape"
                         android:entries="@array/categories"
                         android:paddingLeft="10dp" />

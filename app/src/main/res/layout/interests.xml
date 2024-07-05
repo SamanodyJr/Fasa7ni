@@ -91,7 +91,7 @@
 
             <!-- Add your buttons for sports here -->
             <Button
-                android:id="@+id/football_btn"
+                android:id="@+id/interest1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_columnWeight="1"
@@ -103,7 +103,7 @@
 
 
             <Button
-                android:id="@+id/tabeltennis_btn"
+                android:id="@+id/interest2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_row="0"
@@ -117,7 +117,7 @@
                 android:textStyle="bold" />
 
             <Button
-                android:id="@+id/padel_btn"
+                android:id="@+id/interest3"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_columnWeight="1"
@@ -129,7 +129,7 @@
                 android:textStyle="bold" />
 
             <Button
-                android:id="@+id/volleyball_btn"
+                android:id="@+id/interest4"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_columnWeight="1"
@@ -140,7 +140,7 @@
                 android:textStyle="bold" />
 
             <Button
-                android:id="@+id/swimming_btn"
+                android:id="@+id/interest5"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_columnWeight="1"
@@ -151,7 +151,7 @@
                 android:textStyle="bold" />
 
             <Button
-                android:id="@+id/tennis_btn"
+                android:id="@+id/interest6"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_columnWeight="1"
@@ -163,7 +163,7 @@
                 android:textStyle="bold" />
 
             <Button
-                android:id="@+id/handball_btn"
+                android:id="@+id/interest7"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_columnWeight="1"
@@ -175,7 +175,7 @@
                 android:textStyle="bold" />
 
             <Button
-                android:id="@+id/basketball_btn"
+                android:id="@+id/interest8"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_columnWeight="1"
@@ -187,7 +187,7 @@
                 android:textStyle="bold" />
 
             <Button
-                android:id="@+id/Squash_btn"
+                android:id="@+id/interest9"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_columnWeight="1"
@@ -224,6 +224,7 @@
 
             <!-- Add your buttons for music here -->
             <Button
+                android:id="@+id/interest10"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:backgroundTint="@color/red"
@@ -235,6 +236,7 @@
                 android:layout_gravity="center"
                 />
             <Button
+                android:id="@+id/interest11"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:backgroundTint="@color/red"
@@ -246,6 +248,7 @@
                 android:layout_marginStart="4dp"
                 />
             <Button
+                android:id="@+id/interest12"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:backgroundTint="@color/red"
@@ -257,6 +260,7 @@
                 android:layout_marginEnd="8dp"
                 />
             <Button
+                android:id="@+id/interest13"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:backgroundTint="@color/red"
@@ -267,6 +271,7 @@
                 android:layout_gravity="center"
                 />
             <Button
+                android:id="@+id/interest14"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:backgroundTint="@color/red"
@@ -277,6 +282,7 @@
                 android:layout_gravity="center"
                 />
             <Button
+                android:id="@+id/interest15"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:backgroundTint="@color/red"
@@ -287,6 +293,7 @@
                 android:layout_gravity="center"
                 />
             <Button
+                android:id="@+id/interest16"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:backgroundTint="@color/red"
@@ -298,6 +305,7 @@
                 android:layout_gravity="center"
                 />
             <Button
+                android:id="@+id/interest17"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:backgroundTint="@color/red"
@@ -309,6 +317,7 @@
                 android:layout_marginStart="4dp"
                 />
             <Button
+                android:id="@+id/interest18"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:backgroundTint="@color/red"
@@ -353,6 +362,7 @@
 
             <!-- Add your buttons for lifestyle here -->
             <Button
+                android:id="@+id/interest19"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:backgroundTint="@color/red"
@@ -365,6 +375,7 @@
                 android:layout_gravity="center"
                 />
             <Button
+                android:id="@+id/interest20"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:backgroundTint="@color/red"
@@ -376,6 +387,7 @@
                 android:layout_marginStart="4dp"
                 />
             <Button
+                android:id="@+id/interest21"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:backgroundTint="@color/red"
@@ -387,6 +399,7 @@
                 android:layout_marginEnd="8dp"
                 />
             <Button
+                android:id="@+id/interest22"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:backgroundTint="@color/red"
@@ -397,6 +410,7 @@
                 android:layout_gravity="center"
                 />
             <Button
+                android:id="@+id/interest23"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:backgroundTint="@color/red"
@@ -407,6 +421,7 @@
                 android:layout_gravity="center"
                 />
             <Button
+                android:id="@+id/interest24"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:backgroundTint="@color/red"
@@ -417,6 +432,7 @@
                 android:layout_gravity="center"
                 />
             <Button
+                android:id="@+id/interest25"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:backgroundTint="@color/red"
@@ -428,6 +444,7 @@
                 android:layout_gravity="center"
                 />
             <Button
+                android:id="@+id/interest26"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:backgroundTint="@color/red"
@@ -439,6 +456,7 @@
                 android:layout_marginStart="4dp"
                 />
             <Button
+                android:id="@+id/interest27"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:backgroundTint="@color/red"
@@ -449,6 +467,7 @@
                 android:layout_gravity="center"
                 />
             <Button
+                android:id="@+id/interest28"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:backgroundTint="@color/red"
@@ -459,6 +478,7 @@
                 android:layout_gravity="center"
                 />
             <Button
+                android:id="@+id/interest29"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:backgroundTint="@color/red"
@@ -469,6 +489,7 @@
                 android:layout_gravity="center"
                 />
             <Button
+                android:id="@+id/interest30"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:backgroundTint="@color/red"
@@ -479,6 +500,7 @@
                 android:layout_gravity="center"
                 />
             <Button
+                android:id="@+id/interest31"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:backgroundTint="@color/red"
@@ -490,6 +512,7 @@
                 android:layout_gravity="center"
                 />
             <Button
+                android:id="@+id/interest32"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:backgroundTint="@color/red"
@@ -530,7 +553,7 @@
             android:rowCount="3">
 
             <Button
-                android:id="@+id/museum_btn"
+                android:id="@+id/interest33"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_columnWeight="1"
@@ -542,7 +565,7 @@
 
 
             <Button
-                android:id="@+id/palace_btn"
+                android:id="@+id/interest34"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_row="0"
@@ -556,7 +579,7 @@
                 android:textStyle="bold" />
 
             <Button
-                android:id="@+id/mosque_btn"
+                android:id="@+id/interest35"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_columnWeight="1"
@@ -568,7 +591,7 @@
                 android:textStyle="bold" />
 
             <Button
-                android:id="@+id/church_btn"
+                android:id="@+id/interest36"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_columnWeight="1"
@@ -579,7 +602,7 @@
                 android:textStyle="bold" />
 
             <Button
-                android:id="@+id/synagouge_btn"
+                android:id="@+id/interest37"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_columnWeight="1"

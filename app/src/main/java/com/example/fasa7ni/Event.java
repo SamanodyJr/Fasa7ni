@@ -1,13 +1,15 @@
 package com.example.fasa7ni;
 
-public class Fos7a {
+public class Event
+{
     String name, hostName;
     String location;
 
     String opening_hours;
     int image;
 
-    public Fos7a(String name, String location, String opening_hours, String hostName, int image) {
+    public Event(String name, String location, String opening_hours, String hostName, int image)
+    {
         this.name = name;
         this.location = location;
         this.opening_hours = opening_hours;

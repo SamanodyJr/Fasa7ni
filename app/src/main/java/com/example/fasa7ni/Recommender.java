@@ -7,15 +7,10 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageButton;
 import android.util.Log;
-import androidx.activity.EdgeToEdge;
+
 import androidx.appcompat.app.AppCompatActivity;
 import android.widget.Button;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
 
-import java.util.ArrayList;
-import java.util.List;
 
 public class Recommender extends AppCompatActivity implements View.OnClickListener
 {
@@ -26,7 +21,6 @@ public class Recommender extends AppCompatActivity implements View.OnClickListen
     private ImageButton Home;
     private Button Generate;
     private ImageButton Profile;
-    List<Fos7a> fosa7 = new ArrayList<Fos7a>();
     @SuppressLint("SourceLockedOrientationActivity")
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -65,7 +59,7 @@ public class Recommender extends AppCompatActivity implements View.OnClickListen
     public void onClick(View v) {
         if(v.getId()==List.getId())
             Go_List();
-        
+
         else if (v.getId()==Events.getId())
             Go_Events();
 
@@ -74,7 +68,7 @@ public class Recommender extends AppCompatActivity implements View.OnClickListen
 
         else if (v.getId()==Generate.getId()) {
             Log.d("", "Generate button clicked");
-            Go_Generate();
+            Go_List();
         }
         else if (v.getId()==Profile.getId())
             Go_Profile();
@@ -95,9 +89,11 @@ public class Recommender extends AppCompatActivity implements View.OnClickListen
 
     private void Go_List()
     {
-        Intent R_L = new Intent(Recommender.this, List.class);
+        Intent R_L = new Intent(Recommender.this, Listat.class);
+        Log.d("", "Navigating to Generate");
         R_L.putExtra("Email", email);
         startActivity(R_L);
+
     }
 
     private void Go_Events()
@@ -117,7 +113,7 @@ public class Recommender extends AppCompatActivity implements View.OnClickListen
     private void Go_Generate()
     {
         Log.d("", "Navigating to Generate");
-        Intent R_G = new Intent(Recommender.this, List.class);
+        Intent R_G = new Intent(Recommender.this, Listat.class);
         R_G.putExtra("Email", email);
         //H_R.putExtra("Fos7a", (CharSequence) fosa7);
         startActivity(R_G);

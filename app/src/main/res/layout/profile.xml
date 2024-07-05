@@ -41,6 +41,7 @@
                 android:layout_alignParentEnd="true"
                 android:layout_centerVertical="true"
                 android:layout_marginEnd="16dp"
+                android:onClick="onEditButtonClick"
                 />
 
         </RelativeLayout>
@@ -64,169 +65,179 @@
             android:scaleType="centerCrop"
             android:layout_marginTop="20dp"/>
 
-
     </LinearLayout>
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="2"
+        android:layout_height="match_parent"
         android:layout_below="@id/TopLayout"
-        android:layout_alignParentBottom="true"
-        >
+        android:layout_marginTop="60dp"
+        android:layout_marginBottom="20dp">
+
         <LinearLayout
             android:id="@+id/BottomLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:gravity="center"
-            android:layout_weight="4"
-            android:layout_gravity="center"
-            android:layout_marginTop="-30dp"
-            >
+            android:orientation="vertical">
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
                 android:layout_marginEnd="10dp"
-                android:orientation="horizontal"
-                >
+                android:orientation="horizontal">
+
                 <ImageView
                     android:layout_width="50dp"
                     android:layout_height="50dp"
-                    android:src="@drawable/profile_icon"
                     android:layout_marginStart="35dp"
                     android:layout_marginEnd="10dp"
-                    />
+                    android:src="@drawable/profile_icon" />
+
                 <EditText
                     android:id="@+id/name"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginBottom="20dp"
+                    android:enabled="false"
                     android:gravity="center_horizontal"
-                    android:textStyle="bold"
+                    android:text="mariamghobz"
                     android:textColor="@color/light_grey"
                     android:textSize="20sp"
-                    android:text="mariamghobz"
-                    android:layout_marginBottom="20dp"/>
+                    android:textStyle="bold" />
             </LinearLayout>
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="10dp"
                 android:orientation="horizontal">
+
                 <ImageView
                     android:layout_width="50dp"
                     android:layout_height="50dp"
-                    android:src="@drawable/dob_icon_profile"
                     android:layout_marginStart="35dp"
                     android:layout_marginEnd="10dp"
-                    />
+                    android:src="@drawable/dob_icon_profile" />
+
                 <EditText
                     android:id="@+id/dob"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginBottom="20dp"
+                    android:enabled="false"
                     android:gravity="center_horizontal"
-                    android:textStyle="bold"
+                    android:text="24/11/2003"
                     android:textColor="@color/light_grey"
                     android:textSize="20sp"
-                    android:text="24/11/2003"
-                    android:layout_marginBottom="20dp"/>
+                    android:textStyle="bold" />
             </LinearLayout>
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="10dp"
                 android:orientation="horizontal">
+
                 <ImageView
                     android:layout_width="50dp"
                     android:layout_height="50dp"
-                    android:src="@drawable/mail_icon_profile"
                     android:layout_marginStart="35dp"
                     android:layout_marginEnd="10dp"
-                    />
+                    android:src="@drawable/mobile_icon_profile" />
+
                 <EditText
-                    android:id="@+id/phone_number"
+                    android:id="@+id/mobile_icon_profile"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginBottom="20dp"
+                    android:enabled="false"
                     android:gravity="center_horizontal"
-                    android:textStyle="bold"
+                    android:text="01227111422"
                     android:textColor="@color/light_grey"
                     android:textSize="20sp"
-                    android:text="01227111422"
-                    android:layout_marginBottom="20dp"/>
+                    android:textStyle="bold" />
             </LinearLayout>
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="10dp"
                 android:orientation="horizontal">
+
                 <ImageView
                     android:layout_width="50dp"
                     android:layout_height="50dp"
-                    android:src="@drawable/mail_icon_profile"
                     android:layout_marginStart="35dp"
                     android:layout_marginEnd="10dp"
-                    />
+                    android:src="@drawable/mail_icon_profile" />
+
                 <EditText
                     android:id="@+id/email"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginBottom="20dp"
+                    android:enabled="false"
                     android:gravity="center_horizontal"
-                    android:textStyle="bold"
-                    android:textColor="@color/light_grey"
-                    android:textSize="20sp"
                     android:text="mariamghobz@aucegypt.edu"
-                    android:layout_marginBottom="20dp"/>
+                    android:textColor="@color/light_grey"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
             </LinearLayout>
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="10dp"
                 android:orientation="horizontal">
+
                 <ImageView
                     android:layout_width="50dp"
                     android:layout_height="50dp"
-                    android:src="@drawable/interest_icon"
                     android:layout_marginStart="35dp"
                     android:layout_marginEnd="10dp"
+                    android:src="@drawable/interest_icon"
 
                     />
+
                 <HorizontalScrollView
 
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:fillViewport="true"
-                    android:gravity="center"
                     android:layout_gravity="center"
                     android:layout_weight="1"
-                    >
+                    android:fillViewport="true"
+                    android:gravity="center">
+
                     <LinearLayout
                         android:id="@+id/interests_layout"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:orientation="horizontal"
-                        android:gravity="center"
                         android:layout_gravity="center"
                         android:layout_marginStart="40dp"
                         android:layout_marginEnd="40dp"
-                        >
+                        android:gravity="center"
+                        android:orientation="horizontal">
+
                         <EditText
                             android:id="@+id/interest1"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:gravity="center_horizontal"
-                            android:layout_weight="1"
-                            android:textStyle="bold"
-                            android:textColor="@color/main_grey"
-                            android:textSize="20sp"
-                            android:text="Football"
-                            android:background="@drawable/interest1"
-                            android:paddingLeft="4dp"
-                            android:paddingRight="4dp"
-                            android:paddingTop="2dp"
-                            android:paddingBottom="2dp"
                             android:layout_marginLeft="3dp"
                             android:layout_marginRight="3dp"
-                            />
+                            android:layout_weight="1"
+                            android:background="@drawable/interest1"
+                            android:enabled="false"
+                            android:gravity="center_horizontal"
+                            android:paddingLeft="4dp"
+                            android:paddingTop="2dp"
+                            android:paddingRight="4dp"
+                            android:paddingBottom="2dp"
+                            android:text="Football"
+                            android:textColor="@color/main_grey"
+                            android:textSize="20sp"
+                            android:textStyle="bold" />
+
                         <EditText
                             android:id="@+id/interest2"
                             android:layout_width="wrap_content"
@@ -235,6 +246,7 @@
                             android:layout_marginRight="3dp"
                             android:layout_weight="1"
                             android:background="@drawable/interest2"
+                            android:enabled="false"
                             android:gravity="center_horizontal"
                             android:paddingLeft="4dp"
                             android:paddingTop="2dp"
@@ -249,28 +261,32 @@
                             android:id="@+id/interest3"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:gravity="center_horizontal"
-                            android:layout_weight="1"
-                            android:textStyle="bold"
-                            android:textColor="@color/main_grey"
-                            android:textSize="20sp"
-                            android:text="Burger"
-                            android:background="@drawable/interest3"
-                            android:paddingLeft="4dp"
-                            android:paddingRight="4dp"
-                            android:paddingTop="2dp"
-                            android:paddingBottom="2dp"
                             android:layout_marginLeft="3dp"
                             android:layout_marginRight="3dp"
-                            />
+                            android:layout_weight="1"
+                            android:background="@drawable/interest3"
+                            android:enabled="false"
+                            android:gravity="center_horizontal"
+                            android:paddingLeft="4dp"
+                            android:paddingTop="2dp"
+                            android:paddingRight="4dp"
+                            android:paddingBottom="2dp"
+                            android:text="Burger"
+                            android:textColor="@color/main_grey"
+                            android:textSize="20sp"
+                            android:textStyle="bold" />
                     </LinearLayout>
                 </HorizontalScrollView>
-                <ImageView
-                    android:layout_width="20dp"
-                    android:layout_height="50dp"
-                    android:src="@drawable/plus_sign"
-                    android:layout_marginEnd="10dp"
-                    />
+
+                <ImageButton
+                    android:id="@+id/addInterests"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginStart="5dp"
+                    android:layout_marginEnd="5dp"
+                    android:background="@android:color/transparent"
+                    android:src="@drawable/plus_sign" />
             </LinearLayout>
 
         </LinearLayout>
