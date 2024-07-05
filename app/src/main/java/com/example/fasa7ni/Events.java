@@ -16,7 +16,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Events extends AppCompatActivity implements View.OnClickListener
+public class Events extends AppCompatActivity implements View.OnClickListener, RecyclerViewInterface
 {
     private String email;
     private ImageButton Listat;
@@ -47,7 +47,7 @@ public class Events extends AppCompatActivity implements View.OnClickListener
         list.add(new Event("Yalla Bowling","AUC","Friday","Heggi",R.drawable.paintball_image));
         RecyclerView recyclerView = findViewById(R.id.fosa7_recylcerview);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        recyclerView.setAdapter(new EventAdapter(getApplicationContext(),list));
+        recyclerView.setAdapter(new EventAdapter(this, getApplicationContext(),list));
     }
 
     private void Start()
@@ -178,4 +178,9 @@ public class Events extends AppCompatActivity implements View.OnClickListener
     }
 
 
+    @Override
+    public void onItemClicked(int recycleViewID, int position) {
+        Intent intent = new Intent(this, EventProfile.class);
+        startActivity(intent);
+    }
 }

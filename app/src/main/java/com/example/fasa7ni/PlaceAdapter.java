@@ -13,10 +13,12 @@ import java.util.List;
 
 public class PlaceAdapter extends RecyclerView.Adapter<PlaceViewHolder>
 {
+    private final RecyclerViewInterface recyclerViewInterface;
     Context context;
     List<Place> places;
-    public PlaceAdapter(Context context, List<Place> places)
+    public PlaceAdapter(RecyclerViewInterface recyclerViewInterface, Context context, List<Place> places)
     {
+        this.recyclerViewInterface = recyclerViewInterface;
         this.context = context;
         this.places = places;
     }
@@ -25,7 +27,7 @@ public class PlaceAdapter extends RecyclerView.Adapter<PlaceViewHolder>
     public PlaceViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType)
     {
         View view = LayoutInflater.from(context).inflate(R.layout.list_row,parent,false);
-        return new PlaceViewHolder(view);
+        return new PlaceViewHolder(view,recyclerViewInterface);
     }
 
     @Override

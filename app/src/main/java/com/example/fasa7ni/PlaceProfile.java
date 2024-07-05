@@ -23,7 +23,7 @@ public class PlaceProfile extends AppCompatActivity implements View.OnClickListe
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.event_profile);
+        setContentView(R.layout.place_profile);
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         Start();
     }

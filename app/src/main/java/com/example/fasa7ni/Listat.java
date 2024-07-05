@@ -17,7 +17,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class Listat extends AppCompatActivity implements View.OnClickListener
+public class Listat extends AppCompatActivity implements View.OnClickListener, RecyclerViewInterface
 {
     private String email;
     private ImageButton Event;
@@ -47,16 +47,15 @@ public class Listat extends AppCompatActivity implements View.OnClickListener
         }
 
         List<Place> places_list = new ArrayList<Place>();
-        places_list.add(new Place("Yalla Bowling","AUC","Friday",R.drawable.paintball_image));
-        places_list.add(new Place("Yalla Bowling","AUC","Friday",R.drawable.paintball_image));
-        places_list.add(new Place("Yalla Bowling","AUC","Friday",R.drawable.paintball_image));
-        places_list.add(new Place("Yalla Bowling","AUC","Friday",R.drawable.paintball_image));
-        places_list.add(new Place("Yalla Bowling","AUC","Friday",R.drawable.paintball_image));
-        places_list.add(new Place("Yalla Bowling","AUC","Friday",R.drawable.paintball_image));
-        places_list.add(new Place("Yalla Bowling","AUC","Friday",R.drawable.paintball_image));
+        places_list.add(new Place("Place1","AUC","Friday",R.drawable.paintball_image));
+        places_list.add(new Place("Place2","AUC","Friday",R.drawable.paintball_image));
+        places_list.add(new Place("Place3","AUC","Friday",R.drawable.paintball_image));
+        places_list.add(new Place("Place4","AUC","Friday",R.drawable.paintball_image));
+        places_list.add(new Place("Place5","AUC","Friday",R.drawable.paintball_image));
+        places_list.add(new Place("Place6","AUC","Friday",R.drawable.paintball_image));
         RecyclerView recyclerView2 = findViewById(R.id.places_recyclerview);
         recyclerView2.setLayoutManager(new LinearLayoutManager(this));
-        recyclerView2.setAdapter(new PlaceAdapter(getApplicationContext(), places_list));
+        recyclerView2.setAdapter(new PlaceAdapter(this,getApplicationContext(), places_list));
 
         Event = findViewById(R.id.small_event_btn);
         Home = findViewById(R.id.small_home_btn);
@@ -164,5 +163,11 @@ public class Listat extends AppCompatActivity implements View.OnClickListener
             }
 
         }
+    }
+
+    @Override
+    public void onItemClicked(int recycleViewID, int position) {
+        Intent intent = new Intent(this, PlaceProfile.class);
+        startActivity(intent);
     }
 }

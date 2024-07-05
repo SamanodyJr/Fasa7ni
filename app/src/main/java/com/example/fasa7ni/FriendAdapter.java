@@ -12,10 +12,12 @@ import java.util.List;
 
 public class FriendAdapter extends RecyclerView.Adapter<FriendViewHolder>
 {
+    private final RecyclerViewInterface recyclerViewInterface;
     Context context;
     List<Friend> friends;
-    public FriendAdapter(Context context, List<Friend> friends)
+    public FriendAdapter(RecyclerViewInterface recyclerViewInterface, Context context, List<Friend> friends)
     {
+        this.recyclerViewInterface = recyclerViewInterface;
         this.context = context;
         this.friends = friends;
     }
@@ -24,7 +26,7 @@ public class FriendAdapter extends RecyclerView.Adapter<FriendViewHolder>
     public FriendViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType)
     {
         View view = LayoutInflater.from(context).inflate(R.layout.friends_row,parent,false);
-        return new FriendViewHolder(view);
+        return new FriendViewHolder(view, recyclerViewInterface);
     }
     @Override
     public void onBindViewHolder(@NonNull FriendViewHolder holder, int position)

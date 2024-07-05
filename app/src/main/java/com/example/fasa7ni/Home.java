@@ -14,7 +14,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Home extends AppCompatActivity implements View.OnClickListener
+public class Home extends AppCompatActivity implements View.OnClickListener,RecyclerViewInterface
 {
     private String email;
     private ImageButton Listat;
@@ -44,20 +44,21 @@ public class Home extends AppCompatActivity implements View.OnClickListener
         List<Event> list = new ArrayList<Event>();
         List<Place> places_list = new ArrayList<Place>();
         list.add(new Event("Yalla Koraa","AUC","Friday","Heggi",R.drawable.paintball_image));
-        list.add(new Event("Yalla Koraa","AUC","Friday","Heggi",R.drawable.paintball_image));
-        list.add(new Event("Yalla Koraa","AUC","Friday","Heggi",R.drawable.paintball_image));
-        places_list.add(new Place("Yalla Bowling","AUC","Friday",R.drawable.paintball_image));
-        places_list.add(new Place("Yalla Bowling","AUC","Friday",R.drawable.paintball_image));
-        places_list.add(new Place("Yalla Bowling","AUC","Friday",R.drawable.paintball_image));
-        places_list.add(new Place("Yalla Bowling","AUC","Friday",R.drawable.paintball_image));
-        places_list.add(new Place("Yalla Bowling","AUC","Friday",R.drawable.paintball_image));
-        places_list.add(new Place("Yalla Bowling","AUC","Friday",R.drawable.paintball_image));
+        list.add(new Event("Yalla Balling","AUC","Friday","Heggi",R.drawable.paintball_image));
+        list.add(new Event("Yalla ay 7aga","AUC","Friday","Heggi",R.drawable.paintball_image));
+        places_list.add(new Place("Place1","AUC","Friday",R.drawable.paintball_image));
+        places_list.add(new Place("Place2","AUC","Friday",R.drawable.paintball_image));
+        places_list.add(new Place("Place3","AUC","Friday",R.drawable.paintball_image));
+        places_list.add(new Place("Place4","AUC","Friday",R.drawable.paintball_image));
+        places_list.add(new Place("Place5","AUC","Friday",R.drawable.paintball_image));
+        places_list.add(new Place("Place6","AUC","Friday",R.drawable.paintball_image));
+
         RecyclerView recyclerView = findViewById(R.id.upcoming_fosa7_recyclerView);
         RecyclerView recyclerView2 = findViewById(R.id.intrests_recyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView2.setLayoutManager(new LinearLayoutManager(this));
-        recyclerView.setAdapter(new EventAdapter(getApplicationContext(),list));
-        recyclerView2.setAdapter(new PlaceAdapter(getApplicationContext(),places_list));
+        recyclerView.setAdapter(new EventAdapter(this,getApplicationContext(),list));
+        recyclerView2.setAdapter(new PlaceAdapter(this,getApplicationContext(),places_list));
 
         Listat = findViewById(R.id.small_list_btn);
         Events = findViewById(R.id.small_event_btn);
@@ -132,4 +133,15 @@ public class Home extends AppCompatActivity implements View.OnClickListener
     }
 
 
+    @Override
+    public void onItemClicked(int recycleViewID, int position) {
+        if (recycleViewID == 0){ //Place
+            Intent intent = new Intent(this, PlaceProfile.class);
+            startActivity(intent);
+        } else if (recycleViewID == 1) { //Event
+            Intent intent = new Intent(this, EventProfile.class);
+            startActivity(intent);
+        }
+
+    }
 }

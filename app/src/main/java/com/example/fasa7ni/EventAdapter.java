@@ -12,10 +12,12 @@ import java.util.List;
 
 public class EventAdapter extends RecyclerView.Adapter<EventViewHolder>
 {
+    private final RecyclerViewInterface recyclerViewInterface;
     Context context;
     List<Event> fos7as;
-    public EventAdapter(Context context, List<Event> fos7as)
+    public EventAdapter(RecyclerViewInterface recyclerViewInterface, Context context, List<Event> fos7as)
     {
+        this.recyclerViewInterface = recyclerViewInterface;
         this.context = context;
         this.fos7as = fos7as;
     }
@@ -24,7 +26,7 @@ public class EventAdapter extends RecyclerView.Adapter<EventViewHolder>
     public EventViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType)
     {
         View view = LayoutInflater.from(context).inflate(R.layout.events_row,parent,false);
-        return new EventViewHolder(view);
+        return new EventViewHolder(view,recyclerViewInterface);
     }
     @Override
     public void onBindViewHolder(@NonNull EventViewHolder holder, int position) {

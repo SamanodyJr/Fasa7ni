@@ -626,7 +626,8 @@
             android:text="Save"
             android:layout_below="@id/glSightseeing"
             android:layout_centerHorizontal="true"
-            android:layout_marginTop="16dp"/>
+            android:layout_marginTop="16dp"
+            android:layout_marginBottom="8dp"/>
 
     </RelativeLayout>
 

@@ -12,7 +12,7 @@ public class EventViewHolder extends RecyclerView.ViewHolder
     ImageView  image;
     TextView name,location,hostName, openingHours;
 
-    public EventViewHolder(@NonNull View itemView)
+    public EventViewHolder(@NonNull View itemView, RecyclerViewInterface recyclerViewInterface)
     {
         super(itemView);
         image = itemView.findViewById(R.id.Place_Image);
@@ -21,5 +21,16 @@ public class EventViewHolder extends RecyclerView.ViewHolder
         hostName = itemView.findViewById(R.id.Hostname);
         openingHours = itemView.findViewById(R.id.Opening_Hours);
 
+        itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(recyclerViewInterface != null){
+                    int position = getAdapterPosition();
+                    if(position != RecyclerView.NO_POSITION){
+                        recyclerViewInterface.onItemClicked(1,position);
+                    }
+                }
+            }
+        });
     }
 }

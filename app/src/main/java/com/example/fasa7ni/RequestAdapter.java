@@ -12,10 +12,12 @@ import java.util.List;
 
 public class RequestAdapter extends RecyclerView.Adapter<RequestViewHolder>
 {
+    private final RecyclerViewInterface recyclerViewInterface;
     Context context;
     List<Request> requests;
-    public RequestAdapter(Context context, List<Request> requests)
+    public RequestAdapter(RecyclerViewInterface recyclerViewInterface, Context context, List<Request> requests)
     {
+        this.recyclerViewInterface = recyclerViewInterface;
         this.context = context;
         this.requests = requests;
     }
@@ -24,7 +26,7 @@ public class RequestAdapter extends RecyclerView.Adapter<RequestViewHolder>
     public RequestViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType)
     {
         View view = LayoutInflater.from(context).inflate(R.layout.request_row,parent,false);
-        return new RequestViewHolder(view);
+        return new RequestViewHolder(view,recyclerViewInterface);
     }
     @Override
     public void onBindViewHolder(@NonNull RequestViewHolder holder, int position)

@@ -8,6 +8,7 @@ import android.text.InputType;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
@@ -20,6 +21,7 @@ public class Signup extends AppCompatActivity implements View.OnClickListener
 {
     private Button Sign_up;
     private Button Show;
+    private ImageButton Back;
     private EditText EmailText;
     private EditText PassText;
     private EditText PhoneText;
@@ -46,7 +48,7 @@ public class Signup extends AppCompatActivity implements View.OnClickListener
     {
         Sign_up = findViewById(R.id.signup_btn);
         Show = findViewById(R.id.show_pass_btn);
-
+        Back = findViewById(R.id.backButton);
 
         EmailText = findViewById(R.id.email);
         PassText = findViewById(R.id.pass);
@@ -54,6 +56,7 @@ public class Signup extends AppCompatActivity implements View.OnClickListener
 
         Sign_up.setOnClickListener(this);
         Show.setOnClickListener(this);
+        Back.setOnClickListener(this);
     }
 
     @SuppressLint("SetTextI18n")
@@ -87,6 +90,8 @@ public class Signup extends AppCompatActivity implements View.OnClickListener
             }
             showing = !showing;
         }
+        else if (v.getId() == Back.getId())
+            finish();
         else
             return;
     }

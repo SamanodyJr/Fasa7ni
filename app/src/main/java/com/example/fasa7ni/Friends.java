@@ -15,7 +15,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class Friends extends AppCompatActivity implements View.OnClickListener
+public class Friends extends AppCompatActivity implements View.OnClickListener, RecyclerViewInterface
 {
     private String email;
     private ImageButton Listat;
@@ -43,7 +43,7 @@ public class Friends extends AppCompatActivity implements View.OnClickListener
         list.add(new Friend("Hussein Heggi","80 Common Friends",R.id.remove_friend_btn,R.drawable.heggo_image));
         RecyclerView recyclerView = findViewById(R.id.friends_recyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        recyclerView.setAdapter(new FriendAdapter(getApplicationContext(),list));
+        recyclerView.setAdapter(new FriendAdapter(this,getApplicationContext(),list));
 
         List<Request> req = new ArrayList<Request>();
         req.add(new Request("Sa3eed El Zew","3 Common Friends",R.id.remove_friend_btn,R.id.add_friend_btn, R.drawable.zew_image));
@@ -51,7 +51,7 @@ public class Friends extends AppCompatActivity implements View.OnClickListener
         req.add(new Request("Sa3eed El Zew","3 Common Friends",R.id.remove_friend_btn,R.id.add_friend_btn, R.drawable.zew_image));
         RecyclerView recyclerView2 = findViewById(R.id.requests_recyclerView);
         recyclerView2.setLayoutManager(new LinearLayoutManager(this));
-        recyclerView2.setAdapter(new RequestAdapter(getApplicationContext(),req));
+        recyclerView2.setAdapter(new RequestAdapter(this,getApplicationContext(),req));
 
         Bundle bundle = getIntent().getExtras();
         if (bundle != null)
@@ -128,5 +128,16 @@ public class Friends extends AppCompatActivity implements View.OnClickListener
         Intent F_P = new Intent(Friends.this, Profile.class);
         F_P.putExtra("Email", email);
         startActivity(F_P);
+    }
+
+    @Override
+    public void onItemClicked(int recycleViewID, int position) {
+        if (recycleViewID == 2) { //Friend
+            Intent intent = new Intent(this, Profile.class);
+            startActivity(intent);
+        } else if (recycleViewID == 3) { //Request
+            Intent intent = new Intent(this, Profile.class);
+            startActivity(intent);
+        }
     }
 }
