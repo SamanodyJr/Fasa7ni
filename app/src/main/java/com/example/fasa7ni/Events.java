@@ -3,8 +3,10 @@ package com.example.fasa7ni;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageButton;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -23,6 +25,8 @@ public class Events extends AppCompatActivity implements View.OnClickListener
     private ImageButton Recommender;
     private ImageButton Profile;
     private ImageButton AddFos7a;
+    private Button[] Event_Buttons = new Button[4];
+    private boolean[] Event_Status= new boolean[4];
 
     @SuppressLint("SourceLockedOrientationActivity")
     @Override
@@ -67,6 +71,16 @@ public class Events extends AppCompatActivity implements View.OnClickListener
         Recommender.setOnClickListener(this);
         Profile.setOnClickListener(this);
         AddFos7a.setOnClickListener(this);
+
+        int[] EventbuttonIDs =
+                {
+                        R.id.events_filter_btn, R.id.public_filter_btn, R.id.private_filter_btn, R.id.private_filter_btn
+                };
+
+        for (int i = 0; i < 4; i++) {
+            Event_Buttons[i] = findViewById(EventbuttonIDs[i]);
+            Event_Buttons[i].setOnClickListener(this);
+        }
     }
 
     @Override
@@ -91,7 +105,7 @@ public class Events extends AppCompatActivity implements View.OnClickListener
         else if (v.getId()==AddFos7a.getId())
             Go_Create();
         else
-            return;
+            Go_Filter(v.getId());
 
     }
 
@@ -135,6 +149,32 @@ public class Events extends AppCompatActivity implements View.OnClickListener
         Intent E_C = new Intent(Events.this, Create.class);
         E_C.putExtra("Email", email);
         startActivity(E_C);
+    }
+
+    public void Go_Filter(int id) {
+        for (int i = 0; i < 4; i++) {
+            if (id == Event_Buttons[i].getId())
+            {
+                Event_Status[i] = !Event_Status[i];
+
+                if (Event_Status[i])
+                {
+                    Event_Buttons[i].setBackgroundColor(Color.parseColor("#2C2B2B"));
+                    Event_Buttons[i].setTextColor(Color.parseColor("#41F2F8"));
+                }
+                else
+                {
+                    Event_Buttons[i].setBackgroundColor(Color.parseColor("#41F2F8"));
+                    Event_Buttons[i].setTextColor(Color.parseColor("#2C2B2B"));
+                }
+            }
+            else
+            {
+                Event_Buttons[i].setBackgroundColor(Color.parseColor("#41F2F8"));
+                Event_Buttons[i].setTextColor(Color.parseColor("#2C2B2B"));
+            }
+
+        }
     }
 
 

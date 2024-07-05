@@ -3,8 +3,10 @@ package com.example.fasa7ni;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageButton;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -23,6 +25,8 @@ public class Listat extends AppCompatActivity implements View.OnClickListener
     private ImageButton Friends;
     private ImageButton Recommender;
     private ImageButton Profile;
+    private Button[] List_Buttons = new android.widget.Button[5];
+    private boolean[] List_Status= new boolean[5];
 
     @SuppressLint("SourceLockedOrientationActivity")
     @Override
@@ -65,6 +69,17 @@ public class Listat extends AppCompatActivity implements View.OnClickListener
         Friends.setOnClickListener(this);
         Recommender.setOnClickListener(this);
         Profile.setOnClickListener(this);
+
+        int[] ListbuttonIDs =
+                {
+                        R.id.list_filter_btn, R.id.sports_filter_btn, R.id.food_filter_btn, R.id.activity_filter_btn,
+                        R.id.sightseeing_filter_btn
+                };
+
+        for (int i = 0; i < 5; i++) {
+            List_Buttons[i] = findViewById(ListbuttonIDs[i]);
+            List_Buttons[i].setOnClickListener(this);
+        }
     }
 
     @Override
@@ -86,7 +101,7 @@ public class Listat extends AppCompatActivity implements View.OnClickListener
             Go_Profile();
 
         else
-            return;
+            Go_Filter(v.getId());
 
     }
 
@@ -123,5 +138,31 @@ public class Listat extends AppCompatActivity implements View.OnClickListener
         Intent L_E = new Intent(Listat.this, Events.class);
         L_E.putExtra("Email", email);
         startActivity(L_E);
+    }
+
+    public void Go_Filter(int id) {
+        for (int i = 0; i < 5; i++) {
+            if (id == List_Buttons[i].getId())
+            {
+                List_Status[i] = !List_Status[i];
+
+                if (List_Status[i])
+                {
+                    List_Buttons[i].setBackgroundColor(Color.parseColor("#2C2B2B"));
+                    List_Buttons[i].setTextColor(Color.parseColor("#41F2F8"));
+                }
+                else
+                {
+                    List_Buttons[i].setBackgroundColor(Color.parseColor("#41F2F8"));
+                    List_Buttons[i].setTextColor(Color.parseColor("#2C2B2B"));
+                }
+            }
+            else
+            {
+                List_Buttons[i].setBackgroundColor(Color.parseColor("#41F2F8"));
+                List_Buttons[i].setTextColor(Color.parseColor("#2C2B2B"));
+            }
+
+        }
     }
 }

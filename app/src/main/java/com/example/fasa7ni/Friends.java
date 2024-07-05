@@ -8,11 +8,17 @@ import android.view.View;
 import android.widget.ImageButton;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
+import java.util.ArrayList;
+import java.util.List;
+
 
 public class Friends extends AppCompatActivity implements View.OnClickListener
 {
     private String email;
-    private ImageButton List;
+    private ImageButton Listat;
     private ImageButton Home;
     private ImageButton Profile;
     private ImageButton Events;
@@ -30,19 +36,36 @@ public class Friends extends AppCompatActivity implements View.OnClickListener
 
     private void Start()
     {
+        List<Friend> list = new ArrayList<Friend>();
+        list.add(new Friend("Hussein Heggi","80 Common Friends",R.id.remove_friend_btn,R.drawable.heggo_image));
+        list.add(new Friend("Hussein Heggi","80 Common Friends",R.id.remove_friend_btn,R.drawable.heggo_image));
+        list.add(new Friend("Hussein Heggi","80 Common Friends",R.id.remove_friend_btn,R.drawable.heggo_image));
+        list.add(new Friend("Hussein Heggi","80 Common Friends",R.id.remove_friend_btn,R.drawable.heggo_image));
+        RecyclerView recyclerView = findViewById(R.id.friends_recyclerView);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        recyclerView.setAdapter(new FriendAdapter(getApplicationContext(),list));
+
+        List<Request> req = new ArrayList<Request>();
+        req.add(new Request("Sa3eed El Zew","3 Common Friends",R.id.remove_friend_btn,R.id.add_friend_btn, R.drawable.zew_image));
+        req.add(new Request("Sa3eed El Zew","3 Common Friends",R.id.remove_friend_btn,R.id.add_friend_btn, R.drawable.zew_image));
+        req.add(new Request("Sa3eed El Zew","3 Common Friends",R.id.remove_friend_btn,R.id.add_friend_btn, R.drawable.zew_image));
+        RecyclerView recyclerView2 = findViewById(R.id.requests_recyclerView);
+        recyclerView2.setLayoutManager(new LinearLayoutManager(this));
+        recyclerView2.setAdapter(new RequestAdapter(getApplicationContext(),req));
+
         Bundle bundle = getIntent().getExtras();
         if (bundle != null)
         {
             email = bundle.getString("Email");
         }
 
-        List = findViewById(R.id.small_list_btn);
+        Listat = findViewById(R.id.small_list_btn);
         Events = findViewById(R.id.small_event_btn);
         Home = findViewById(R.id.small_home_btn);
         Recommender = findViewById(R.id.small_recommender_btn);
         Profile = findViewById(R.id.profile_btn);
 
-        List.setOnClickListener(this);
+        Listat.setOnClickListener(this);
         Events.setOnClickListener(this);
         Home.setOnClickListener(this);
         Recommender.setOnClickListener(this);
@@ -52,7 +75,7 @@ public class Friends extends AppCompatActivity implements View.OnClickListener
 
     @Override
     public void onClick(View v) {
-        if(v.getId()==List.getId())
+        if(v.getId()==Listat.getId())
             Go_List();
 
         else if (v.getId()==Events.getId())
