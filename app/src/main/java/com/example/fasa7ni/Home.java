@@ -52,15 +52,15 @@ public class Home extends AppCompatActivity implements View.OnClickListener,Recy
         }
 
 
-        list.add(new Event("Yalla Koraa","AUC","Friday","Heggi",R.drawable.paintball_image));
-        list.add(new Event("Yalla Balling","AUC","Friday","Heggi",R.drawable.paintball_image));
-        list.add(new Event("Yalla ay 7aga","AUC","Friday","Heggi",R.drawable.paintball_image));
-        places_list.add(new Place("Place1","AUC","Friday",R.drawable.paintball_image));
-        places_list.add(new Place("Place2","AUC","Friday",R.drawable.paintball_image));
-        places_list.add(new Place("Place3","AUC","Friday",R.drawable.paintball_image));
-        places_list.add(new Place("Place4","AUC","Friday",R.drawable.paintball_image));
-        places_list.add(new Place("Place5","AUC","Friday",R.drawable.paintball_image));
-        places_list.add(new Place("Place6","AUC","Friday",R.drawable.paintball_image));
+//        list.add(new Event("Yalla Koraa","AUC","Friday","Heggi",R.drawable.paintball_image));
+//        list.add(new Event("Yalla Balling","AUC","Friday","Heggi",R.drawable.paintball_image));
+//        list.add(new Event("Yalla ay 7aga","AUC","Friday","Heggi",R.drawable.paintball_image));
+//        places_list.add(new Place("Place1","AUC","Friday",R.drawable.paintball_image));
+//        places_list.add(new Place("Place2","AUC","Friday",R.drawable.paintball_image));
+//        places_list.add(new Place("Place3","AUC","Friday",R.drawable.paintball_image));
+//        places_list.add(new Place("Place4","AUC","Friday",R.drawable.paintball_image));
+//        places_list.add(new Place("Place5","AUC","Friday",R.drawable.paintball_image));
+//        places_list.add(new Place("Place6","AUC","Friday",R.drawable.paintball_image));
         combinedList.addAll(list);
         combinedList.addAll(places_list);
         RecyclerView recyclerView = findViewById(R.id.upcoming_fosa7_recyclerView);

@@ -1,16 +1,26 @@
 package com.example.fasa7ni;
 
-public class Place {
-    String name;
-    String location;
-    String opening_hours;
-    int image;
+public class Place
+{
+    public String name;
+    public String location;
+    public String description;
+    public String phone;
+    public String OpeningTime;
+    public String ClosingTime;
+    public String WorkingDays;
+    public int image;
 
-    public Place(String name, String location, String opening_hours, int image)
+
+    public Place(String name, String Location, String description, String phone, String OpeningTime, String ClosingTime, String WorkingDays, int image)
     {
         this.name = name;
-        this.location = location;
-        this.opening_hours = opening_hours;
+        this.location = Location;
+        this.description = description;
+        this.phone = phone;
+        this.OpeningTime = OpeningTime;
+        this.ClosingTime = ClosingTime;
+        this.WorkingDays = WorkingDays;
         this.image = image;
     }
 
@@ -26,23 +36,57 @@ public class Place {
         return location;
     }
 
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
+
     public void setLocation(String location) {
         this.location = location;
     }
 
-    public String getOpening_hours() {
-        return opening_hours;
+    public String getOpeningTime() {
+        return OpeningTime;
     }
 
-    public void setOpening_hours(String opening_hours) {
-        this.opening_hours = opening_hours;
+    public void setOpeningTime(String OpeningTime) {
+        this.OpeningTime = OpeningTime;
     }
 
-    public int getImage() {
+    public String getClosingTime() {
+        return ClosingTime;
+    }
+
+    public void setClosingTime(String ClosingTime) {
+        this.ClosingTime = ClosingTime;
+    }
+
+    public int getImage()
+    {
         return image;
     }
 
     public void setImage(int image) {
         this.image = image;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description)
+    {
+        this.description = description;
+    }
+
+    public String getWorkingDays() {
+        return WorkingDays;
+    }
+
+    public void setWorkingDays(String workingDays) {
+        WorkingDays = workingDays;
     }
 }

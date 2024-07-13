@@ -12,6 +12,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.Spinner;
+
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
@@ -24,11 +26,11 @@ public class Profile extends AppCompatActivity implements View.OnClickListener
     private EditText name;
     private EditText DOB;
     private EditText MobileNumber;
-    private EditText Mail;
     private EditText interest1;
     private EditText interest2;
     private EditText interest3;
     private ImageButton EditIntrest;
+    private Spinner spinner;
     @SuppressLint("SourceLockedOrientationActivity")
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -47,22 +49,22 @@ public class Profile extends AppCompatActivity implements View.OnClickListener
             email = bundle.getString("Email");
         }
 
+        spinner = findViewById(R.id.spinnerLocation);
         BackButton = findViewById(R.id.backButton);
         name = findViewById(R.id.name);
         DOB = findViewById(R.id.dob);
         MobileNumber = findViewById(R.id.mobile_icon_profile);
-        Mail = findViewById(R.id.email);
         interest1 = findViewById(R.id.interest1);
         interest2 = findViewById(R.id.interest2);
         interest3 = findViewById(R.id.interest3);
         EditButton= findViewById(R.id.editButton);
         EditIntrest= findViewById(R.id.addInterests);
 
+        spinner.setEnabled(false);
         EditButton.setOnClickListener(this);
         BackButton.setOnClickListener(this);
         DOB.setOnClickListener(this);
         MobileNumber.setOnClickListener(this);
-        Mail.setOnClickListener(this);
         interest1.setOnClickListener(this);
         interest2.setOnClickListener(this);
         interest3.setOnClickListener(this);
@@ -97,8 +99,8 @@ public class Profile extends AppCompatActivity implements View.OnClickListener
         boolean isEnabled = !name.isEnabled();
         name.setEnabled(isEnabled);
         DOB.setEnabled(isEnabled);
+        spinner.setEnabled(isEnabled);
         MobileNumber.setEnabled(isEnabled);
-        Mail.setEnabled(isEnabled);
         interest1.setEnabled(isEnabled);
         interest2.setEnabled(isEnabled);
         interest3.setEnabled(isEnabled);
@@ -108,7 +110,6 @@ public class Profile extends AppCompatActivity implements View.OnClickListener
             name.requestFocus();
             DOB.requestFocus();
             MobileNumber.requestFocus();
-            Mail.requestFocus();
         }
         else
         {

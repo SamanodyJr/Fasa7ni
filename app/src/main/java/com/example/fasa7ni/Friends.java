@@ -4,8 +4,12 @@ import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ImageButton;
+import android.widget.PopupWindow;
+import android.widget.SearchView;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -23,6 +27,11 @@ public class Friends extends AppCompatActivity implements View.OnClickListener, 
     private ImageButton Profile;
     private ImageButton Events;
     private ImageButton Recommender;
+    private PopupWindow popupWindow;
+    private List<Friend> list = new ArrayList<Friend>();
+    private SearchView searchView;
+    private List<Request> req = new ArrayList<Request>();
+
 
     @SuppressLint("SourceLockedOrientationActivity")
     @Override
@@ -36,7 +45,6 @@ public class Friends extends AppCompatActivity implements View.OnClickListener, 
 
     private void Start()
     {
-        List<Friend> list = new ArrayList<Friend>();
         list.add(new Friend("Hussein Heggi","80 Common Friends",R.id.remove_friend_btn,R.drawable.heggo_image));
         list.add(new Friend("Hussein Heggi","80 Common Friends",R.id.remove_friend_btn,R.drawable.heggo_image));
         list.add(new Friend("Hussein Heggi","80 Common Friends",R.id.remove_friend_btn,R.drawable.heggo_image));
@@ -45,13 +53,42 @@ public class Friends extends AppCompatActivity implements View.OnClickListener, 
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setAdapter(new FriendAdapter(this,getApplicationContext(),list));
 
-        List<Request> req = new ArrayList<Request>();
         req.add(new Request("Sa3eed El Zew","3 Common Friends",R.id.remove_friend_btn,R.id.add_friend_btn, R.drawable.zew_image));
         req.add(new Request("Sa3eed El Zew","3 Common Friends",R.id.remove_friend_btn,R.id.add_friend_btn, R.drawable.zew_image));
         req.add(new Request("Sa3eed El Zew","3 Common Friends",R.id.remove_friend_btn,R.id.add_friend_btn, R.drawable.zew_image));
         RecyclerView recyclerView2 = findViewById(R.id.requests_recyclerView);
         recyclerView2.setLayoutManager(new LinearLayoutManager(this));
         recyclerView2.setAdapter(new RequestAdapter(this,getApplicationContext(),req));
+
+        searchView = findViewById(R.id.searchView);
+
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                // Perform search when user submits query
+                return true;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                // Perform search when query text changes
+                performSearch(newText);
+                return true;
+            }
+        });
+
+        searchView.setOnQueryTextFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (hasFocus) {
+                    showDropdown();
+                } else {
+                    if (popupWindow != null && popupWindow.isShowing()) {
+                        popupWindow.dismiss();
+                    }
+                }
+            }
+        });
 
         Bundle bundle = getIntent().getExtras();
         if (bundle != null)
@@ -72,6 +109,32 @@ public class Friends extends AppCompatActivity implements View.OnClickListener, 
         Profile.setOnClickListener(this);
 
     }
+    private void performSearch(String text) {
+        if (list.isEmpty()) {
+            popupWindow.dismiss();
+        } else {
+            showDropdown();
+        }
+    }
+
+    private void showDropdown() {
+        if (popupWindow == null) {
+            View view = LayoutInflater.from(this).inflate(R.layout.dropdown_search_results, null);
+            RecyclerView recyclerView = view.findViewById(R.id.recyclerView); // Corrected line
+            recyclerView.setLayoutManager(new LinearLayoutManager(this));
+            recyclerView.setAdapter(new RequestAdapter(this,getApplicationContext(),req)); // Assuming EventAdapter constructor accepts List<Event>
+
+            popupWindow = new PopupWindow(view, ViewGroup.LayoutParams.MATCH_PARENT, 1000);
+            popupWindow.setOutsideTouchable(true);
+            popupWindow.setFocusable(false);
+
+        }
+
+        if (!popupWindow.isShowing() && !list.isEmpty()) {
+            popupWindow.showAsDropDown(searchView);
+        }
+    }
+
 
     @Override
     public void onClick(View v) {
@@ -132,7 +195,12 @@ public class Friends extends AppCompatActivity implements View.OnClickListener, 
 
     @Override
     public void onItemClicked(int recycleViewID, int position) {
-        if (recycleViewID == 2) { //Friend
+        if (recycleViewID == 2) { // Remove item from list
+            list.remove(position);
+            RecyclerView recyclerView = findViewById(R.id.friends_recyclerView);
+            recyclerView.getAdapter().notifyItemRemoved(position);
+            recyclerView.getAdapter().notifyItemRangeChanged(position, list.size());
+        } else if (recycleViewID == 1) { // View profile
             Intent intent = new Intent(this, Profile.class);
             startActivity(intent);
         } else if (recycleViewID == 3) { //Request

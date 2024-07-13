@@ -163,33 +163,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="10dp"
-                android:orientation="horizontal">
-
-                <ImageView
-                    android:layout_width="50dp"
-                    android:layout_height="50dp"
-                    android:layout_marginStart="35dp"
-                    android:layout_marginEnd="10dp"
-                    android:src="@drawable/mail_icon_profile" />
-
-                <EditText
-                    android:id="@+id/email"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="20dp"
-                    android:enabled="false"
-                    android:gravity="center_horizontal"
-                    android:text="mariamghobz@aucegypt.edu"
-                    android:textColor="@color/light_grey"
-                    android:textSize="18sp"
-                    android:textStyle="bold" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="10dp"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:layout_marginBottom="20dp"
+                >
 
                 <ImageView
                     android:layout_width="50dp"
@@ -289,6 +265,28 @@
                     android:layout_marginEnd="5dp"
                     android:background="@android:color/transparent"
                     android:src="@drawable/plus_sign" />
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="10dp"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_marginStart="35dp"
+                    android:layout_marginEnd="10dp"
+                    android:src="@drawable/area_icon_profile" />
+                <Spinner
+                    android:id="@+id/spinnerLocation"
+                    android:layout_width="match_parent"
+                    android:layout_height="55dp"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginEnd="10dp"
+                    android:background="@drawable/area_shape"
+                    android:entries="@array/locations" />
+
             </LinearLayout>
 
         </LinearLayout>

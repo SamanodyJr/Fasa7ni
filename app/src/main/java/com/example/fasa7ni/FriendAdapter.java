@@ -39,6 +39,7 @@ public class FriendAdapter extends RecyclerView.Adapter<FriendViewHolder> {
         holder.remove.setOnClickListener(v -> {
             friends.remove(position);
             notifyItemRemoved(position);
+            notifyItemRangeChanged(position, friends.size());
         });
     }
 

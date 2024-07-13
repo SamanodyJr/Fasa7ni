@@ -14,13 +14,12 @@
             android:id="@+id/Place_Image"
             android:layout_width="80dp"
             android:layout_height="80dp"
-            tools:srcCompat="@tools:sample/avatars"
             android:background="@drawable/circle_border"
             android:clipToOutline="true"
             android:scaleType="centerCrop"
             android:layout_alignParentStart="true"
             android:layout_centerVertical="true"
-            />
+            tools:srcCompat="@tools:sample/avatars" />
 
         <LinearLayout
             android:id="@+id/textcontainer"
@@ -42,7 +41,7 @@
                 android:paddingBottom="2dp"
                 android:textSize="22sp"
                 android:textColor="@color/white"
-                android:textStyle="bold"/>
+                android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/mutual"
@@ -50,7 +49,7 @@
                 android:layout_height="wrap_content"
                 android:text="TextView"
                 android:paddingBottom="2dp"
-                android:textColor="@color/white"/>
+                android:textColor="@color/white" />
 
         </LinearLayout>
 
@@ -62,10 +61,10 @@
             android:layout_gravity="center"
             android:layout_marginStart="4dp"
             android:layout_marginEnd="4dp"
-            app:srcCompat="@drawable/x_sign"
             android:layout_alignParentEnd="true"
             android:layout_centerVertical="true"
-            android:padding="8dp"/>
+            android:padding="8dp"
+            app:srcCompat="@drawable/x_sign" />
 
     </RelativeLayout>
 

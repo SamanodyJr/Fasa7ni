@@ -35,7 +35,7 @@ public class PlaceViewHolder extends RecyclerView.ViewHolder
     public void bind(Place place) {
         name.setText(place.getName());
         location.setText(place.getLocation());
-        openingHours.setText(place.getOpening_hours());
+        openingHours.setText(place.getOpeningTime());
         image.setImageResource(place.getImage());
     }
 }

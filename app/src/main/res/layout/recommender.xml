@@ -98,43 +98,84 @@
                     android:layout_height="wrap_content"
                     android:gravity="center"
                     android:orientation="vertical">
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Capacity:"
+                        android:textColor="@color/light_grey"
+                        android:layout_marginStart="30dp"
+                        android:layout_marginEnd="30dp"
+                        android:layout_marginTop="20dp"
+                        android:textStyle="bold"
+                        android:textSize="20sp"
+                        />
+                    <Spinner
+                        android:id="@+id/spinnerCapacity"
+                        android:layout_width="match_parent"
+                        android:layout_height="55dp"
+                        android:layout_marginTop="5dp"
+                        android:layout_marginStart="30dp"
+                        android:layout_marginEnd="30dp"
+                        android:background="@drawable/email_password_shape"
+                        android:entries="@array/capacity" />
 
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Location:"
+                        android:textColor="@color/light_grey"
+                        android:layout_marginStart="30dp"
+                        android:layout_marginEnd="30dp"
+                        android:layout_marginTop="20dp"
+                        android:textStyle="bold"
+                        android:textSize="20sp"
+                        />
+                    <Spinner
+                        android:id="@+id/spinnerLocation"
+                        android:layout_width="match_parent"
+                        android:layout_height="55dp"
+                        android:layout_marginTop="5dp"
+                        android:layout_marginStart="30dp"
+                        android:layout_marginEnd="30dp"
+                        android:background="@drawable/email_password_shape"
+                        android:entries="@array/locations" />
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Date:"
+                        android:textColor="@color/light_grey"
+                        android:layout_marginStart="30dp"
+                        android:layout_marginEnd="30dp"
+                        android:layout_marginTop="20dp"
+                        android:textStyle="bold"
+                        android:textSize="20sp"
+                        />
                     <EditText
                         android:layout_width="match_parent"
                         android:layout_height="55dp"
                         android:layout_marginStart="30dp"
+                        android:layout_marginTop="5dp"
                         android:layout_marginEnd="30dp"
-                        android:layout_marginTop="20dp"
                         android:background="@drawable/email_password_shape"
-                        android:hint="Capacity"
+                        android:hint="YYYY-MM-DD"
                         android:paddingLeft="20dp" />
-
-                    <EditText
+                    <TextView
                         android:layout_width="match_parent"
-                        android:layout_height="55dp"
+                        android:layout_height="wrap_content"
+                        android:text="Category:"
+                        android:textColor="@color/light_grey"
                         android:layout_marginStart="30dp"
-                        android:layout_marginTop="20dp"
                         android:layout_marginEnd="30dp"
-                        android:background="@drawable/email_password_shape"
-                        android:hint="Location"
-                        android:paddingLeft="20dp" />
-
-                    <EditText
-                        android:layout_width="match_parent"
-                        android:layout_height="55dp"
-                        android:layout_marginStart="30dp"
                         android:layout_marginTop="20dp"
-                        android:layout_marginEnd="30dp"
-                        android:background="@drawable/email_password_shape"
-                        android:hint="Date (DD/MM/YYYY)"
-                        android:paddingLeft="20dp" />
-
+                        android:textStyle="bold"
+                        android:textSize="20sp"
+                        />
                     <Spinner
                         android:id="@+id/country_spinner"
                         android:layout_width="match_parent"
                         android:layout_height="55dp"
                         android:layout_marginStart="30dp"
-                        android:layout_marginTop="20dp"
+                        android:layout_marginTop="5dp"
                         android:layout_marginEnd="30dp"
                         android:layout_marginBottom="30dp"
                         android:background="@drawable/email_password_shape"

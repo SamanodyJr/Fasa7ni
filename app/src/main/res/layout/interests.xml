@@ -28,29 +28,6 @@
 
             <!-- Spinner - spinnerLocation -->
 
-            <TextView
-                android:id="@+id/UserLocation"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Location"
-                android:textStyle="bold"
-                android:textColor="@color/light_grey"
-                android:textSize="24sp"
-                android:layout_below="@id/backButton"
-                android:layout_centerHorizontal="true"
-                android:layout_marginTop="16dp" />
-
-            <Spinner
-                android:id="@+id/spinnerLocation"
-                android:layout_width="match_parent"
-                android:layout_height="55dp"
-                android:layout_below="@id/UserLocation"
-                android:layout_marginStart="10dp"
-                android:layout_marginTop="20dp"
-                android:layout_marginEnd="10dp"
-                android:paddingLeft="10dp"
-                android:background="@drawable/email_password_shape"
-                android:entries="@array/locations" />
         </RelativeLayout>
 
         <TextView
@@ -575,7 +552,7 @@
                 android:layout_gravity="center"
                 android:layout_marginStart="4dp"
                 android:backgroundTint="@color/red"
-                android:text="Palace"
+                android:text="Palaces"
                 android:textColor="@color/white"
                 android:textStyle="bold" />
 
@@ -609,7 +586,7 @@
                 android:layout_columnWeight="1"
                 android:layout_gravity="center"
                 android:backgroundTint="@color/red"
-                android:text="Landmark"
+                android:text="Synagogue"
                 android:textColor="@color/white"
                 android:textStyle="bold" />
 
