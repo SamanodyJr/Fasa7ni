@@ -136,7 +136,7 @@
                 android:layout_columnWeight="1"
                 android:layout_gravity="center"
                 android:backgroundTint="@color/red"
-                android:text="Volley"
+                android:text="Track"
                 android:textColor="@color/white"
                 android:textStyle="bold" />
 
@@ -171,7 +171,7 @@
                 android:layout_gravity="center"
 
                 android:backgroundTint="@color/red"
-                android:text="Handball"
+                android:text="Yoga"
                 android:textColor="@color/white"
                 android:textStyle="bold" />
 
@@ -183,7 +183,7 @@
                 android:layout_gravity="center"
                 android:layout_marginStart="4dp"
                 android:backgroundTint="@color/red"
-                android:text="Basketball"
+                android:text="Fitness"
                 android:textColor="@color/white"
                 android:textStyle="bold" />
 
@@ -609,7 +609,18 @@
                 android:layout_columnWeight="1"
                 android:layout_gravity="center"
                 android:backgroundTint="@color/red"
-                android:text="Synagouge"
+                android:text="Landmark"
+                android:textColor="@color/white"
+                android:textStyle="bold" />
+
+            <Button
+                android:id="@+id/interest38"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_columnWeight="1"
+                android:layout_gravity="center"
+                android:backgroundTint="@color/red"
+                android:text="Cultural"
                 android:textColor="@color/white"
                 android:textStyle="bold" />
 
