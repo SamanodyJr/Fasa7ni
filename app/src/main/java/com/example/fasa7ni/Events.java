@@ -5,9 +5,13 @@ import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.SearchView;
+import android.widget.PopupWindow;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -25,8 +29,13 @@ public class Events extends AppCompatActivity implements View.OnClickListener, R
     private ImageButton Recommender;
     private ImageButton Profile;
     private ImageButton AddFos7a;
+    private PopupWindow popupWindow;
     private Button[] Event_Buttons = new Button[4];
     private boolean[] Event_Status= new boolean[4];
+    private SearchView searchView;
+    private List<Event> list = new ArrayList<Event>();
+
+
 
     @SuppressLint("SourceLockedOrientationActivity")
     @Override
@@ -36,8 +45,8 @@ public class Events extends AppCompatActivity implements View.OnClickListener, R
         setContentView(R.layout.events);
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         Start();
+        searchView = findViewById(R.id.searchView);
 
-        List<Event> list = new ArrayList<Event>();
         list.add(new Event("Yalla Bowling","AUC","Friday","Heggi",R.drawable.paintball_image));
         list.add(new Event("Yalla Koraa","AUC","Friday","Heggi",R.drawable.paintball_image));
         list.add(new Event("Yalla Basket","AUC","Friday","Heggi",R.drawable.paintball_image));
@@ -48,7 +57,63 @@ public class Events extends AppCompatActivity implements View.OnClickListener, R
         RecyclerView recyclerView = findViewById(R.id.fosa7_recylcerview);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setAdapter(new EventAdapter(this, getApplicationContext(),list));
+
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                // Perform search when user submits query
+                return true;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                // Perform search when query text changes
+                performSearch(newText);
+                return true;
+            }
+        });
+
+        searchView.setOnQueryTextFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (hasFocus) {
+                    showDropdown();
+                } else {
+                    if (popupWindow != null && popupWindow.isShowing()) {
+                        popupWindow.dismiss();
+                    }
+                }
+            }
+        });
     }
+
+    private void performSearch(String text) {
+        if (list.isEmpty()) {
+            popupWindow.dismiss();
+        } else {
+            showDropdown();
+        }
+    }
+
+    private void showDropdown() {
+        if (popupWindow == null) {
+            View view = LayoutInflater.from(this).inflate(R.layout.dropdown_search_results, null);
+            RecyclerView recyclerView = view.findViewById(R.id.recyclerView); // Corrected line
+            recyclerView.setLayoutManager(new LinearLayoutManager(this));
+            recyclerView.setAdapter(new EventAdapter(this,getApplicationContext(),list)); // Assuming EventAdapter constructor accepts List<Event>
+
+            popupWindow = new PopupWindow(view, ViewGroup.LayoutParams.MATCH_PARENT, 1000);
+            popupWindow.setOutsideTouchable(true);
+            popupWindow.setFocusable(false);
+
+        }
+
+        if (!popupWindow.isShowing() && !list.isEmpty()) {
+            popupWindow.showAsDropDown(searchView);
+        }
+    }
+
+
 
     private void Start()
     {

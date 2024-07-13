@@ -10,42 +10,40 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.List;
 
-public class FriendAdapter extends RecyclerView.Adapter<FriendViewHolder>
-{
+public class FriendAdapter extends RecyclerView.Adapter<FriendViewHolder> {
+
     private final RecyclerViewInterface recyclerViewInterface;
-    Context context;
-    List<Friend> friends;
-    public FriendAdapter(RecyclerViewInterface recyclerViewInterface, Context context, List<Friend> friends)
-    {
+    private Context context;
+    private List<Friend> friends;
+
+    public FriendAdapter(RecyclerViewInterface recyclerViewInterface, Context context, List<Friend> friends) {
         this.recyclerViewInterface = recyclerViewInterface;
         this.context = context;
         this.friends = friends;
     }
+
     @NonNull
     @Override
-    public FriendViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType)
-    {
-        View view = LayoutInflater.from(context).inflate(R.layout.friends_row,parent,false);
+    public FriendViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        View view = LayoutInflater.from(context).inflate(R.layout.friends_row, parent, false);
         return new FriendViewHolder(view, recyclerViewInterface);
     }
+
     @Override
-    public void onBindViewHolder(@NonNull FriendViewHolder holder, int position)
-    {
+    public void onBindViewHolder(@NonNull FriendViewHolder holder, int position) {
         holder.name.setText(friends.get(position).getName());
         holder.image.setImageResource(friends.get(position).getImage());
         holder.mutual.setText(friends.get(position).getMutual());
         holder.remove.setImageResource(R.drawable.x_sign);
 
-        holder.remove.setOnClickListener(v ->
-        {
-        friends.remove(position);
-        notifyItemRemoved(position);
+        holder.remove.setOnClickListener(v -> {
+            friends.remove(position);
+            notifyItemRemoved(position);
         });
     }
+
     @Override
-    public int getItemCount()
-    {
+    public int getItemCount() {
         return friends.size();
     }
-
 }

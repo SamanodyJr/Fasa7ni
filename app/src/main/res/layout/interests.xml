@@ -267,7 +267,7 @@
                 android:backgroundTint="@color/red"
                 android:textColor="@color/white"
                 android:textStyle="bold"
-                android:text="Theatre"
+                android:text="Adventure"
                 android:layout_columnWeight="1"
                 android:layout_gravity="center"
                 />

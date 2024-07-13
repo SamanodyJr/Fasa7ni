@@ -41,4 +41,5 @@ public class EventAdapter extends RecyclerView.Adapter<EventViewHolder>
         return fos7as.size();
     }
 
+
 }
