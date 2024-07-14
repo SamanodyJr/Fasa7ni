@@ -133,6 +133,7 @@ public class Home extends AppCompatActivity implements View.OnClickListener,Recy
 
         RequestQueue requestQueue = Volley.newRequestQueue(this);
 
+
         JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(
                 Request.Method.GET, url, null,
                 response ->
@@ -149,7 +150,7 @@ public class Home extends AppCompatActivity implements View.OnClickListener,Recy
                             String Fos7a_Time = place.getString("Fos7a_Time");
                             int Is_Public = place.getInt("Is_Public");
                             String Place_Name = place.getString("Place_Name");
-                            list.add(new Event(name, Host, description,Fos7a_Time, Fos7a_Date,cap, 0, Is_Public, Place_Name));
+                            list.add(new Event(name, Host, description,Fos7a_Time, Fos7a_Date,cap, R.drawable.padel, Is_Public, Place_Name));
                         }
                         Event_Adapter.notifyDataSetChanged();
                     }
@@ -169,6 +170,10 @@ public class Home extends AppCompatActivity implements View.OnClickListener,Recy
         String url = "http://10.0.2.2:4000/Fetch_Places?Cat=All"; //add type
         RequestQueue requestQueue = Volley.newRequestQueue(this);
 
+        int ID[]={
+                R.drawable.adrenaline_park_laser_tag,R.drawable.bibliotecha,R.drawable.b,R.drawable.befit_360,R.drawable.bounce_egypt
+
+        };
         JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(
                 Request.Method.GET, url, null,
                 response ->
@@ -184,7 +189,8 @@ public class Home extends AppCompatActivity implements View.OnClickListener,Recy
                             String openingTime = place.getString("OpeningTime");
                             String closingTime = place.getString("ClosingTime");
                             String workingDays = place.getString("WorkingDays");
-                            places_list.add(new Place(name, location, description, phone, openingTime, closingTime, workingDays, 0));
+                            int Image=ID[i%5];
+                            places_list.add(new Place(name, location, description, phone, openingTime, closingTime, workingDays, Image));
                         }
                         placeAdapter.notifyDataSetChanged();
                     }

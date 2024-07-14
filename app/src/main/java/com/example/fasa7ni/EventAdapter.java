@@ -34,7 +34,7 @@ public class EventAdapter extends RecyclerView.Adapter<EventViewHolder>
         holder.image.setImageResource(fos7as.get(position).getImage());
         holder.location.setText(fos7as.get(position).getLocation());
         holder.hostName.setText(fos7as.get(position).getHostName());
-    }
+        holder.openingHours.setText(fos7as.get(position).getDate());    }
     @Override
     public int getItemCount()
     {

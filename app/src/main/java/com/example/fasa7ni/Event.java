@@ -55,4 +55,12 @@ public class Event
     public void setImage(int image) {
         this.Image = image;
     }
+
+    public String getDate() {
+        return Fos7a_Date;
+    }
+
+    public void setDate(String Date) {
+        this.Fos7a_Date = Date;
+    }
 }

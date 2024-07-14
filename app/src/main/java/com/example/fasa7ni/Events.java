@@ -47,7 +47,6 @@ public class Events extends AppCompatActivity implements View.OnClickListener, R
     private RecyclerView recyclerView;
 
 
-
     @SuppressLint("SourceLockedOrientationActivity")
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -99,6 +98,12 @@ public class Events extends AppCompatActivity implements View.OnClickListener, R
 
         RequestQueue requestQueue = Volley.newRequestQueue(this);
 
+        int ID[]={
+                R.drawable.adrenaline_park_laser_tag,
+                R.drawable.the_great_pyramid_of_giza,
+                R.drawable.padel
+        };
+
         JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(
                 Request.Method.GET, url, null,
                 response ->
@@ -111,16 +116,19 @@ public class Events extends AppCompatActivity implements View.OnClickListener, R
                             String Host = place.getString("Host_Email");
                             String description = place.getString("Description");
                             int cap = place.getInt("Capacity");
-                            String Fos7a_Date = place.getString("Fos7a_Date");
+                            String Fos7a_Date = place.getString("Fos7a_Date").substring(0, Math.min(place.getString("Fos7a_Date").length(), 10));;
                             String Fos7a_Time = place.getString("Fos7a_Time");
                             int Is_Public = place.getInt("Is_Public");
                             String Place_Name = place.getString("Place_Name");
-                            list.add(new Event(name, Host, description,Fos7a_Time, Fos7a_Date,cap, 0, Is_Public, Place_Name));
+                            String blank=Place_Name.replaceAll("_", " ").toLowerCase();
+                            int Image =ID[i];
+                            list.add(new Event(name, Host, description,Fos7a_Time, Fos7a_Date,cap, Image, Is_Public, Place_Name));
+//                            Log.d("Image Name 2",Integer.toString(R.drawable.the_great_pyramid_of_giza));
+//                            Log.d("Image Name 3",Integer.toString(Image));
                         }
                         Event_Adapter.notifyDataSetChanged();
                     }
-                    catch (JSONException e)
-                    {
+                    catch (JSONException e) {
                         e.printStackTrace();
                     }
                 },

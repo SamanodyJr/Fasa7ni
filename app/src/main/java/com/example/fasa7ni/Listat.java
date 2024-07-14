@@ -152,6 +152,8 @@ public class Listat extends AppCompatActivity implements View.OnClickListener, R
         String url = "http://10.0.2.2:4000/Fetch_Places?Cat=" + Type; //add type
         RequestQueue requestQueue = Volley.newRequestQueue(this);
 
+        int ID[]={R.drawable.adrenaline_park_laser_tag,R.drawable.bibliotecha,R.drawable.b,R.drawable.befit_360,R.drawable.bounce_egypt};
+
         JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(
                 Request.Method.GET, url, null,
                 response ->
@@ -167,7 +169,8 @@ public class Listat extends AppCompatActivity implements View.OnClickListener, R
                             String openingTime = place.getString("OpeningTime");
                             String closingTime = place.getString("ClosingTime");
                             String workingDays = place.getString("WorkingDays");
-                            places_list.add(new Place(name, location, description, phone, openingTime, closingTime, workingDays, 0));
+                            int Image=ID[i%5];
+                            places_list.add(new Place(name, location, description, phone, openingTime, closingTime, workingDays, Image));
                         }
                         placeAdapter.notifyDataSetChanged();
                     }
