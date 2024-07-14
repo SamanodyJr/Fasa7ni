@@ -28,8 +28,8 @@
             android:layout_toEndOf="@id/Place_Image"
             android:layout_toStartOf="@id/remove_friend_btn"
             android:orientation="vertical"
-            android:paddingTop="8dp"
             android:paddingBottom="8dp"
+            android:gravity="center"
             android:layout_marginStart="8dp"
             android:layout_marginEnd="8dp">
 
@@ -39,7 +39,7 @@
                 android:layout_height="wrap_content"
                 android:text="TextView"
                 android:paddingBottom="2dp"
-                android:textSize="22sp"
+                android:textSize="20sp"
                 android:textColor="@color/white"
                 android:textStyle="bold" />
 

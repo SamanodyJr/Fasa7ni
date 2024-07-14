@@ -8,7 +8,7 @@ srv.use(express.json());
 srv.use(bodyParser.json());
 
 
-var mysqlcon = mysql.createConnection({host: "localhost", user: "root", password: "Heggi_2002", database : "Fasa7ni"});
+var mysqlcon = mysql.createConnection({host: "localhost", user: "root", password: "SQLZammar_79", database : "Fasa7ni"});
 
 mysqlcon.connect( function (err)
 {
@@ -82,7 +82,7 @@ srv.get('/Fetch_Friends', function(req, res)
     var q = url.parse(req.url, true).query;
     var Reciever=q.Reciever_Email;
 
-    var Retrieve_Query="SELECT * FROM Friend_Requests WHERE Reciever_Email=? AND Accepted=1" ;
+    var Retrieve_Query="SELECT Username,Accepted FROM Friend_Requests FR INNER JOIN User U ON FR.Requester_Email=U.Email WHERE Reciever_Email=?" ;
 
 
     mysqlcon.query(Retrieve_Query,[Reciever], function (err, result)
@@ -95,31 +95,6 @@ srv.get('/Fetch_Friends', function(req, res)
         else
         {
             console.log("Friends Recieved Successfully.");
-            res.send(result);
-        }
-    });
-
-});
-
-srv.get('/Fetch_Requests', function(req, res)
-{
-
-    console.log("Getting Requests from DB...");
-    var q = url.parse(req.url, true).query;
-    var Reciever=q.Reciever_Email;
-
-    var Retrieve_Query="SELECT * FROM Friend_Requests WHERE Reciever_Email=? AND Accepted=0" ;
-
-    mysqlcon.query(Retrieve_Query,[Reciever], function (err, result)
-    {
-        if (err)
-        {
-            console.log("Retrieval Failed.");
-            throw err;
-        }
-        else
-        {
-            console.log("Requests Recieved Successfully.");
             res.send(result);
         }
     });
@@ -325,6 +300,34 @@ srv.post('/Add_User', function(req, res)
         else
         {
             console.log("User Inserted Successfully.");
+            res.send(result);
+        }
+    });
+});
+
+srv.post('/Login', function(req, res)
+{
+
+    console.log("Verifying User Details...");
+    const [
+        Email,
+        Pass
+     ] = req.body;
+    console.log(Email,Pass);
+
+    var Checking_Query = "SELECT Email, Pass FROM User WHERE Email=? AND Pass=?";
+
+    mysqlcon.query(Checking_Query, [Email,Pass], function (err, result)
+    {
+        if (err)
+        {
+            console.log("Insertion Failed.");
+            throw err;
+        }
+        else
+        {
+            console.log("User Inserted Successfully.");
+            console.log(result);
             res.send(result);
         }
     });

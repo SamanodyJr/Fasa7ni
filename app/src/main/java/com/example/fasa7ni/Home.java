@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,6 +16,14 @@ import android.widget.SearchView;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.toolbox.JsonArrayRequest;
+import com.android.volley.toolbox.Volley;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -32,6 +41,12 @@ public class Home extends AppCompatActivity implements View.OnClickListener,Recy
     private List<Place> places_list = new ArrayList<Place>();
     private List<Object> combinedList = new ArrayList<>();
     private PopupWindow popupWindow;
+    private EventAdapter Event_Adapter;
+    private PlaceAdapter placeAdapter;
+    private RecyclerView recyclerView;
+    private RecyclerView recyclerView2;
+
+
 
     @SuppressLint("SourceLockedOrientationActivity")
     @Override
@@ -50,25 +65,17 @@ public class Home extends AppCompatActivity implements View.OnClickListener,Recy
         {
             email = bundle.getString("Email");
         }
+        Event_Adapter = new EventAdapter(this,getApplicationContext(),list);
+        placeAdapter = new PlaceAdapter(this,getApplicationContext(),places_list);
 
-
-//        list.add(new Event("Yalla Koraa","AUC","Friday","Heggi",R.drawable.paintball_image));
-//        list.add(new Event("Yalla Balling","AUC","Friday","Heggi",R.drawable.paintball_image));
-//        list.add(new Event("Yalla ay 7aga","AUC","Friday","Heggi",R.drawable.paintball_image));
-//        places_list.add(new Place("Place1","AUC","Friday",R.drawable.paintball_image));
-//        places_list.add(new Place("Place2","AUC","Friday",R.drawable.paintball_image));
-//        places_list.add(new Place("Place3","AUC","Friday",R.drawable.paintball_image));
-//        places_list.add(new Place("Place4","AUC","Friday",R.drawable.paintball_image));
-//        places_list.add(new Place("Place5","AUC","Friday",R.drawable.paintball_image));
-//        places_list.add(new Place("Place6","AUC","Friday",R.drawable.paintball_image));
         combinedList.addAll(list);
         combinedList.addAll(places_list);
-        RecyclerView recyclerView = findViewById(R.id.upcoming_fosa7_recyclerView);
-        RecyclerView recyclerView2 = findViewById(R.id.intrests_recyclerView);
+        recyclerView = findViewById(R.id.upcoming_fosa7_recyclerView);
+        recyclerView2 = findViewById(R.id.intrests_recyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView2.setLayoutManager(new LinearLayoutManager(this));
-        recyclerView.setAdapter(new EventAdapter(this,getApplicationContext(),list));
-        recyclerView2.setAdapter(new PlaceAdapter(this,getApplicationContext(),places_list));
+        recyclerView.setAdapter(Event_Adapter);
+        recyclerView2.setAdapter(placeAdapter);
 
         searchView = findViewById(R.id.searchView);
 
@@ -84,6 +91,9 @@ public class Home extends AppCompatActivity implements View.OnClickListener,Recy
         Friends.setOnClickListener(this);
         Recommender.setOnClickListener(this);
         Profile.setOnClickListener(this);
+
+        FetchPlaces();
+        FetchUpcoming();
 
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
@@ -114,6 +124,82 @@ public class Home extends AppCompatActivity implements View.OnClickListener,Recy
         });
 
     }
+    private void FetchUpcoming( )
+    {
+        list.clear();
+        String url;
+
+        url = "http://10.0.2.2:4000/Fetch_My_Fosa7?Email="+email; //add type
+
+        RequestQueue requestQueue = Volley.newRequestQueue(this);
+
+        JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(
+                Request.Method.GET, url, null,
+                response ->
+                {
+                    try {
+                        for (int i = 0; i < response.length(); i++)
+                        {
+                            JSONObject place = response.getJSONObject(i);
+                            String name = place.getString("Fos7a_Name");
+                            String Host = place.getString("Host_Email");
+                            String description = place.getString("Description");
+                            int cap = place.getInt("Capacity");
+                            String Fos7a_Date = place.getString("Fos7a_Date");
+                            String Fos7a_Time = place.getString("Fos7a_Time");
+                            int Is_Public = place.getInt("Is_Public");
+                            String Place_Name = place.getString("Place_Name");
+                            list.add(new Event(name, Host, description,Fos7a_Time, Fos7a_Date,cap, 0, Is_Public, Place_Name));
+                        }
+                        Event_Adapter.notifyDataSetChanged();
+                    }
+                    catch (JSONException e)
+                    {
+                        e.printStackTrace();
+                    }
+                },
+                Throwable::printStackTrace
+        );
+        requestQueue.add(jsonArrayRequest);
+
+    }
+    private void FetchPlaces()
+    {
+        places_list.clear();
+        String url = "http://10.0.2.2:4000/Fetch_Places?Cat=All"; //add type
+        RequestQueue requestQueue = Volley.newRequestQueue(this);
+
+        JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(
+                Request.Method.GET, url, null,
+                response ->
+                {
+                    try {
+                        for (int i = 0; i < response.length(); i++)
+                        {
+                            JSONObject place = response.getJSONObject(i);
+                            String name = place.getString("Place_Name");
+                            String location = place.getString("Address");
+                            String description = place.getString("Description");
+                            String phone = place.getString("Phone");
+                            String openingTime = place.getString("OpeningTime");
+                            String closingTime = place.getString("ClosingTime");
+                            String workingDays = place.getString("WorkingDays");
+                            places_list.add(new Place(name, location, description, phone, openingTime, closingTime, workingDays, 0));
+                        }
+                        placeAdapter.notifyDataSetChanged();
+                    }
+                    catch (JSONException e)
+                    {
+                        e.printStackTrace();
+                    }
+                },
+                Throwable::printStackTrace
+        );
+        requestQueue.add(jsonArrayRequest);
+
+    }
+
+
 
     private void performSearch(String text) {
 

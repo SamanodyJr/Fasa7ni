@@ -2,58 +2,57 @@ package com.example.fasa7ni;
 
 public class Event
 {
-    String name, hostName;
-    String location;
+    String Fos7a_Name, Host_Email;
+    String Description;
+    int Capacity;
+    String Fos7a_Time;
+    String Fos7a_Date;
+    int Image;
+    int Is_Public;
+    String Place_Name;
 
-    String opening_hours;
-    int image;
-
-    public Event(String name, String location, String opening_hours, String hostName, int image)
+    public Event(String Fos7a_Name, String Host_Email, String Description, String Fos7a_Time, String Fos7a_Date,int Capacity,int Image, int Is_Public,String Place_Name)
     {
-        this.name = name;
-        this.location = location;
-        this.opening_hours = opening_hours;
-        this.image = image;
-        this.hostName = hostName;
+        this.Fos7a_Name = Fos7a_Name;
+        this.Host_Email = Host_Email;
+        this.Description = Description;
+        this.Capacity = Capacity;
+        this.Fos7a_Time = Fos7a_Time;
+        this.Fos7a_Date = Fos7a_Date;
+        this.Image = Image;
+        this.Is_Public = Is_Public;
+        this.Place_Name = Place_Name;
     }
 
     public String getName() {
-        return name;
+        return Fos7a_Name;
     }
 
     public void setName(String name) {
-        this.name = name;
+        this.Fos7a_Name = name;
     }
 
     public String getHostName() {
-        return hostName;
+        return Host_Email;
     }
 
     public void setHostName(String name) {
-        this.hostName = name;
+        this.Host_Email = name;
     }
 
     public String getLocation() {
-        return location;
+        return Place_Name;
     }
 
     public void setLocation(String location) {
-        this.location = location;
-    }
-
-    public String getOpening_hours() {
-        return opening_hours;
-    }
-
-    public void setOpening_hours(String opening_hours) {
-        this.opening_hours = opening_hours;
+        this.Place_Name = location;
     }
 
     public int getImage() {
-        return image;
+        return Image;
     }
 
     public void setImage(int image) {
-        this.image = image;
+        this.Image = image;
     }
 }

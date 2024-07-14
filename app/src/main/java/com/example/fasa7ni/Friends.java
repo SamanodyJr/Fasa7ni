@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,6 +15,13 @@ import android.widget.SearchView;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.android.volley.RequestQueue;
+import com.android.volley.toolbox.JsonArrayRequest;
+import com.android.volley.toolbox.Volley;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -31,6 +39,12 @@ public class Friends extends AppCompatActivity implements View.OnClickListener, 
     private List<Friend> list = new ArrayList<Friend>();
     private SearchView searchView;
     private List<Request> req = new ArrayList<Request>();
+    private RequestAdapter Request_Adapter;
+    private FriendAdapter Friend_Adapter;
+    private RecyclerView recyclerView;
+    private RecyclerView recyclerView2;
+
+
 
 
     @SuppressLint("SourceLockedOrientationActivity")
@@ -45,20 +59,6 @@ public class Friends extends AppCompatActivity implements View.OnClickListener, 
 
     private void Start()
     {
-        list.add(new Friend("Hussein Heggi","80 Common Friends",R.id.remove_friend_btn,R.drawable.heggo_image));
-        list.add(new Friend("Hussein Heggi","80 Common Friends",R.id.remove_friend_btn,R.drawable.heggo_image));
-        list.add(new Friend("Hussein Heggi","80 Common Friends",R.id.remove_friend_btn,R.drawable.heggo_image));
-        list.add(new Friend("Hussein Heggi","80 Common Friends",R.id.remove_friend_btn,R.drawable.heggo_image));
-        RecyclerView recyclerView = findViewById(R.id.friends_recyclerView);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        recyclerView.setAdapter(new FriendAdapter(this,getApplicationContext(),list));
-
-        req.add(new Request("Sa3eed El Zew","3 Common Friends",R.id.remove_friend_btn,R.id.add_friend_btn, R.drawable.zew_image));
-        req.add(new Request("Sa3eed El Zew","3 Common Friends",R.id.remove_friend_btn,R.id.add_friend_btn, R.drawable.zew_image));
-        req.add(new Request("Sa3eed El Zew","3 Common Friends",R.id.remove_friend_btn,R.id.add_friend_btn, R.drawable.zew_image));
-        RecyclerView recyclerView2 = findViewById(R.id.requests_recyclerView);
-        recyclerView2.setLayoutManager(new LinearLayoutManager(this));
-        recyclerView2.setAdapter(new RequestAdapter(this,getApplicationContext(),req));
 
         searchView = findViewById(R.id.searchView);
 
@@ -95,6 +95,16 @@ public class Friends extends AppCompatActivity implements View.OnClickListener, 
         {
             email = bundle.getString("Email");
         }
+        Request_Adapter = new RequestAdapter(this,getApplicationContext(),req);
+        Friend_Adapter = new FriendAdapter(this,getApplicationContext(),list);
+
+        recyclerView = findViewById(R.id.friends_recyclerView);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        recyclerView.setAdapter(Friend_Adapter);
+
+        recyclerView2 = findViewById(R.id.requests_recyclerView);
+        recyclerView2.setLayoutManager(new LinearLayoutManager(this));
+        recyclerView2.setAdapter(Request_Adapter);
 
         Listat = findViewById(R.id.small_list_btn);
         Events = findViewById(R.id.small_event_btn);
@@ -108,7 +118,50 @@ public class Friends extends AppCompatActivity implements View.OnClickListener, 
         Recommender.setOnClickListener(this);
         Profile.setOnClickListener(this);
 
+        FetchFriends();
+
     }
+    private void FetchFriends()
+    {
+        list.clear();
+        req.clear();
+        String url;
+        url = "http://10.0.2.2:4000/Fetch_Friends?Reciever_Email="+email; //add Email
+
+
+        RequestQueue requestQueue = Volley.newRequestQueue(this);
+
+        JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(
+                com.android.volley.Request.Method.GET, url, null,
+                response ->
+                {
+                    Log.d("Requester", Integer.toString(response.length()));
+                    try {
+                        for (int i = 0; i < response.length(); i++)
+                        {
+                            JSONObject friend = response.getJSONObject(i);
+                            String Username = friend.getString("Username");
+                            int Accepted = friend.getInt("Accepted");
+                            if(Accepted==1)
+                                list.add(new Friend(Username,0,23,R.id.remove_friend_btn));
+                            else
+                                req.add(new Request(Username,100,R.id.remove_friend_btn,R.id.add_friend_btn,0));
+                        }
+                        Friend_Adapter.notifyDataSetChanged();
+                        Request_Adapter.notifyDataSetChanged();
+                    }
+                    catch (JSONException e)
+                    {
+                        e.printStackTrace();
+                    }
+                },
+                Throwable::printStackTrace
+        );
+        requestQueue.add(jsonArrayRequest);
+
+    }
+
+
     private void performSearch(String text) {
         if (list.isEmpty()) {
             popupWindow.dismiss();

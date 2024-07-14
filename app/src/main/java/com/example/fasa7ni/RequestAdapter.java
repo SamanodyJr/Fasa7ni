@@ -33,7 +33,7 @@ public class RequestAdapter extends RecyclerView.Adapter<RequestViewHolder>
     {
         holder.name.setText(requests.get(position).getName());
         holder.image.setImageResource(requests.get(position).getImage());
-        holder.mutual.setText(requests.get(position).getMutual());
+        holder.mutual.setText(Integer.toString(requests.get(position).getMutual()));
         holder.remove.setImageResource(R.drawable.x_sign);
         holder.add.setText("ADD");
 

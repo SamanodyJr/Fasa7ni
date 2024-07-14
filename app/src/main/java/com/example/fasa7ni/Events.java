@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,6 +17,14 @@ import android.widget.PopupWindow;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.toolbox.JsonArrayRequest;
+import com.android.volley.toolbox.Volley;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -34,6 +43,8 @@ public class Events extends AppCompatActivity implements View.OnClickListener, R
     private boolean[] Event_Status= new boolean[4];
     private SearchView searchView;
     private List<Event> list = new ArrayList<Event>();
+    private EventAdapter Event_Adapter;
+    private RecyclerView recyclerView;
 
 
 
@@ -47,16 +58,6 @@ public class Events extends AppCompatActivity implements View.OnClickListener, R
         Start();
         searchView = findViewById(R.id.searchView);
 
-        list.add(new Event("Yalla Bowling","AUC","Friday","Heggi",R.drawable.paintball_image));
-        list.add(new Event("Yalla Koraa","AUC","Friday","Heggi",R.drawable.paintball_image));
-        list.add(new Event("Yalla Basket","AUC","Friday","Heggi",R.drawable.paintball_image));
-        list.add(new Event("Yalla bs","AUC","Friday","Heggi",R.drawable.paintball_image));
-        list.add(new Event("Yalla Bowling","AUC","Friday","Heggi",R.drawable.paintball_image));
-        list.add(new Event("Yalla Bowling","AUC","Friday","Heggi",R.drawable.paintball_image));
-        list.add(new Event("Yalla Bowling","AUC","Friday","Heggi",R.drawable.paintball_image));
-        RecyclerView recyclerView = findViewById(R.id.fosa7_recylcerview);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        recyclerView.setAdapter(new EventAdapter(this, getApplicationContext(),list));
 
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
@@ -86,6 +87,49 @@ public class Events extends AppCompatActivity implements View.OnClickListener, R
             }
         });
     }
+
+    private void FetchEvents(String Type)
+    {
+        list.clear();
+        String url;
+        if(Type=="Mine")
+            url = "http://10.0.2.2:4000/Fetch_My_Fosa7?Email=" + email; //add type
+        else
+            url = "http://10.0.2.2:4000/Fetch_Fosa7?Type=" + Type; //add type
+
+        RequestQueue requestQueue = Volley.newRequestQueue(this);
+
+        JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(
+                Request.Method.GET, url, null,
+                response ->
+                {
+                    try {
+                        for (int i = 0; i < response.length(); i++)
+                        {
+                            JSONObject place = response.getJSONObject(i);
+                            String name = place.getString("Fos7a_Name");
+                            String Host = place.getString("Host_Email");
+                            String description = place.getString("Description");
+                            int cap = place.getInt("Capacity");
+                            String Fos7a_Date = place.getString("Fos7a_Date");
+                            String Fos7a_Time = place.getString("Fos7a_Time");
+                            int Is_Public = place.getInt("Is_Public");
+                            String Place_Name = place.getString("Place_Name");
+                            list.add(new Event(name, Host, description,Fos7a_Time, Fos7a_Date,cap, 0, Is_Public, Place_Name));
+                        }
+                        Event_Adapter.notifyDataSetChanged();
+                    }
+                    catch (JSONException e)
+                    {
+                        e.printStackTrace();
+                    }
+                },
+                Throwable::printStackTrace
+        );
+        requestQueue.add(jsonArrayRequest);
+
+    }
+
 
     private void performSearch(String text) {
         if (list.isEmpty()) {
@@ -123,6 +167,8 @@ public class Events extends AppCompatActivity implements View.OnClickListener, R
             email = bundle.getString("Email");
         }
 
+        Event_Adapter = new EventAdapter(this,getApplicationContext(),list);
+
         Listat = findViewById(R.id.small_list_btn);
         Home = findViewById(R.id.small_home_btn);
         Friends = findViewById(R.id.small_friends_btn);
@@ -139,13 +185,22 @@ public class Events extends AppCompatActivity implements View.OnClickListener, R
 
         int[] EventbuttonIDs =
                 {
-                        R.id.events_filter_btn, R.id.public_filter_btn, R.id.private_filter_btn, R.id.private_filter_btn
+                        R.id.events_filter_btn, R.id.public_filter_btn, R.id.private_filter_btn, R.id.mine_btn
                 };
 
         for (int i = 0; i < 4; i++) {
             Event_Buttons[i] = findViewById(EventbuttonIDs[i]);
             Event_Buttons[i].setOnClickListener(this);
         }
+
+        Event_Buttons[0].setBackgroundColor(Color.parseColor("#2C2B2B"));
+        Event_Buttons[0].setTextColor(Color.parseColor("#41F2F8"));
+        Event_Status[0] = true;
+
+        RecyclerView recyclerView = findViewById(R.id.fosa7_recylcerview);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        recyclerView.setAdapter(Event_Adapter);
+        FetchEvents("All");
     }
 
     @Override
@@ -217,27 +272,42 @@ public class Events extends AppCompatActivity implements View.OnClickListener, R
     }
 
     public void Go_Filter(int id) {
-        for (int i = 0; i < 4; i++) {
+        for (int i = 0; i < 4; i++)
+        {
             if (id == Event_Buttons[i].getId())
-            {
-                Event_Status[i] = !Event_Status[i];
+                Event_Status[i] = true;
+            else
+                Event_Status[i] = false;
 
-                if (Event_Status[i])
-                {
-                    Event_Buttons[i].setBackgroundColor(Color.parseColor("#2C2B2B"));
-                    Event_Buttons[i].setTextColor(Color.parseColor("#41F2F8"));
-                }
-                else
-                {
-                    Event_Buttons[i].setBackgroundColor(Color.parseColor("#41F2F8"));
-                    Event_Buttons[i].setTextColor(Color.parseColor("#2C2B2B"));
-                }
+            if (Event_Status[i])
+            {
+                Event_Buttons[i].setBackgroundColor(Color.parseColor("#2C2B2B"));
+                Event_Buttons[i].setTextColor(Color.parseColor("#41F2F8"));
             }
             else
             {
                 Event_Buttons[i].setBackgroundColor(Color.parseColor("#41F2F8"));
                 Event_Buttons[i].setTextColor(Color.parseColor("#2C2B2B"));
             }
+        }
+        Button myButton = findViewById(id);
+        String buttonText = myButton.getText().toString();
+        switch (buttonText){
+            case ("Mine"):
+                FetchEvents("Mine");
+                break;
+            case("Public"):
+                FetchEvents("1");
+                break;
+            case("Private"):
+                FetchEvents("0");
+                break;
+            case("All"):
+                FetchEvents("All");
+                break;
+            default:
+                FetchEvents("All");
+                break;
 
         }
     }

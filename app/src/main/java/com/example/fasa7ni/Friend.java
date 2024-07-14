@@ -2,32 +2,34 @@ package com.example.fasa7ni;
 
 public class Friend
 {
-    String name, mutual;
-    int remove;
+    String Requester;
     int image;
+    int Mutual;
+    int remove;
 
-    public Friend(String name, String mutual, int remove, int image)
+    public Friend(String req, int image,int mut,int remove)
     {
-        this.name = name;
+        this.Requester = req;
         this.image = image;
-        this.mutual = mutual;
-        this.remove = remove;
+        this.Mutual=mut;
+        this.remove=remove;
+
     }
 
     public String getName() {
-        return name;
+        return Requester;
     }
 
     public void setName(String name) {
-        this.name = name;
+        this.Requester = name;
     }
 
-    public String getMutual() {
-        return mutual;
+    public int getMutual() {
+        return Mutual;
     }
 
-    public void setMutual(String mutual) {
-        this.mutual = mutual;
+    public void setMutual(int mutual) {
+        this.Mutual = mutual;
     }
 
     public int getRemove() {

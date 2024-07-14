@@ -19,7 +19,7 @@ import javax.inject.Inject;
  * A catalog of dependencies accessible via the {@code libs} extension.
  */
 @NonNullApi
-public class LibrariesForLibsInPluginsBlock extends AbstractExternalDependencyFactory {
+public class LibrariesForLibs extends AbstractExternalDependencyFactory {
 
     private final AbstractExternalDependencyFactory owner = this;
     private final EspressoLibraryAccessors laccForEspressoLibraryAccessors = new EspressoLibraryAccessors(owner);
@@ -29,7 +29,7 @@ public class LibrariesForLibsInPluginsBlock extends AbstractExternalDependencyFa
     private final PluginAccessors paccForPluginAccessors = new PluginAccessors(providers, config);
 
     @Inject
-    public LibrariesForLibsInPluginsBlock(DefaultVersionCatalog config, ProviderFactory providers, ObjectFactory objects, ImmutableAttributesFactory attributesFactory, CapabilityNotationParser capabilityNotationParser) {
+    public LibrariesForLibs(DefaultVersionCatalog config, ProviderFactory providers, ObjectFactory objects, ImmutableAttributesFactory attributesFactory, CapabilityNotationParser capabilityNotationParser) {
         super(config, providers, objects, attributesFactory, capabilityNotationParser);
     }
 
@@ -38,12 +38,8 @@ public class LibrariesForLibsInPluginsBlock extends AbstractExternalDependencyFa
      * with version reference <b>activity</b>
      * <p>
      * This dependency was declared in catalog libs.versions.toml
-     *
-     * @deprecated Will be removed in Gradle 9.0.
      */
-    @Deprecated
     public Provider<MinimalExternalModuleDependency> getActivity() {
-        org.gradle.internal.deprecation.DeprecationLogger.deprecateBehaviour("Accessing libraries or bundles from version catalogs in the plugins block.").withAdvice("Only use versions or plugins from catalogs in the plugins block.").willBeRemovedInGradle9().withUpgradeGuideSection(8, "kotlin_dsl_deprecated_catalogs_plugins_block").nagUser();
         return create("activity");
     }
 
@@ -52,12 +48,8 @@ public class LibrariesForLibsInPluginsBlock extends AbstractExternalDependencyFa
      * with version reference <b>appcompat</b>
      * <p>
      * This dependency was declared in catalog libs.versions.toml
-     *
-     * @deprecated Will be removed in Gradle 9.0.
      */
-    @Deprecated
     public Provider<MinimalExternalModuleDependency> getAppcompat() {
-        org.gradle.internal.deprecation.DeprecationLogger.deprecateBehaviour("Accessing libraries or bundles from version catalogs in the plugins block.").withAdvice("Only use versions or plugins from catalogs in the plugins block.").willBeRemovedInGradle9().withUpgradeGuideSection(8, "kotlin_dsl_deprecated_catalogs_plugins_block").nagUser();
         return create("appcompat");
     }
 
@@ -66,12 +58,8 @@ public class LibrariesForLibsInPluginsBlock extends AbstractExternalDependencyFa
      * with version reference <b>constraintlayout</b>
      * <p>
      * This dependency was declared in catalog libs.versions.toml
-     *
-     * @deprecated Will be removed in Gradle 9.0.
      */
-    @Deprecated
     public Provider<MinimalExternalModuleDependency> getConstraintlayout() {
-        org.gradle.internal.deprecation.DeprecationLogger.deprecateBehaviour("Accessing libraries or bundles from version catalogs in the plugins block.").withAdvice("Only use versions or plugins from catalogs in the plugins block.").willBeRemovedInGradle9().withUpgradeGuideSection(8, "kotlin_dsl_deprecated_catalogs_plugins_block").nagUser();
         return create("constraintlayout");
     }
 
@@ -80,12 +68,8 @@ public class LibrariesForLibsInPluginsBlock extends AbstractExternalDependencyFa
      * with version reference <b>junit</b>
      * <p>
      * This dependency was declared in catalog libs.versions.toml
-     *
-     * @deprecated Will be removed in Gradle 9.0.
      */
-    @Deprecated
     public Provider<MinimalExternalModuleDependency> getJunit() {
-        org.gradle.internal.deprecation.DeprecationLogger.deprecateBehaviour("Accessing libraries or bundles from version catalogs in the plugins block.").withAdvice("Only use versions or plugins from catalogs in the plugins block.").willBeRemovedInGradle9().withUpgradeGuideSection(8, "kotlin_dsl_deprecated_catalogs_plugins_block").nagUser();
         return create("junit");
     }
 
@@ -94,12 +78,8 @@ public class LibrariesForLibsInPluginsBlock extends AbstractExternalDependencyFa
      * with version reference <b>material</b>
      * <p>
      * This dependency was declared in catalog libs.versions.toml
-     *
-     * @deprecated Will be removed in Gradle 9.0.
      */
-    @Deprecated
     public Provider<MinimalExternalModuleDependency> getMaterial() {
-        org.gradle.internal.deprecation.DeprecationLogger.deprecateBehaviour("Accessing libraries or bundles from version catalogs in the plugins block.").withAdvice("Only use versions or plugins from catalogs in the plugins block.").willBeRemovedInGradle9().withUpgradeGuideSection(8, "kotlin_dsl_deprecated_catalogs_plugins_block").nagUser();
         return create("material");
     }
 
@@ -108,48 +88,32 @@ public class LibrariesForLibsInPluginsBlock extends AbstractExternalDependencyFa
      * with version reference <b>recyclerview</b>
      * <p>
      * This dependency was declared in catalog libs.versions.toml
-     *
-     * @deprecated Will be removed in Gradle 9.0.
      */
-    @Deprecated
     public Provider<MinimalExternalModuleDependency> getRecyclerview() {
-        org.gradle.internal.deprecation.DeprecationLogger.deprecateBehaviour("Accessing libraries or bundles from version catalogs in the plugins block.").withAdvice("Only use versions or plugins from catalogs in the plugins block.").willBeRemovedInGradle9().withUpgradeGuideSection(8, "kotlin_dsl_deprecated_catalogs_plugins_block").nagUser();
         return create("recyclerview");
     }
 
     /**
-     * Dependency provider for <b>volley</b> with <b>com.android.volley:volley</b> coordinates and
+     * Dependency provider for <b>volley</b> with <b>androidx.volley:volley</b> coordinates and
      * with version reference <b>volley</b>
      * <p>
      * This dependency was declared in catalog libs.versions.toml
-     *
-     * @deprecated Will be removed in Gradle 9.0.
      */
-    @Deprecated
     public Provider<MinimalExternalModuleDependency> getVolley() {
-        org.gradle.internal.deprecation.DeprecationLogger.deprecateBehaviour("Accessing libraries or bundles from version catalogs in the plugins block.").withAdvice("Only use versions or plugins from catalogs in the plugins block.").willBeRemovedInGradle9().withUpgradeGuideSection(8, "kotlin_dsl_deprecated_catalogs_plugins_block").nagUser();
         return create("volley");
     }
 
     /**
      * Group of libraries at <b>espresso</b>
-     *
-     * @deprecated Will be removed in Gradle 9.0.
      */
-    @Deprecated
     public EspressoLibraryAccessors getEspresso() {
-        org.gradle.internal.deprecation.DeprecationLogger.deprecateBehaviour("Accessing libraries or bundles from version catalogs in the plugins block.").withAdvice("Only use versions or plugins from catalogs in the plugins block.").willBeRemovedInGradle9().withUpgradeGuideSection(8, "kotlin_dsl_deprecated_catalogs_plugins_block").nagUser();
         return laccForEspressoLibraryAccessors;
     }
 
     /**
      * Group of libraries at <b>ext</b>
-     *
-     * @deprecated Will be removed in Gradle 9.0.
      */
-    @Deprecated
     public ExtLibraryAccessors getExt() {
-        org.gradle.internal.deprecation.DeprecationLogger.deprecateBehaviour("Accessing libraries or bundles from version catalogs in the plugins block.").withAdvice("Only use versions or plugins from catalogs in the plugins block.").willBeRemovedInGradle9().withUpgradeGuideSection(8, "kotlin_dsl_deprecated_catalogs_plugins_block").nagUser();
         return laccForExtLibraryAccessors;
     }
 
@@ -162,12 +126,8 @@ public class LibrariesForLibsInPluginsBlock extends AbstractExternalDependencyFa
 
     /**
      * Group of bundles at <b>bundles</b>
-     *
-     * @deprecated Will be removed in Gradle 9.0.
      */
-    @Deprecated
     public BundleAccessors getBundles() {
-        org.gradle.internal.deprecation.DeprecationLogger.deprecateBehaviour("Accessing libraries or bundles from version catalogs in the plugins block.").withAdvice("Only use versions or plugins from catalogs in the plugins block.").willBeRemovedInGradle9().withUpgradeGuideSection(8, "kotlin_dsl_deprecated_catalogs_plugins_block").nagUser();
         return baccForBundleAccessors;
     }
 
@@ -178,10 +138,6 @@ public class LibrariesForLibsInPluginsBlock extends AbstractExternalDependencyFa
         return paccForPluginAccessors;
     }
 
-    /**
-     * @deprecated Will be removed in Gradle 9.0.
-     */
-    @Deprecated
     public static class EspressoLibraryAccessors extends SubDependencyFactory {
 
         public EspressoLibraryAccessors(AbstractExternalDependencyFactory owner) { super(owner); }
@@ -191,21 +147,13 @@ public class LibrariesForLibsInPluginsBlock extends AbstractExternalDependencyFa
          * with version reference <b>espressoCore</b>
          * <p>
          * This dependency was declared in catalog libs.versions.toml
-         *
-         * @deprecated Will be removed in Gradle 9.0.
          */
-        @Deprecated
         public Provider<MinimalExternalModuleDependency> getCore() {
-            org.gradle.internal.deprecation.DeprecationLogger.deprecateBehaviour("Accessing libraries or bundles from version catalogs in the plugins block.").withAdvice("Only use versions or plugins from catalogs in the plugins block.").willBeRemovedInGradle9().withUpgradeGuideSection(8, "kotlin_dsl_deprecated_catalogs_plugins_block").nagUser();
             return create("espresso.core");
         }
 
     }
 
-    /**
-     * @deprecated Will be removed in Gradle 9.0.
-     */
-    @Deprecated
     public static class ExtLibraryAccessors extends SubDependencyFactory {
 
         public ExtLibraryAccessors(AbstractExternalDependencyFactory owner) { super(owner); }
@@ -215,12 +163,8 @@ public class LibrariesForLibsInPluginsBlock extends AbstractExternalDependencyFa
          * with version reference <b>junitVersion</b>
          * <p>
          * This dependency was declared in catalog libs.versions.toml
-         *
-         * @deprecated Will be removed in Gradle 9.0.
          */
-        @Deprecated
         public Provider<MinimalExternalModuleDependency> getJunit() {
-            org.gradle.internal.deprecation.DeprecationLogger.deprecateBehaviour("Accessing libraries or bundles from version catalogs in the plugins block.").withAdvice("Only use versions or plugins from catalogs in the plugins block.").willBeRemovedInGradle9().withUpgradeGuideSection(8, "kotlin_dsl_deprecated_catalogs_plugins_block").nagUser();
             return create("ext.junit");
         }
 
@@ -332,10 +276,6 @@ public class LibrariesForLibsInPluginsBlock extends AbstractExternalDependencyFa
 
     }
 
-    /**
-     * @deprecated Will be removed in Gradle 9.0.
-     */
-    @Deprecated
     public static class BundleAccessors extends BundleFactory {
 
         public BundleAccessors(ObjectFactory objects, ProviderFactory providers, DefaultVersionCatalog config, ImmutableAttributesFactory attributesFactory, CapabilityNotationParser capabilityNotationParser) { super(objects, providers, config, attributesFactory, capabilityNotationParser); }

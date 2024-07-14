@@ -1,3 +1,5 @@
+CREATE DATABASE Fasa7ni;
+USE Fasa7ni;
 DROP TABLE IF EXISTS `Tags`;
 CREATE TABLE `Tags` (
   `Tag_Name` varchar(255) NOT NULL,
@@ -67,8 +69,6 @@ CREATE TABLE `Fosa7` (
   CONSTRAINT `fosa7_ibfk_1` FOREIGN KEY (`Host_Email`) REFERENCES `User` (`Email`),
   CONSTRAINT `fosa7_ibfk_2` FOREIGN KEY (`Place_Name`) REFERENCES `Places` (`Place_Name`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
 
 INSERT INTO `Fosa7` VALUES ('Laser Tag','heggi@gmail.com','Adrenaline Park-Laser Tag','Yalla Laser Tagggg, we\'ve been wanting to do this for so long, now\'s the time engzo baa',10,'18:00:00','2024-07-25',NULL,0),('One of the 7 wonders?','nouryasser1@aucegypt.edu','The Great Pyramid of Giza','If you are either Egyptian or non-Egyptian and you\'re interested in historic landmarks, feel free to take part of this fos7a. We can explore the surrounding necropolis, including the Sphinx, and discuss together the Egyptian mythology and beliefs about the afterlife.',15,'10:00:00','2024-07-19',NULL,1),('Padel?','samanodyjr@aucegypt.edu','Go!Padel','This for anyone who loves padel, even if you\'re not a pro. If you can join and we can do it as a weekly sport activity',8,'19:00:00','2024-07-20',NULL,1);
 

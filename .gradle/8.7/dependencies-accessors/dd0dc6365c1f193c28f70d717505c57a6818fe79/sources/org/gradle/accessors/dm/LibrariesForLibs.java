@@ -94,7 +94,7 @@ public class LibrariesForLibs extends AbstractExternalDependencyFactory {
     }
 
     /**
-     * Dependency provider for <b>volley</b> with <b>androidx.volley:volley</b> coordinates and
+     * Dependency provider for <b>volley</b> with <b>com.android.volley:volley</b> coordinates and
      * with version reference <b>volley</b>
      * <p>
      * This dependency was declared in catalog libs.versions.toml

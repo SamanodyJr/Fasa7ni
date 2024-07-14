@@ -2,13 +2,14 @@ package com.example.fasa7ni;
 
 public class Request
 {
-    String name, mutual;
+    String Requester;
+    int mutual;
     int remove, add;
     int image;
 
-    public Request(String name, String mutual, int remove, int add, int image)
+    public Request(String name, int mutual, int remove, int add, int image)
     {
-        this.name = name;
+        this.Requester = name;
         this.image = image;
         this.mutual = mutual;
         this.remove = remove;
@@ -16,18 +17,18 @@ public class Request
     }
 
     public String getName() {
-        return name;
+        return Requester;
     }
 
     public void setName(String name) {
-        this.name = name;
+        this.Requester = name;
     }
 
-    public String getMutual() {
+    public int getMutual() {
         return mutual;
     }
 
-    public void setMutual(String mutual) {
+    public void setMutual(int mutual) {
         this.mutual = mutual;
     }
 

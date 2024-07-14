@@ -33,7 +33,7 @@ public class FriendAdapter extends RecyclerView.Adapter<FriendViewHolder> {
     public void onBindViewHolder(@NonNull FriendViewHolder holder, int position) {
         holder.name.setText(friends.get(position).getName());
         holder.image.setImageResource(friends.get(position).getImage());
-        holder.mutual.setText(friends.get(position).getMutual());
+        holder.mutual.setText(Integer.toString(friends.get(position).getMutual()));
         holder.remove.setImageResource(R.drawable.x_sign);
 
         holder.remove.setOnClickListener(v -> {
