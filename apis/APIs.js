@@ -380,18 +380,16 @@ srv.get('/Update_User', function(req, res)
 
     console.log("Accepting Request...");
     var q = url.parse(req.url, true).query;
-    var Username = q.Username;
-    var FirstName = q.FirstName;
-    var LastName = q.LastName;
+    var olduser = q.olduser;
     var Phone = q.Phone;
-    var ProfilePic = q.ProfilePic;
+    var Username = q.Username;
     var BirthDate = q.BirthDate;
     var Area = q.Area;
 
-    var Retrieve_Query= "UPDATE User SET FirstName = ?, LastName = ?, Phone = ?, Username = ?, ProfilePic = ?, BirthDate = ?, Area = ?" ;
+    var Retrieve_Query= "UPDATE User SET Phone = ?, Username = ?, BirthDate = ?, Area = ? WHERE Username = ?" ;
 
 
-    mysqlcon.query(Retrieve_Query,[FirstName, LastName, Phone, Username, ProfilePic, BirthDate, Area], function (err, result)
+    mysqlcon.query(Retrieve_Query,[Phone, Username, ProfilePic, BirthDate, Area, olduser], function (err, result)
     {
         if (err)
         {
