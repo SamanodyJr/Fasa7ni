@@ -344,11 +344,10 @@ srv.get('/Update_User', function(req, res)
     var olduser = q.olduser;
     var Phone = q.Phone;
     var Username = q.Username;
-    var ProfilePic = q.ProfilePic;
     var BirthDate = q.BirthDate;
     var Area = q.Area;
 
-    var Retrieve_Query= "UPDATE User SET Phone = ?, Username = ?, ProfilePic = ?, BirthDate = ?, Area = ? WHERE Username = ?" ;
+    var Retrieve_Query= "UPDATE User SET Phone = ?, Username = ?, BirthDate = ?, Area = ? WHERE Username = ?" ;
 
 
     mysqlcon.query(Retrieve_Query,[Phone, Username, ProfilePic, BirthDate, Area, olduser], function (err, result)
