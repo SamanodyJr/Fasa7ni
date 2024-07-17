@@ -341,16 +341,17 @@ srv.get('/Update_User', function(req, res)
 
     console.log("Accepting Request...");
     var q = url.parse(req.url, true).query;
-    var Username = q.Username;
+    var olduser = q.olduser;
     var Phone = q.Phone;
+    var Username = q.Username;
     var ProfilePic = q.ProfilePic;
     var BirthDate = q.BirthDate;
     var Area = q.Area;
 
-    var Retrieve_Query= "UPDATE User SET  Phone = ?, Username = ?, ProfilePic = ?, BirthDate = ?, Area = ?" ;
+    var Retrieve_Query= "UPDATE User SET Phone = ?, Username = ?, ProfilePic = ?, BirthDate = ?, Area = ? WHERE Username = ?" ;
 
 
-    mysqlcon.query(Retrieve_Query,[FirstName, LastName, Phone, Username, ProfilePic, BirthDate, Area], function (err, result)
+    mysqlcon.query(Retrieve_Query,[Phone, Username, ProfilePic, BirthDate, Area, olduser], function (err, result)
     {
         if (err)
         {
@@ -365,7 +366,6 @@ srv.get('/Update_User', function(req, res)
     });
 
 });
-
 srv.get('/Fetch_User', function(req, res)
 {
 
