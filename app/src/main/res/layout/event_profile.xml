@@ -13,9 +13,6 @@
         android:orientation="vertical"
         >
 
-
-
-
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">
@@ -87,6 +84,7 @@
 
 
             <TextView
+                android:id="@+id/Fos7aTitle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Paitball War Fos7a"
@@ -104,6 +102,7 @@
                 >
 
                 <TextView
+                    android:id="@+id/tag1"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
@@ -116,6 +115,7 @@
                     android:textSize="16sp" />
 
                 <TextView
+                    android:id="@+id/tag2"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
@@ -155,7 +155,7 @@
                         app:srcCompat="@drawable/attendee_icon" />
 
                     <TextView
-
+                        android:id="@+id/Fos7aCapacity"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
@@ -179,7 +179,7 @@
                         app:srcCompat="@drawable/timings_icon" />
 
                     <TextView
-
+                        android:id="@+id/Fos7aDateTime"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
@@ -204,7 +204,7 @@
                         app:srcCompat="@drawable/location_icon" />
 
                     <TextView
-
+                        android:id="@+id/Fos7aLocation"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
@@ -230,7 +230,7 @@
                         app:srcCompat="@drawable/baseline_manage_accounts_24" />
 
                     <TextView
-
+                        android:id="@+id/Fos7aType"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
@@ -286,7 +286,7 @@
 
 
             <TextView
-
+                android:id="@+id/Fos7aDescription"
                 android:layout_width="match_parent"
                 android:layout_marginTop="6dp"
                 android:layout_height="wrap_content"
@@ -317,7 +317,7 @@
                 android:layout_gravity="center_horizontal"
                 android:background="@color/deadwhite" />
 
-            <!--*************************************************************************** -->
+            <!--************************* -->
             <TextView
                 android:id="@+id/show_in_map"
                 android:layout_width="match_parent"
@@ -386,7 +386,7 @@
                 android:layout_gravity="center_horizontal"
                 android:background="@color/deadwhite" />
 
-            <!--*************************************************************************** -->
+            <!--************************* -->
 
             <TextView
                 android:layout_width="match_parent"
@@ -410,40 +410,20 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:layout_marginRight="5dp"
-                    android:src="@drawable/facebook_icon"
-
+                    android:src="@drawable/dial_icon"
                     />
 
                 <TextView
+                    android:id="@+id/Fos7aHost"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:text="TawfikBasha"
+                    android:text="Tawtaw"
                     android:textColor="@color/offwhite"
                     android:textSize="14sp" />
 
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_marginLeft="20dp"
-                    android:layout_marginRight="5dp"
-                    android:src="@drawable/dial_icon"
-
-                    />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:text="01110923456"
-                    android:textColor="@color/offwhite"
-                    android:textSize="14dp" />
-
             </LinearLayout>
 
-
-            <!--                line-->
             <View
                 android:layout_marginTop="16dp"
                 android:layout_marginBottom="10dp"
@@ -452,7 +432,6 @@
                 android:layout_gravity="center_horizontal"
                 android:background="@color/deadwhite" />
 
-            <!--*************************************************************************** -->
             <View
                 android:layout_width="match_parent"
                 android:layout_height="50dp"

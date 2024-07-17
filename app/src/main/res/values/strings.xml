@@ -21,6 +21,8 @@
         <item>Mokattam</item>
         <item>Downtown</item>
         <item>Madinaty</item>
+        <item>Giza</item>
+        <item>Ismailia</item>
     </string-array>
     <string-array name="capacity">
         <item>2-4</item>

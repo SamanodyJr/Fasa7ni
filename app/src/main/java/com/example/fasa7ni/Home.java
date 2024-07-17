@@ -30,7 +30,7 @@ import java.util.List;
 
 public class Home extends AppCompatActivity implements View.OnClickListener,RecyclerViewInterface
 {
-    private String email;
+    private String username;
     private ImageButton Listat;
     private ImageButton Events;
     private ImageButton Friends;
@@ -63,7 +63,7 @@ public class Home extends AppCompatActivity implements View.OnClickListener,Recy
         Bundle bundle = getIntent().getExtras();
         if (bundle != null)
         {
-            email = bundle.getString("Email");
+            username = bundle.getString("Username");
         }
         Event_Adapter = new EventAdapter(this,getApplicationContext(),list);
         placeAdapter = new PlaceAdapter(this,getApplicationContext(),places_list);
@@ -129,7 +129,7 @@ public class Home extends AppCompatActivity implements View.OnClickListener,Recy
         list.clear();
         String url;
 
-        url = "http://10.0.2.2:4000/Fetch_My_Fosa7?Email="+email; //add type
+        url = "http://10.0.2.2:4000/Fetch_My_Fosa7?Username="+username; //add type
 
         RequestQueue requestQueue = Volley.newRequestQueue(this);
 
@@ -143,7 +143,7 @@ public class Home extends AppCompatActivity implements View.OnClickListener,Recy
                         {
                             JSONObject place = response.getJSONObject(i);
                             String name = place.getString("Fos7a_Name");
-                            String Host = place.getString("Host_Email");
+                            String Host = place.getString("Host_Username");
                             String description = place.getString("Description");
                             int cap = place.getInt("Capacity");
                             String Fos7a_Date = place.getString("Fos7a_Date");
@@ -167,7 +167,7 @@ public class Home extends AppCompatActivity implements View.OnClickListener,Recy
     private void FetchPlaces()
     {
         places_list.clear();
-        String url = "http://10.0.2.2:4000/Fetch_Places?Cat=All"; //add type
+        String url = "http://10.0.2.2:4000/Fetch_Places?Cat=Near"; //add type
         RequestQueue requestQueue = Volley.newRequestQueue(this);
 
         int ID[]={
@@ -260,35 +260,35 @@ public class Home extends AppCompatActivity implements View.OnClickListener,Recy
     private void Go_List()
     {
         Intent H_L = new Intent(Home.this, Listat.class);
-        H_L.putExtra("Email", email);
+        H_L.putExtra("Username", username);
         startActivity(H_L);
     }
 
     private void Go_Events()
     {
         Intent H_E = new Intent(Home.this, Events.class);
-        H_E.putExtra("Email", email);
+        H_E.putExtra("Username", username);
         startActivity(H_E);
     }
 
     private void Go_Friends()
     {
         Intent H_F = new Intent(Home.this, Friends.class);
-        H_F.putExtra("Email", email);
+        H_F.putExtra("Username", username);
         startActivity(H_F);
     }
 
     private void Go_Recommender()
     {
         Intent H_R = new Intent(Home.this, Recommender.class);
-        H_R.putExtra("Email", email);
+        H_R.putExtra("Username", username);
         startActivity(H_R);
     }
 
     private void Go_Profile()
     {
         Intent H_P = new Intent(Home.this, Profile.class);
-        H_P.putExtra("Email", email);
+        H_P.putExtra("Username", username);
         startActivity(H_P);
     }
 

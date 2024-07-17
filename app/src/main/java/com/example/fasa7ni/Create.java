@@ -17,7 +17,7 @@ import androidx.core.view.WindowInsetsCompat;
 
 public class Create extends AppCompatActivity implements View.OnClickListener
 {
-    private String email;
+    private String username;
     private ImageButton Listat;
     private ImageButton Events;
     private ImageButton Friends;
@@ -94,42 +94,42 @@ public class Create extends AppCompatActivity implements View.OnClickListener
     private void Go_List()
     {
         Intent CE_L = new Intent(Create.this, Listat.class);
-        CE_L.putExtra("Email", email);
+        CE_L.putExtra("Username", username);
         startActivity(CE_L);
     }
 
     private void Go_Events()
     {
         Intent CE_E = new Intent(Create.this, Events.class);
-        CE_E.putExtra("Email", email);
+        CE_E.putExtra("Username", username);
         startActivity(CE_E);
     }
 
     private void Go_Friends()
     {
         Intent CE_F = new Intent(Create.this, Friends.class);
-        CE_F.putExtra("Email", email);
+        CE_F.putExtra("Username", username);
         startActivity(CE_F);
     }
 
     private void Go_Recommender()
     {
         Intent CE_R = new Intent(Create.this, Recommender.class);
-        CE_R.putExtra("Email", email);
+        CE_R.putExtra("Username", username);
         startActivity(CE_R);
     }
 
     private void Go_Profile()
     {
         Intent CE_P = new Intent(Create.this, Profile.class);
-        CE_P.putExtra("Email", email);
+        CE_P.putExtra("Username", username);
         startActivity(CE_P);
     }
 
     private void Go_Home()
     {
         Intent CE_H = new Intent(Create.this, Home.class);
-        CE_H.putExtra("Email", email);
+        CE_H.putExtra("Username", username);
         startActivity(CE_H);
     }
 
