@@ -22,7 +22,7 @@
             android:layout_height="match_parent">
 
             <ImageView
-                android:id="@+id/imageView3"
+                android:id="@+id/placeImageView"
                 android:layout_width="match_parent"
                 android:layout_height="220dp"
                 android:background="@color/blue"
@@ -86,6 +86,7 @@
             android:paddingTop="15dp">
 
             <TextView
+                android:id="@+id/placeName"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Adrenaline Park"
@@ -165,7 +166,7 @@
                         app:srcCompat="@drawable/location_icon" />
 
                     <TextView
-
+                        android:id="@+id/placeLocation"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
@@ -191,7 +192,7 @@
                         app:srcCompat="@drawable/timings_icon" />
 
                     <TextView
-
+                        android:id="@+id/placeTimings"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
@@ -259,7 +260,7 @@
 
 
             <TextView
-
+                android:id="@+id/placeDescription"
                 android:layout_width="match_parent"
                 android:layout_marginTop="6dp"
                 android:layout_height="wrap_content"
@@ -306,7 +307,6 @@
                 android:layout_height="match_parent">
 
                 <ImageView
-
                     android:id="@+id/imageView2"
                     android:layout_width="match_parent"
                     android:layout_height="200dp"
@@ -388,6 +388,7 @@
                     />
 
                 <TextView
+                    android:id="@+id/facebook"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
@@ -406,6 +407,7 @@
                     />
 
                 <TextView
+                    android:id="@+id/phone"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
