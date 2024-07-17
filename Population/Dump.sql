@@ -24,7 +24,7 @@ CREATE TABLE `User` (
   PRIMARY KEY (`Username`)
 );
 
-INSERT INTO `User` VALUES ('Fasa7ni','Tsaw7ni',NULL,'01119992223','Fasa7_7aba','Hello','\"\"','2024-07-13',NULL),('Hussien','Heggi','New Cairo','1288952276','heggo','heJJi',NULL,'2002-04-12','30212041201217'),('Mariam','ElGhobary','Sheikh Zayed','1099367800','mariamghobz','ghobzzz',NULL,'2003-11-24','30402452010085'),('Nour','Abdalla','Maadi','1277887710','nouryasser1','nour123',NULL,'2002-12-04','30212040102622'),('Sarah','ElSamanody','Katameya','1122786679','samanodyjr','soso@sasa',NULL,'2004-02-22','30402220106085'),('Eslam','taw','Zamalek','1227111420','taw','tawtawtaw',NULL,'1990-01-01','30402520166085');
+INSERT INTO `User` VALUES ('Fasa7ni','Tsaw7ni',NULL,'01119992223','Fasa7_7aba','Hello','\"\"','2024-07-13',NULL),('Hussien','Heggi','New Cairo','1288952276','heggo','heJJi','Heggi.png','2002-04-12','30212041201217'),('Mariam','ElGhobary','Sheikh Zayed','1099367800','mariamghobz','ghobzzz','Mariam.png','2003-11-24','30402452010085'),('Nour','Abdalla','Maadi','1277887710','nouryasser1','nour123','Nour.jpeg','2002-12-04','30212040102622'),('Sarah','ElSamanody','Katameya','1122786679','samanodyjr','soso@sasa','Sarah.png','2004-02-22','30402220106085'),('Eslam','taw','Zamalek','1227111420','taw','tawtawtaw','Taw.png','1990-01-01','30402520166085');
 
 
 
@@ -62,7 +62,7 @@ CREATE TABLE `Fosa7` (
   `Capacity` int DEFAULT NULL,
   `Fos7a_Time` time NOT NULL,
   `Fos7a_Date` date NOT NULL,
-  `Image` varchar(255) DEFAULT NULL,
+  `Pic` varchar(255) DEFAULT NULL,
   `Is_Public` tinyint(1) DEFAULT NULL,
   PRIMARY KEY (`Host_Username`,`Fos7a_Name`,`Fos7a_Date`,`Fos7a_Time`),
   KEY `Place_Name` (`Place_Name`),

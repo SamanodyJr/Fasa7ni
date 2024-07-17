@@ -86,7 +86,7 @@ srv.get('/Fetch_Friends', function(req, res)
     var q = url.parse(req.url, true).query;
     var Reciever=q.Reciever_Username;
 
-    var Retrieve_Query="SELECT Username,Accepted FROM Friend_Requests FR INNER JOIN User U ON FR.Requester_USERNAME=U.USERNAME WHERE Reciever_USERNAME=?" ;
+    var Retrieve_Query="SELECT Username,Accepted,ProfilePic FROM Friend_Requests FR INNER JOIN User U ON FR.Requester_USERNAME=U.USERNAME WHERE Reciever_USERNAME=?" ;
 
 
     mysqlcon.query(Retrieve_Query,[Reciever], function (err, result)

@@ -34,7 +34,7 @@ public class FriendAdapter extends RecyclerView.Adapter<FriendViewHolder> {
     @Override
     public void onBindViewHolder(@NonNull FriendViewHolder holder, int position) {
         holder.name.setText(friends.get(position).getName());
-        holder.mutual.setText(Integer.toString(friends.get(position).getMutual()));
+        holder.mutual.setText(Integer.toString(friends.get(position).getMutual())+ " Mutual Friends");
         holder.remove.setImageResource(R.drawable.x_sign);
 
         String imagePath = "file:///android_asset/" + friends.get(position).getImage();

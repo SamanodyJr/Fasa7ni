@@ -34,7 +34,7 @@ public class RequestAdapter extends RecyclerView.Adapter<RequestViewHolder>
     public void onBindViewHolder(@NonNull RequestViewHolder holder, int position)
     {
         holder.name.setText(requests.get(position).getName());
-        holder.mutual.setText(Integer.toString(requests.get(position).getMutual()));
+        holder.mutual.setText(Integer.toString(requests.get(position).getMutual())+" Mutual Friends");
         holder.remove.setImageResource(R.drawable.x_sign);
         holder.add.setText("ADD");
 
