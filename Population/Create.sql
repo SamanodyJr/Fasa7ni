@@ -6,20 +6,20 @@ CREATE TABLE User (
     LastName VARCHAR(255),
     Area VARCHAR(255),
     Phone VARCHAR(11),
-    Username VARCHAR(255),
+    Username VARCHAR(255) PRIMARY KEY,
     Pass VARCHAR(255),
     ProfilePic TEXT, 
     BirthDate DATE,
     NationalID VARCHAR(255),
-    Email VARCHAR(255) PRIMARY KEY
+    Email VARCHAR(255) 
 );
 CREATE TABLE Friend_Requests (
     Accepted BOOLEAN DEFAULT true,
-    Requester_Email VARCHAR(255),
-    Reciever_Email VARCHAR(255),
-    FOREIGN KEY (Requester_Email) REFERENCES User(Email),
-    FOREIGN KEY (Reciever_Email) REFERENCES User(Email),
-    PRIMARY KEY (Requester_Email, Reciever_Email)
+    Requester_Username VARCHAR(255),
+    Reciever_Username VARCHAR(255),
+    FOREIGN KEY (Requester_Username) REFERENCES User(Username),
+    FOREIGN KEY (Reciever_Username) REFERENCES User(Username),
+    PRIMARY KEY (Requester_Username, Reciever_Username)
 );
 
 CREATE TABLE Tags (
@@ -28,10 +28,10 @@ CREATE TABLE Tags (
 
 CREATE TABLE User_Interests(
     Interest VARCHAR(255),
-    Email VARCHAR(255),
+    Username VARCHAR(255),
     FOREIGN KEY (Interest) REFERENCES Tags(Tag_Name),
-    FOREIGN KEY (Email) REFERENCES User(Email),
-    PRIMARY KEY (Interest, Email)
+    FOREIGN KEY (Username) REFERENCES User(Username),
+    PRIMARY KEY (Interest, Username)
 );
 
 
@@ -48,7 +48,7 @@ CREATE TABLE Places (
 
 CREATE TABLE Fosa7 (
     Fos7a_Name VARCHAR(255),
-    Host_Email VARCHAR(255),
+    Host_Username VARCHAR(255),
     Place_Name VARCHAR(255),
     Description TEXT,
     Capacity INT,
@@ -56,32 +56,32 @@ CREATE TABLE Fosa7 (
     Fos7a_Date DATE,
     Image TEXT,
     Is_Public BOOLEAN,
-    FOREIGN KEY (Host_Email) REFERENCES User(Email),
+    FOREIGN KEY (Host_Username) REFERENCES User(Username),
 	FOREIGN KEY (Place_Name) REFERENCES Places(Place_Name),
-    PRIMARY KEY (Host_Email, Fos7a_Name ,Fos7a_Date,Fos7a_Time)
+    PRIMARY KEY (Host_Username, Fos7a_Name ,Fos7a_Date,Fos7a_Time)
 );
 
 CREATE TABLE Fosa7_Requests (
     Accepted BOOLEAN,
-    Requester_Email VARCHAR(255),
-    Host_Email VARCHAR(255),
+    Requester_Username VARCHAR(255),
+    Host_Username VARCHAR(255),
     Fos7a_Name VARCHAR(255),
     Fos7a_Date DATE,
     Fos7a_Time TIME,
-    FOREIGN KEY (Requester_Email) REFERENCES User(Email),
-	FOREIGN KEY (Host_Email, Fos7a_Name, Fos7a_Date, Fos7a_Time) REFERENCES Fosa7(Host_Email, Fos7a_Name, Fos7a_Date, Fos7a_Time),
-    PRIMARY KEY (Requester_Email, Host_Email, Fos7a_Name ,Fos7a_Date,Fos7a_Time)
+    FOREIGN KEY (Requester_Username) REFERENCES User(Username),
+	FOREIGN KEY (Host_Username, Fos7a_Name, Fos7a_Date, Fos7a_Time) REFERENCES Fosa7(Host_Username, Fos7a_Name, Fos7a_Date, Fos7a_Time),
+    PRIMARY KEY (Requester_Username, Host_Username, Fos7a_Name ,Fos7a_Date,Fos7a_Time)
 );
 
 CREATE TABLE Fosa7_Tags(
     Tag_Name VARCHAR(255),
-    Host_Email VARCHAR(255),
+    Host_Username VARCHAR(255),
     Fos7a_Name VARCHAR(255),
     Fos7a_Date DATE,
     Fos7a_Time TIME,
     FOREIGN KEY (Tag_Name) REFERENCES Tags(Tag_Name),
-  	FOREIGN KEY (Host_Email, Fos7a_Name, Fos7a_Date, Fos7a_Time) REFERENCES Fosa7(Host_Email, Fos7a_Name, Fos7a_Date, Fos7a_Time),
-    PRIMARY KEY (Tag_Name, Host_Email, Fos7a_Name ,Fos7a_Date,Fos7a_Time) 
+  	FOREIGN KEY (Host_Username, Fos7a_Name, Fos7a_Date, Fos7a_Time) REFERENCES Fosa7(Host_Username, Fos7a_Name, Fos7a_Date, Fos7a_Time),
+    PRIMARY KEY (Tag_Name, Host_Username, Fos7a_Name ,Fos7a_Date,Fos7a_Time) 
 );
 
 CREATE TABLE Place_Tags(
@@ -98,13 +98,13 @@ CREATE TABLE Categories (
 
 CREATE TABLE Fosa7_Cats (
     Cat_Name VARCHAR(255),
-    Host_Email VARCHAR(255),
+    Host_Username VARCHAR(255),
     Fos7a_Name VARCHAR(255),
     Fos7a_Date DATE,
     Fos7a_Time TIME,
-	FOREIGN KEY (Host_Email, Fos7a_Name, Fos7a_Date, Fos7a_Time) REFERENCES Fosa7(Host_Email, Fos7a_Name, Fos7a_Date, Fos7a_Time),
+	FOREIGN KEY (Host_Username, Fos7a_Name, Fos7a_Date, Fos7a_Time) REFERENCES Fosa7(Host_Username, Fos7a_Name, Fos7a_Date, Fos7a_Time),
     FOREIGN KEY (Cat_Name) REFERENCES Categories(Cat_Name),
-    PRIMARY KEY (Host_Email ,Fos7a_Name, Fos7a_Date,Fos7a_Time, Cat_Name )
+    PRIMARY KEY (Host_Username ,Fos7a_Name, Fos7a_Date,Fos7a_Time, Cat_Name )
 
 );
 

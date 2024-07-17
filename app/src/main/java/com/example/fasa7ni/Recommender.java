@@ -14,7 +14,7 @@ import android.widget.Button;
 
 public class Recommender extends AppCompatActivity implements View.OnClickListener
 {
-    private String email;
+    private String username;
     private ImageButton List;
     private ImageButton Events;
     private ImageButton Friends;
@@ -36,7 +36,7 @@ public class Recommender extends AppCompatActivity implements View.OnClickListen
         Bundle bundle = getIntent().getExtras();
         if (bundle != null)
         {
-            email = bundle.getString("Email");
+            username = bundle.getString("Username");
         }
 
         List = findViewById(R.id.small_list_btn);
@@ -83,7 +83,7 @@ public class Recommender extends AppCompatActivity implements View.OnClickListen
     private void Go_Home()
     {
         Intent R_H = new Intent(Recommender.this, Home.class);
-        R_H.putExtra("Email", email);
+        R_H.putExtra("Username", username);
         startActivity(R_H);
     }
 
@@ -91,7 +91,7 @@ public class Recommender extends AppCompatActivity implements View.OnClickListen
     {
         Intent R_L = new Intent(Recommender.this, Listat.class);
         Log.d("", "Navigating to Generate");
-        R_L.putExtra("Email", email);
+        R_L.putExtra("Username", username);
         startActivity(R_L);
 
     }
@@ -99,14 +99,14 @@ public class Recommender extends AppCompatActivity implements View.OnClickListen
     private void Go_Events()
     {
         Intent R_E = new Intent(Recommender.this, Events.class);
-        R_E.putExtra("Email", email);
+        R_E.putExtra("Username", username);
         startActivity(R_E);
     }
 
     private void Go_Friends()
     {
         Intent R_F = new Intent(Recommender.this, Friends.class);
-        R_F.putExtra("Email", email);
+        R_F.putExtra("Username", username);
         startActivity(R_F);
     }
 
@@ -114,7 +114,7 @@ public class Recommender extends AppCompatActivity implements View.OnClickListen
     {
         Log.d("", "Navigating to Generate");
         Intent R_G = new Intent(Recommender.this, Listat.class);
-        R_G.putExtra("Email", email);
+        R_G.putExtra("Username", username);
         //H_R.putExtra("Fos7a", (CharSequence) fosa7);
         startActivity(R_G);
     }
@@ -122,7 +122,7 @@ public class Recommender extends AppCompatActivity implements View.OnClickListen
     private void Go_Profile()
     {
         Intent R_P = new Intent(Recommender.this, Profile.class);
-        R_P.putExtra("Email", email);
+        R_P.putExtra("Username", username);
         startActivity(R_P);
     }
 }

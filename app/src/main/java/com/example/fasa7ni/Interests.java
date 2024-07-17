@@ -17,7 +17,7 @@ import androidx.core.view.WindowInsetsCompat;
 public class Interests extends AppCompatActivity implements View.OnClickListener
 {
     private ImageButton BackButton;
-    String email;
+    String username;
     private Button[] interestButtons = new Button[37];
     private boolean[] status= new boolean[37];
 
@@ -34,7 +34,7 @@ public class Interests extends AppCompatActivity implements View.OnClickListener
         Bundle bundle = getIntent().getExtras();
         if (bundle != null)
         {
-            email = bundle.getString("Email");
+            username = bundle.getString("Username");
         }
         BackButton = findViewById(R.id.backButton);
 

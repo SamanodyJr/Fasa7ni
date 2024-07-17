@@ -22,15 +22,14 @@ public class Signup extends AppCompatActivity implements View.OnClickListener
     private Button Sign_up;
     private Button Show;
     private ImageButton Back;
-    private EditText EmailText;
+    private EditText UsernameText;
     private EditText PassText;
     private EditText PhoneText;
-    private String Email;
+    private String Username;
     private String Pass;
     private String Phone;
     private boolean valid;
     private boolean showing = false;
-    private String Email_Pat = "^[A-Za-z0-9]+@[A-Za-z0-9]+\\.[A-Za-z]{2,}$";
     private String Phone_Pat = "^[0-9]{11}";
 
     @SuppressLint("SourceLockedOrientationActivity")
@@ -50,7 +49,7 @@ public class Signup extends AppCompatActivity implements View.OnClickListener
         Show = findViewById(R.id.show_pass_btn);
         Back = findViewById(R.id.backButton);
 
-        EmailText = findViewById(R.id.email);
+        UsernameText = findViewById(R.id.username);
         PassText = findViewById(R.id.pass);
         PhoneText = findViewById(R.id.phone_number);
 
@@ -65,16 +64,16 @@ public class Signup extends AppCompatActivity implements View.OnClickListener
     {
         if (v.getId() == Sign_up.getId())
         {
-            Email = EmailText.getText().toString();
+            Username = UsernameText.getText().toString();
             Pass = PassText.getText().toString();
             Phone = PhoneText.getText().toString();
 
-            valid = Validate(Email, Phone, Pass);
+            valid = Validate(Username, Phone, Pass);
 
             if (valid)
                 Go_Verification();
             else
-                Toast.makeText(Signup.this, "Email or Phone format is incorrect", Toast.LENGTH_SHORT).show();
+                Toast.makeText(Signup.this, "Phone format is incorrect", Toast.LENGTH_SHORT).show();
         }
         else if (v.getId() == Show.getId())
         {
@@ -100,13 +99,13 @@ public class Signup extends AppCompatActivity implements View.OnClickListener
     {
         Intent S_V = new Intent(Signup.this, Verification.class);
         S_V.putExtra("Phone", Phone);
-        S_V.putExtra("Email", Email);
+        S_V.putExtra("Username", Username);
         startActivity(S_V);
     }
 
-    private boolean Validate(String email, String phone, String pass)
+    private boolean Validate(String username,String phone, String pass)
     {
-        if (email.matches(Email_Pat) && phone.matches(Phone_Pat))
+        if (phone.matches(Phone_Pat))
         {
             //add to database
             return true;

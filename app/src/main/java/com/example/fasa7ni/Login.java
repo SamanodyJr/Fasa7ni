@@ -34,9 +34,9 @@ public class Login extends AppCompatActivity implements View.OnClickListener
     private Button Log_in;
     private Button Show;
     private Button Create;
-    private EditText EmailText;
+    private EditText UsernameText;
     private EditText PassText;
-    private String Email;
+    private String Username;
     private String Pass;
     private boolean Signedin;
     private boolean showing = false;
@@ -59,7 +59,7 @@ public class Login extends AppCompatActivity implements View.OnClickListener
         Show = findViewById(R.id.show_pass_btn);
         Create = findViewById(R.id.new_account_btn);
 
-        EmailText = findViewById(R.id.email);
+        UsernameText = findViewById(R.id.username);
         PassText = findViewById(R.id.pass);
 
         Log_in.setOnClickListener(this);
@@ -73,10 +73,10 @@ public class Login extends AppCompatActivity implements View.OnClickListener
     {
         if (v.getId() == Log_in.getId())
         {
-            Email = EmailText.getText().toString();
+            Username = UsernameText.getText().toString();
             Pass = PassText.getText().toString();
             try {
-                Verify(Email, Pass);
+                Verify(Username, Pass);
             } catch (IOException e) {
                 throw new RuntimeException(e);
             } catch (JSONException e) {
@@ -104,12 +104,12 @@ public class Login extends AppCompatActivity implements View.OnClickListener
             return;
     }
 
-    private void Verify(String email, String pass) throws IOException, JSONException {
+    private void Verify(String username, String pass) throws IOException, JSONException {
         String url = "http://10.0.2.2:4000/Login"; //add type
         RequestQueue requestQueue = Volley.newRequestQueue(this);
 
         JSONArray jsonObject = new JSONArray();
-        jsonObject.put(email);
+        jsonObject.put(username);
         jsonObject.put(pass);
 
         Log.d("HEYYYYYYYY",jsonObject.toString());
@@ -138,7 +138,7 @@ public class Login extends AppCompatActivity implements View.OnClickListener
     private void Go_Home()
     {
         Intent L_H = new Intent(Login.this, Home.class);
-        L_H.putExtra("Email", Email);
+        L_H.putExtra("Username", Username);
         startActivity(L_H);
     }
 

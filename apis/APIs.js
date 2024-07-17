@@ -29,6 +29,8 @@ srv.get('/Fetch_Places', function(req, res)
 
     if(Category=="All")
         var Retrieve_Query= "SELECT * FROM Places P INNER JOIN ADDRESS A ON P.Place_Name = A.Place_Name";
+    else if(Category == "Near")
+        var Retrieve_Query= "SELECT * FROM Places P INNER JOIN ADDRESS A ON P.Place_Name = A.Place_Name INNER JOIN USER U ON A.AREA = U.AREA WHERE P.AREA = ?" ;
     else
         var Retrieve_Query= "SELECT P.*, A.Address FROM Places P INNER JOIN Place_Cats PC ON P.Place_Name=PC.Place_Name INNER JOIN ADDRESS A ON P.PLACE_NAME = A.PLACE_NAME WHERE PC.Cat_Name=?" ;
 
@@ -56,8 +58,10 @@ srv.get('/Fetch_Fosa7', function(req, res)
 
     if(Type=="All")
         var Retrieve_Query="SELECT * FROM Fosa7" ;
-    else
+    else if (Type=="0" || Type=="1")
         var Retrieve_Query="SELECT * FROM Fosa7 WHERE Is_Public=?" ;
+    else
+        var Retrieve_Query="SELECT * FROM Fosa7 WHERE Place_Name=?" ;
 
     mysqlcon.query(Retrieve_Query,[Type], function (err, result)
     {
@@ -80,9 +84,9 @@ srv.get('/Fetch_Friends', function(req, res)
 
     console.log("Getting Friends from DB...");
     var q = url.parse(req.url, true).query;
-    var Reciever=q.Reciever_Email;
+    var Reciever=q.Reciever_Username;
 
-    var Retrieve_Query="SELECT Username,Accepted FROM Friend_Requests FR INNER JOIN User U ON FR.Requester_Email=U.Email WHERE Reciever_Email=?" ;
+    var Retrieve_Query="SELECT Username,Accepted FROM Friend_Requests FR INNER JOIN User U ON FR.Requester_USERNAME=U.USERNAME WHERE Reciever_USERNAME=?" ;
 
 
     mysqlcon.query(Retrieve_Query,[Reciever], function (err, result)
@@ -107,9 +111,9 @@ srv.get('/Fetch_My_Fosa7', function(req, res)
 
     console.log("Getting my Fosa7 from DB...");
     var q = url.parse(req.url, true).query;
-    var User=q.Email;
+    var User=q.Username;
 
-    var Retrieve_Query="SELECT F.* FROM Fosa7 F LEFT OUTER JOIN Fosa7_Requests FR ON F.Host_Email=FR.Host_Email AND F.Fos7a_Name=FR.Fos7a_Name AND F.Fos7a_Date=FR.Fos7a_Date AND F.Fos7a_Time = FR.Fos7a_Time WHERE F.Host_Email=? OR (FR.Requester_Email=? AND FR.Accepted=1)" ;
+    var Retrieve_Query="SELECT F.* FROM Fosa7 F LEFT OUTER JOIN Fosa7_Requests FR ON F.Host_USERNAME=FR.Host_USERNAME AND F.Fos7a_Name=FR.Fos7a_Name AND F.Fos7a_Date=FR.Fos7a_Date AND F.Fos7a_Time = FR.Fos7a_Time WHERE F.Host_USERNAME=? OR (FR.Requester_USERNAME=? AND FR.Accepted=1)" ;
 
 
     mysqlcon.query(Retrieve_Query,[User,User], function (err, result)
@@ -132,11 +136,11 @@ srv.post('/Create_Fos7a', function(req, res)
 {
 
     console.log("Adding Fos7a to DB...");
-    const {Fos7a_Name, Host_Email,Description,Capacity,Fos7a_Time,Fos7a_Date,Image,Is_Public,Cat_Name} = req.body;
+    const {Fos7a_Name, Host_Username,Description,Capacity,Fos7a_Time,Fos7a_Date,Image,Is_Public,Cat_Name} = req.body;
 
-    var Insert_Query="INSERT INTO Fosa7 (Fos7a_Name, Host_Email,Description,Capacity,Fos7a_Time,Fos7a_Date,Image,Is_Public) VALUES (?,?,?,?,?,?,?,?)" ;
+    var Insert_Query="INSERT INTO Fosa7 (Fos7a_Name, Host_Username,Description,Capacity,Fos7a_Time,Fos7a_Date,Image,Is_Public) VALUES (?,?,?,?,?,?,?,?)" ;
 
-    mysqlcon.query(Insert_Query,[Fos7a_Name, Host_Email,Description,Capacity,Fos7a_Time,Fos7a_Date,Image,Is_Public],function (err, result)
+    mysqlcon.query(Insert_Query,[Fos7a_Name, Host_Username,Description,Capacity,Fos7a_Time,Fos7a_Date,Image,Is_Public],function (err, result)
     {
         if (err)
         {
@@ -149,9 +153,9 @@ srv.post('/Create_Fos7a', function(req, res)
             res.send(result);
         }
     });
-    var Insert_Query2="INSERT INTO Fosa7_Cats (Fos7a_Name, Host_Email,Fos7a_Time,Fos7a_Date,Cat_Name) VALUES (?,?,?,?,?)" ;
+    var Insert_Query2="INSERT INTO Fosa7_Cats (Fos7a_Name, Host_Username,Fos7a_Time,Fos7a_Date,Cat_Name) VALUES (?,?,?,?,?)" ;
 
-    mysqlcon.query(Insert_Query2,[Fos7a_Name, Host_Email,Fos7a_Time,Fos7a_Date,Cat_Name],function (err, result)
+    mysqlcon.query(Insert_Query2,[Fos7a_Name, Host_Username,Fos7a_Time,Fos7a_Date,Cat_Name],function (err, result)
     {
         if (err)
         {
@@ -171,16 +175,16 @@ srv.post('/Request_Fos7a', function(req, res) {
 
     console.log("Adding Request to DB...");
     const {
-        Requester_Email,
-        Host_Email,
+        Requester_Username,
+        Host_Username,
         Fos7a_Name,
         Fos7a_Date,
         Fos7a_Time,
     } = req.body;
 
-    var Insert_Query = "INSERT INTO Fosa7_Requests (Accepted, Requester_Email, Host_Email, Fos7a_Name, Fos7a_Date,Fos7a_Time) VALUES (?,?,?,?,?,?)";
+    var Insert_Query = "INSERT INTO Fosa7_Requests (Accepted, Requester_Username, Host_Username, Fos7a_Name, Fos7a_Date,Fos7a_Time) VALUES (?,?,?,?,?,?)";
 
-    mysqlcon.query(Insert_Query, [0,Requester_Email, Host_Email, Fos7a_Name, Fos7a_Date,Fos7a_Time], function (err, result) {
+    mysqlcon.query(Insert_Query, [0,Requester_Username, Host_Username, Fos7a_Name, Fos7a_Date,Fos7a_Time], function (err, result) {
         if (err) {
             console.log("Insertion Failed.");
             throw err;
@@ -198,16 +202,16 @@ srv.get('/Accept_Fos7a', function(req, res)
     console.log("Accepting Request...");
     var q = url.parse(req.url, true).query;
 
-    var Requester_Email = q.Requester_Email;
-    var Host_Email = q.Host_Email;
+    var Requester_Username = q.Requester_Username;
+    var Host_Username = q.Host_Username;
     var Fos7a_Name = q.Fos7a_Name;
     var Fos7a_Date = q.Fos7a_Date;
     var Fos7a_Time = q.Fos7a_Time;
 
-    var Retrieve_Query= "UPDATE FOSA7_REQUESTS SET ACCEPTED = 1 WHERE Requester_Email = ? AND Host_Email = ? AND Fos7a_Name = ? AND Fos7a_DATE = ? AND Fos7a_Time = ?" ;
+    var Retrieve_Query= "UPDATE FOSA7_REQUESTS SET ACCEPTED = 1 WHERE Requester_USERNAME = ? AND Host_USERNAME = ? AND Fos7a_Name = ? AND Fos7a_DATE = ? AND Fos7a_Time = ?" ;
 
 
-    mysqlcon.query(Retrieve_Query,[Requester_Email,Host_Email, Fos7a_Name, Fos7a_Date, Fos7a_Time], function (err, result)
+    mysqlcon.query(Retrieve_Query,[Requester_USERNAME,Host_USERNAME, Fos7a_Name, Fos7a_Date, Fos7a_Time], function (err, result)
     {
         if (err)
         {
@@ -228,13 +232,13 @@ srv.post('/Request_Friend', function(req, res)
 
     console.log("Adding Request to DB...");
     const {
-        Requester_Email,
-        Reciever_Email,
+        Requester_Username,
+        Reciever_Username,
     } = req.body;
 
-    var Insert_Query = "INSERT INTO Friend_Requests (Accepted, Requester_Email, Reciever_Email) VALUES (?,?,?)";
+    var Insert_Query = "INSERT INTO Friend_Requests (Accepted, Requester_USERNAME, Reciever_USERNAME) VALUES (?,?,?)";
 
-    mysqlcon.query(Insert_Query, [0,Requester_Email, Reciever_Email], function (err, result)
+    mysqlcon.query(Insert_Query, [0,Requester_USERNAME, Reciever_USERNAME], function (err, result)
     {
         if (err)
         {
@@ -256,13 +260,13 @@ srv.get('/Accept_Friend', function(req, res)
     console.log("Accepting Request...");
     var q = url.parse(req.url, true).query;
 
-    var Requester_Email = q.Requester_Email;
-    var Reciever_Email = q.Reciever_Email;
+    var Requester_Username = q.Requester_Username;
+    var Reciever_Username = q.Reciever_Username;
 
-    var Retrieve_Query= "UPDATE Friend_Requests SET ACCEPTED = 1 WHERE Requester_Email = ? AND Reciever_Email = ?" ;
+    var Retrieve_Query= "UPDATE Friend_Requests SET ACCEPTED = 1 WHERE Requester_USERNAME = ? AND Reciever_USERNAME = ?" ;
 
 
-    mysqlcon.query(Retrieve_Query,[Requester_Email,Reciever_Email], function (err, result)
+    mysqlcon.query(Retrieve_Query,[Requester_USERNAME,Reciever_USERNAME], function (err, result)
     {
         if (err)
         {
@@ -282,15 +286,15 @@ srv.post('/Add_User', function(req, res)
 {
 
     console.log("Adding User to DB...");
-    const {
-        Email,
+    const [
+        Username,
         Pass,
         Phone
-    } = req.body;
+    ] = req.body;
 
-    var Insert_Query = "INSERT INTO User (Email, Pass, Phone) VALUES (?,?,?)";
+    var Insert_Query = "INSERT INTO User (Username, Pass, Phone) VALUES (?,?,?)";
 
-    mysqlcon.query(Insert_Query, [Email,Pass, Phone], function (err, result)
+    mysqlcon.query(Insert_Query, [Username,Pass, Phone], function (err, result)
     {
         if (err)
         {
@@ -307,17 +311,16 @@ srv.post('/Add_User', function(req, res)
 
 srv.post('/Login', function(req, res)
 {
-
     console.log("Verifying User Details...");
     const [
-        Email,
+        Username,
         Pass
      ] = req.body;
-    console.log(Email,Pass);
+    console.log(Username,Pass);
 
-    var Checking_Query = "SELECT Email, Pass FROM User WHERE Email=? AND Pass=?";
+    var Checking_Query = "SELECT Username, Pass FROM User WHERE Username=? AND Pass=?";
 
-    mysqlcon.query(Checking_Query, [Email,Pass], function (err, result)
+    mysqlcon.query(Checking_Query, [Username,Pass], function (err, result)
     {
         if (err)
         {
@@ -338,19 +341,42 @@ srv.get('/Update_User', function(req, res)
 
     console.log("Accepting Request...");
     var q = url.parse(req.url, true).query;
-    var Email = q.Email;
-    var FirstName = q.FirstName;
-    var LastName = q.LastName;
+    var olduser = q.olduser;
     var Phone = q.Phone;
     var Username = q.Username;
-    var ProfilePic = q.ProfilePic;
     var BirthDate = q.BirthDate;
     var Area = q.Area;
 
-    var Retrieve_Query= "UPDATE User SET FirstName = ?, LastName = ?, Phone = ?, Username = ?, ProfilePic = ?, BirthDate = ?, Area = ? WHERE Email = ?" ;
+    var Retrieve_Query= "UPDATE User SET Phone = ?, Username = ?, BirthDate = ?, Area = ? WHERE Username = ?" ;
 
 
-    mysqlcon.query(Retrieve_Query,[FirstName, LastName, Phone, Username, ProfilePic, BirthDate, Area, Email], function (err, result)
+    mysqlcon.query(Retrieve_Query,[Phone, Username, ProfilePic, BirthDate, Area, olduser], function (err, result)
+    {
+        if (err)
+        {
+            console.log("Update Failed.");
+            throw err;
+        }
+        else
+        {
+            console.log("Updated Successfully.");
+            res.send(result);
+        }
+    });
+
+});
+srv.get('/Fetch_User', function(req, res)
+{
+
+    console.log("Accepting Request...");
+    var q = url.parse(req.url, true).query;
+    var Username = q.Username;
+
+
+    var Retrieve_Query= "SELECT* FROM User WHERE  Username = ?" ;
+
+
+    mysqlcon.query(Retrieve_Query,[Username], function (err, result)
     {
         if (err)
         {
@@ -370,13 +396,13 @@ srv.get('/Add_Interests', function(req, res)
 {
     console.log("Accepting Request...");
     var q = url.parse(req.url, true).query;
-    var Email = q.Email;
+    var Username = q.Username;
     var Interests = q.Interests;
     const arr_interests = Interests.split(",");
 
-    var Delete_Query = "DELETE FROM User_Interests WHERE Email = ?";
+    var Delete_Query = "DELETE FROM User_Interests WHERE Username = ?";
 
-    mysqlcon.query(Delete_Query,[Email], function (err, result)
+    mysqlcon.query(Delete_Query,[Username], function (err, result)
     {
         if (err)
         {
@@ -387,11 +413,11 @@ srv.get('/Add_Interests', function(req, res)
             console.log("Deleted Successfully.");
     });
 
-    var Insert_Query = "INSERT INTO User_Interests (Interest, Email) VALUES (?,?)";
+    var Insert_Query = "INSERT INTO User_Interests (Interest, Username) VALUES (?,?)";
 
     for (let i = 0; i < arr_interests.length; i++)
     {
-        mysqlcon.query(Insert_Query,[arr_interests[i], Email], function (err, result)
+        mysqlcon.query(Insert_Query,[arr_interests[i], Username], function (err, result)
         {
             if (err)
             {
@@ -476,5 +502,55 @@ srv.get('/Search', function(req, res)
     }
 
 });
+
+srv.post("/sendSMS", function (req, res) {
+    console.log("send SMS");
+    const { phone, body } = req.body;
+
+    const sql =
+        "INSERT INTO message (phone, body, timestamp, status) VALUES (?, ?, CURRENT_TIMESTAMP, 0)";
+    mysqlcon.query(sql, [phone, body], (err, result) => {
+        if (err) {
+            console.error("Error inserting message:", err);
+            return res.status(500).send("Internal server error");
+        }
+        console.log("1 record inserted");
+        res.sendStatus(200);
+    });
+});
+
+srv.get("/getSMS", function (req, res) {
+    console.log("get SMS");
+
+    var sql =
+        "SELECT id,phone,body FROM message WHERE status = 0 ORDER BY timestamp ASC LIMIT 1"; // sql command to get data from database
+
+    // execute sql command
+    mysqlcon.query(sql, function (err, result) {
+        if (err) {
+            res.send("0");
+            throw err;
+        }
+
+        console.log("SMS received");
+        res.send(result);
+    });
+});
+
+srv.get("/smsSent", function (req, res) {
+    console.log("sms is sent successfully");
+
+    var q = url.parse(req.url, true).query;
+    var id = q.id;
+
+    var sql = "UPDATE message SET status = 1 WHERE id=?"; // sql command to update the sent status of a record
+
+    mysqlcon.query(sql, [id], function (err) {
+        if (err) throw err;
+        console.log("the status of " + id + " set to 1");
+        res.send("Status updated");
+    });
+});
+
 
 srv.listen(4000, function () {console.log("Server is running on port 4000");});

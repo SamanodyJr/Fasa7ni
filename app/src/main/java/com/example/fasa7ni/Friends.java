@@ -29,7 +29,7 @@ import java.util.List;
 
 public class Friends extends AppCompatActivity implements View.OnClickListener, RecyclerViewInterface
 {
-    private String email;
+    private String username;
     private ImageButton Listat;
     private ImageButton Home;
     private ImageButton Profile;
@@ -93,7 +93,7 @@ public class Friends extends AppCompatActivity implements View.OnClickListener, 
         Bundle bundle = getIntent().getExtras();
         if (bundle != null)
         {
-            email = bundle.getString("Email");
+            username = bundle.getString("Username");
         }
         Request_Adapter = new RequestAdapter(this,getApplicationContext(),req);
         Friend_Adapter = new FriendAdapter(this,getApplicationContext(),list);
@@ -126,7 +126,7 @@ public class Friends extends AppCompatActivity implements View.OnClickListener, 
         list.clear();
         req.clear();
         String url;
-        url = "http://10.0.2.2:4000/Fetch_Friends?Reciever_Email="+email; //add Email
+        url = "http://10.0.2.2:4000/Fetch_Friends?Reciever_Username="+username; //add username
 
         RequestQueue requestQueue = Volley.newRequestQueue(this);
 
@@ -216,35 +216,35 @@ public class Friends extends AppCompatActivity implements View.OnClickListener, 
     private void Go_List()
     {
         Intent F_L = new Intent(Friends.this, Listat.class);
-        F_L.putExtra("Email", email);
+        F_L.putExtra("Username", username);
         startActivity(F_L);
     }
 
     private void Go_Events()
     {
         Intent F_E = new Intent(Friends.this, Events.class);
-        F_E.putExtra("Email", email);
+        F_E.putExtra("Username", username);
         startActivity(F_E);
     }
 
     private void Go_Home()
     {
         Intent F_H = new Intent(Friends.this, Home.class);
-        F_H.putExtra("Email", email);
+        F_H.putExtra("Username", username);
         startActivity(F_H);
     }
 
     private void Go_Recommender()
     {
         Intent F_R = new Intent(Friends.this, Recommender.class);
-        F_R.putExtra("Email", email);
+        F_R.putExtra("Username", username);
         startActivity(F_R);
     }
 
     private void Go_Profile()
     {
         Intent F_P = new Intent(Friends.this, Profile.class);
-        F_P.putExtra("Email", email);
+        F_P.putExtra("Username", username);
         startActivity(F_P);
     }
 

@@ -43,7 +43,7 @@ import com.android.volley.toolbox.Volley;
 
 public class Listat extends AppCompatActivity implements View.OnClickListener, RecyclerViewInterface
 {
-    private String email;
+    private String username;
     private ImageButton Event;
     private ImageButton Home;
     private ImageButton Friends;
@@ -71,7 +71,7 @@ public class Listat extends AppCompatActivity implements View.OnClickListener, R
         Bundle bundle = getIntent().getExtras();
         if (bundle != null)
         {
-            email = bundle.getString("Email");
+            username = bundle.getString("Username");
         }
 
         placeAdapter = new PlaceAdapter(this,getApplicationContext(),places_list);
@@ -237,35 +237,35 @@ public class Listat extends AppCompatActivity implements View.OnClickListener, R
     private void Go_Home()
     {
         Intent L_H = new Intent(Listat.this, Home.class);
-        L_H.putExtra("Email", email);
+        L_H.putExtra("Username", username);
         startActivity(L_H);
     }
 
     private void Go_Friends()
     {
         Intent L_F = new Intent(Listat.this, Friends.class);
-        L_F.putExtra("Email", email);
+        L_F.putExtra("Username", username);
         startActivity(L_F);
     }
 
     private void Go_Profile()
     {
         Intent L_P = new Intent(Listat.this, Profile.class);
-        L_P.putExtra("Email", email);
+        L_P.putExtra("Username", username);
         startActivity(L_P);
     }
 
     private void Go_Recommender()
     {
         Intent L_R = new Intent(Listat.this, Recommender.class);
-        L_R.putExtra("Email", email);
+        L_R.putExtra("Username", username);
         startActivity(L_R);
     }
 
     private void Go_Event()
     {
         Intent L_E = new Intent(Listat.this, Events.class);
-        L_E.putExtra("Email", email);
+        L_E.putExtra("Username", username);
         startActivity(L_E);
     }
 
