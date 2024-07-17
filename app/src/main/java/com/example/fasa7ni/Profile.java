@@ -20,7 +20,7 @@ import androidx.core.view.WindowInsetsCompat;
 
 public class Profile extends AppCompatActivity implements View.OnClickListener
 {
-    private String email;
+    private String username;
     private ImageButton BackButton;
     private Button EditButton;
     private EditText name;
@@ -46,7 +46,7 @@ public class Profile extends AppCompatActivity implements View.OnClickListener
         Bundle bundle = getIntent().getExtras();
         if (bundle != null)
         {
-            email = bundle.getString("Email");
+            username = bundle.getString("Username");
         }
 
         spinner = findViewById(R.id.spinnerLocation);
@@ -120,7 +120,7 @@ public class Profile extends AppCompatActivity implements View.OnClickListener
     private void Go_Interest()
     {
         Intent P_I = new Intent(Profile.this, Interests.class);
-        P_I.putExtra("Email", email);
+        P_I.putExtra("Username", username);
         startActivity(P_I);
     }
 

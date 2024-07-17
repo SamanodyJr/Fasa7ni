@@ -31,7 +31,7 @@ import java.util.List;
 
 public class Events extends AppCompatActivity implements View.OnClickListener, RecyclerViewInterface
 {
-    private String email;
+    private String username;
     private ImageButton Listat;
     private ImageButton Home;
     private ImageButton Friends;
@@ -92,7 +92,7 @@ public class Events extends AppCompatActivity implements View.OnClickListener, R
         list.clear();
         String url;
         if(Type=="Mine")
-            url = "http://10.0.2.2:4000/Fetch_My_Fosa7?Email=" + email; //add type
+            url = "http://10.0.2.2:4000/Fetch_My_Fosa7?Username=" + username; //add type
         else
             url = "http://10.0.2.2:4000/Fetch_Fosa7?Type=" + Type; //add type
 
@@ -113,7 +113,7 @@ public class Events extends AppCompatActivity implements View.OnClickListener, R
                         {
                             JSONObject place = response.getJSONObject(i);
                             String name = place.getString("Fos7a_Name");
-                            String Host = place.getString("Host_Email");
+                            String Host = place.getString("Host_Username");
                             String description = place.getString("Description");
                             int cap = place.getInt("Capacity");
                             String Fos7a_Date = place.getString("Fos7a_Date").substring(0, Math.min(place.getString("Fos7a_Date").length(), 10));;
@@ -172,7 +172,7 @@ public class Events extends AppCompatActivity implements View.OnClickListener, R
         Bundle bundle = getIntent().getExtras();
         if (bundle != null)
         {
-            email = bundle.getString("Email");
+            username = bundle.getString("Username");
         }
 
         Event_Adapter = new EventAdapter(this,getApplicationContext(),list);
@@ -240,42 +240,42 @@ public class Events extends AppCompatActivity implements View.OnClickListener, R
     private void Go_List()
     {
         Intent E_L = new Intent(Events.this, Listat.class);
-        E_L.putExtra("Email", email);
+        E_L.putExtra("Username", username);
         startActivity(E_L);
     }
 
     private void Go_Home()
     {
         Intent E_H = new Intent(Events.this, Home.class);
-        E_H.putExtra("Email", email);
+        E_H.putExtra("Username", username);
         startActivity(E_H);
     }
 
     private void Go_Friends()
     {
         Intent E_F = new Intent(Events.this, Friends.class);
-        E_F.putExtra("Email", email);
+        E_F.putExtra("Username", username);
         startActivity(E_F);
     }
 
     private void Go_Profile()
     {
         Intent E_P = new Intent(Events.this, Profile.class);
-        E_P.putExtra("Email", email);
+        E_P.putExtra("Username", username);
         startActivity(E_P);
     }
 
     private void Go_Recommender()
     {
         Intent E_R = new Intent(Events.this, Recommender.class);
-        E_R.putExtra("Email", email);
+        E_R.putExtra("Username", username);
         startActivity(E_R);
     }
 
     private void Go_Create()
     {
         Intent E_C = new Intent(Events.this, Create.class);
-        E_C.putExtra("Email", email);
+        E_C.putExtra("Username", username);
         startActivity(E_C);
     }
 

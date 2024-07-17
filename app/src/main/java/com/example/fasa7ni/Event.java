@@ -2,7 +2,7 @@ package com.example.fasa7ni;
 
 public class Event
 {
-    String Fos7a_Name, Host_Email;
+    String Fos7a_Name, Host_Username;
     String Description;
     int Capacity;
     String Fos7a_Time;
@@ -11,10 +11,10 @@ public class Event
     int Is_Public;
     String Place_Name;
 
-    public Event(String Fos7a_Name, String Host_Email, String Description, String Fos7a_Time, String Fos7a_Date,int Capacity,int Image, int Is_Public,String Place_Name)
+    public Event(String Fos7a_Name, String Host_Username, String Description, String Fos7a_Time, String Fos7a_Date,int Capacity,int Image, int Is_Public,String Place_Name)
     {
         this.Fos7a_Name = Fos7a_Name;
-        this.Host_Email = Host_Email;
+        this.Host_Username = Host_Username;
         this.Description = Description;
         this.Capacity = Capacity;
         this.Fos7a_Time = Fos7a_Time;
@@ -33,11 +33,11 @@ public class Event
     }
 
     public String getHostName() {
-        return Host_Email;
+        return Host_Username;
     }
 
     public void setHostName(String name) {
-        this.Host_Email = name;
+        this.Host_Username = name;
     }
 
     public String getLocation() {
