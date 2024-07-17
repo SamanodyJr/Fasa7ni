@@ -130,8 +130,6 @@ public class Friends extends AppCompatActivity implements View.OnClickListener, 
 
         RequestQueue requestQueue = Volley.newRequestQueue(this);
 
-        int ID[]={R.drawable.heggo_image,R.drawable.heggo_image,R.drawable.sarah};
-
         JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(
                 com.android.volley.Request.Method.GET, url, null,
                 response ->
@@ -143,7 +141,7 @@ public class Friends extends AppCompatActivity implements View.OnClickListener, 
                             JSONObject friend = response.getJSONObject(i);
                             String Username = friend.getString("Username");
                             int Accepted = friend.getInt("Accepted");
-                            int Image=ID[i%3];
+                            String Image = friend.getString("ProfilePic");
                             if(Accepted==1)
                                 list.add(new Friend(Username,Image,23,R.id.remove_friend_btn));
                             else

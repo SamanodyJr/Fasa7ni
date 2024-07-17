@@ -120,11 +120,9 @@ public class Events extends AppCompatActivity implements View.OnClickListener, R
                             String Fos7a_Time = place.getString("Fos7a_Time");
                             int Is_Public = place.getInt("Is_Public");
                             String Place_Name = place.getString("Place_Name");
-                            String blank=Place_Name.replaceAll("_", " ").toLowerCase();
-                            int Image =ID[i];
+                            String Image = place.getString("Pic");
+                            Log.d("boooooo",Image);
                             list.add(new Event(name, Host, description,Fos7a_Time, Fos7a_Date,cap, Image, Is_Public, Place_Name));
-//                            Log.d("Image Name 2",Integer.toString(R.drawable.the_great_pyramid_of_giza));
-//                            Log.d("Image Name 3",Integer.toString(Image));
                         }
                         Event_Adapter.notifyDataSetChanged();
                     }

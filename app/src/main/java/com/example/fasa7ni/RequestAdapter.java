@@ -8,6 +8,8 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
+
 import java.util.List;
 
 public class RequestAdapter extends RecyclerView.Adapter<RequestViewHolder>
@@ -32,10 +34,15 @@ public class RequestAdapter extends RecyclerView.Adapter<RequestViewHolder>
     public void onBindViewHolder(@NonNull RequestViewHolder holder, int position)
     {
         holder.name.setText(requests.get(position).getName());
-        holder.image.setImageResource(requests.get(position).getImage());
         holder.mutual.setText(Integer.toString(requests.get(position).getMutual()));
         holder.remove.setImageResource(R.drawable.x_sign);
         holder.add.setText("ADD");
+
+        String imagePath = "file:///android_asset/" + requests.get(position).getImage();
+
+        Glide.with(context)
+                .load(imagePath)
+                .into(holder.image);
 
         holder.remove.setOnClickListener(v ->
         {

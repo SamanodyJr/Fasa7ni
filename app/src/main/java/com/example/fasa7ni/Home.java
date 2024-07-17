@@ -11,6 +11,8 @@ import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.PopupWindow;
 import android.widget.SearchView;
+import com.bumptech.glide.Glide;
+
 
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -56,6 +58,8 @@ public class Home extends AppCompatActivity implements View.OnClickListener,Recy
         setContentView(R.layout.home);
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         Start();
+
+
     }
 
     private void Start()
@@ -150,7 +154,8 @@ public class Home extends AppCompatActivity implements View.OnClickListener,Recy
                             String Fos7a_Time = place.getString("Fos7a_Time");
                             int Is_Public = place.getInt("Is_Public");
                             String Place_Name = place.getString("Place_Name");
-                            list.add(new Event(name, Host, description,Fos7a_Time, Fos7a_Date,cap, R.drawable.padel, Is_Public, Place_Name));
+                            String Image = place.getString("Pic");
+                            list.add(new Event(name, Host, description,Fos7a_Time, Fos7a_Date,cap, Image, Is_Public, Place_Name));
                         }
                         Event_Adapter.notifyDataSetChanged();
                     }
@@ -170,10 +175,6 @@ public class Home extends AppCompatActivity implements View.OnClickListener,Recy
         String url = "http://10.0.2.2:4000/Fetch_Places?Cat=All"; //add type
         RequestQueue requestQueue = Volley.newRequestQueue(this);
 
-        int ID[]={
-                R.drawable.adrenaline_park_laser_tag,R.drawable.bibliotecha,R.drawable.b,R.drawable.befit_360,R.drawable.bounce_egypt
-
-        };
         JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(
                 Request.Method.GET, url, null,
                 response ->
@@ -189,7 +190,7 @@ public class Home extends AppCompatActivity implements View.OnClickListener,Recy
                             String openingTime = place.getString("OpeningTime");
                             String closingTime = place.getString("ClosingTime");
                             String workingDays = place.getString("WorkingDays");
-                            int Image=ID[i%5];
+                            String Image = place.getString("PlacePic");
                             places_list.add(new Place(name, location, description, phone, openingTime, closingTime, workingDays, Image));
                         }
                         placeAdapter.notifyDataSetChanged();

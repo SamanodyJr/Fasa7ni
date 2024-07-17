@@ -9,10 +9,10 @@ public class Place
     public String OpeningTime;
     public String ClosingTime;
     public String WorkingDays;
-    public int image;
+    public String image;
 
 
-    public Place(String name, String Location, String description, String phone, String OpeningTime, String ClosingTime, String WorkingDays, int image)
+    public Place(String name, String Location, String description, String phone, String OpeningTime, String ClosingTime, String WorkingDays, String image)
     {
         this.name = name;
         this.location = Location;
@@ -64,12 +64,12 @@ public class Place
         this.ClosingTime = ClosingTime;
     }
 
-    public int getImage()
+    public String getImage()
     {
         return image;
     }
 
-    public void setImage(int image) {
+    public void setImage(String image) {
         this.image = image;
     }
 

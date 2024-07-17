@@ -7,11 +7,11 @@ public class Event
     int Capacity;
     String Fos7a_Time;
     String Fos7a_Date;
-    int Image;
+    String Image;
     int Is_Public;
     String Place_Name;
 
-    public Event(String Fos7a_Name, String Host_Username, String Description, String Fos7a_Time, String Fos7a_Date,int Capacity,int Image, int Is_Public,String Place_Name)
+    public Event(String Fos7a_Name, String Host_Username, String Description, String Fos7a_Time, String Fos7a_Date,int Capacity,String Image, int Is_Public,String Place_Name)
     {
         this.Fos7a_Name = Fos7a_Name;
         this.Host_Username = Host_Username;
@@ -48,11 +48,11 @@ public class Event
         this.Place_Name = location;
     }
 
-    public int getImage() {
+    public String getImage() {
         return Image;
     }
 
-    public void setImage(int image) {
+    public void setImage(String image) {
         this.Image = image;
     }
 

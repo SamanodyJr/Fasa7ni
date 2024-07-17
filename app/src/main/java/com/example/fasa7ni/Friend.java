@@ -3,11 +3,11 @@ package com.example.fasa7ni;
 public class Friend
 {
     String Requester;
-    int image;
+    String image;
     int Mutual;
     int remove;
 
-    public Friend(String req, int image,int mut,int remove)
+    public Friend(String req, String image,int mut,int remove)
     {
         this.Requester = req;
         this.image = image;
@@ -40,11 +40,11 @@ public class Friend
         this.remove = remove;
     }
 
-    public int getImage() {
+    public String getImage() {
         return image;
     }
 
-    public void setImage(int image) {
+    public void setImage(String image) {
         this.image = image;
     }
 }

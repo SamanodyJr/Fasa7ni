@@ -169,7 +169,7 @@ public class Listat extends AppCompatActivity implements View.OnClickListener, R
                             String openingTime = place.getString("OpeningTime");
                             String closingTime = place.getString("ClosingTime");
                             String workingDays = place.getString("WorkingDays");
-                            int Image=ID[i%5];
+                            String Image = place.getString("PlacePic");
                             places_list.add(new Place(name, location, description, phone, openingTime, closingTime, workingDays, Image));
                         }
                         placeAdapter.notifyDataSetChanged();

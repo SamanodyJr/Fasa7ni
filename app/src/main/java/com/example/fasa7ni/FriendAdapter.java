@@ -8,6 +8,8 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
+
 import java.util.List;
 
 public class FriendAdapter extends RecyclerView.Adapter<FriendViewHolder> {
@@ -32,9 +34,14 @@ public class FriendAdapter extends RecyclerView.Adapter<FriendViewHolder> {
     @Override
     public void onBindViewHolder(@NonNull FriendViewHolder holder, int position) {
         holder.name.setText(friends.get(position).getName());
-        holder.image.setImageResource(friends.get(position).getImage());
         holder.mutual.setText(Integer.toString(friends.get(position).getMutual()));
         holder.remove.setImageResource(R.drawable.x_sign);
+
+        String imagePath = "file:///android_asset/" + friends.get(position).getImage();
+
+        Glide.with(context)
+                .load(imagePath)
+                .into(holder.image);
 
         holder.remove.setOnClickListener(v -> {
             friends.remove(position);
