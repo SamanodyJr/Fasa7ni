@@ -76,6 +76,7 @@ public class Login extends AppCompatActivity implements View.OnClickListener
             Email = EmailText.getText().toString();
             Pass = PassText.getText().toString();
             try {
+                Go_Home();
                 Verify(Email, Pass);
             } catch (IOException e) {
                 throw new RuntimeException(e);

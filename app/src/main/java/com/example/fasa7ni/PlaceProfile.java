@@ -3,6 +3,7 @@ package com.example.fasa7ni;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -66,6 +67,10 @@ public class PlaceProfile extends AppCompatActivity implements View.OnClickListe
     private TextView Location;
     private TextView Facebook;
     private TextView Phone;
+    private TextView ReadMore;
+    private boolean  isExpanded = false;
+    private ArrayList<TextView> Tags = new ArrayList<TextView>();
+    private Button directionsBtn;
 
     @SuppressLint("SourceLockedOrientationActivity")
     @Override
@@ -79,6 +84,15 @@ public class PlaceProfile extends AppCompatActivity implements View.OnClickListe
 
     private void Start()
     {
+
+        Tags.add(findViewById(R.id.tag1));
+        Tags.add(findViewById(R.id.tag2));
+        Tags.add(findViewById(R.id.tag3));
+        for(int i=0;i<3;i++)
+        {
+            Tags.get(i).setVisibility(View.INVISIBLE);
+        }
+
         BackButton = findViewById(R.id.backButton);
         BackButton.setOnClickListener(this);
 
@@ -91,8 +105,27 @@ public class PlaceProfile extends AppCompatActivity implements View.OnClickListe
         Location = findViewById(R.id.placeLocation);
         Phone = findViewById(R.id.phone);
         Facebook = findViewById(R.id.facebook);
+        directionsBtn=findViewById(R.id.button2);
+        ReadMore=findViewById(R.id.read_more);
 
 
+        ReadMore.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v) {
+                if (isExpanded) {
+                    Description.setMaxLines(3);
+                    Description.setEllipsize(android.text.TextUtils.TruncateAt.END);
+                    ReadMore.setText("Read More");
+                } else {
+                    Description.setMaxLines(Integer.MAX_VALUE);
+                    Description.setEllipsize(null);
+                    ReadMore.setText("Read Less");
+                }
+                isExpanded = !isExpanded;
+
+            }
+        });
 
 
         Bundle Bundle = getIntent().getExtras();
@@ -106,10 +139,26 @@ public class PlaceProfile extends AppCompatActivity implements View.OnClickListe
             workingDays=Bundle.getString("WorkingDays");
             image=Bundle.getInt("Image");
             FetchSocials(place_Name);
+            FetchTags(place_Name);
             setting_view();
 
-
         }
+
+        directionsBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //String source="my+location";
+                String source="Citystars Mall";
+//                String address = "The Great Pyramid of Giza";
+
+                Uri uri = Uri.parse("https://www.google.com/maps/dir/"+source+"/"+location);
+
+                Intent intent = new Intent(Intent.ACTION_VIEW, uri);
+                intent.setPackage("com.google.android.apps.maps");
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                startActivity(intent);
+            }
+        });
     }
 
 
@@ -123,11 +172,9 @@ public class PlaceProfile extends AppCompatActivity implements View.OnClickListe
         Facebook.setText(facebook_account);
         //Place_Image.setImageResource(image);
     }
+
     private void FetchSocials(String name)
     {
-
-//        places_list.clear();
-
         String url = "http://10.0.2.2:4000/Fetch_Places_Socials?name=" + name; //add type
         RequestQueue requestQueue = Volley.newRequestQueue(this);
 
@@ -154,6 +201,40 @@ public class PlaceProfile extends AppCompatActivity implements View.OnClickListe
                             social_list.add(new Social(acc_name, acc_type));
                         }
                         //set
+                    }
+                    catch (JSONException e)
+                    {
+                        e.printStackTrace();
+                    }
+                },
+                Throwable::printStackTrace
+        );
+        requestQueue.add(jsonArrayRequest);
+    }
+
+    private void FetchTags(String name)
+    {
+
+        String url = "http://10.0.2.2:4000/Fetch_Places_Tags?name=" + name; //add type
+        RequestQueue requestQueue = Volley.newRequestQueue(this);
+
+        JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(
+                Request.Method.GET, url, null,
+                response ->
+                {
+
+                    try {
+                        for (int i = 0; i < response.length(); i++)
+                        {
+                            JSONObject place = response.getJSONObject(i);
+                            String tag = place.getString("Tag_Name");
+                            Tags.get(i).setText(tag);
+                            Tags.get(i).setVisibility(View.VISIBLE);
+                        }
+
+                        for(int j=0;j<3;j++){
+
+                        }
                     }
                     catch (JSONException e)
                     {

@@ -324,6 +324,18 @@ public class Events extends AppCompatActivity implements View.OnClickListener, R
     @Override
     public void onItemClicked(int recycleViewID, int position) {
         Intent intent = new Intent(this, EventProfile.class);
+
+        intent.putExtra("Fos7a_Name", list.get(position).getName());
+        intent.putExtra("Host_Username", list.get(position).getHostName());
+        intent.putExtra("Description", list.get(position).getDescription());
+        intent.putExtra("Capacity", list.get(position).getCapacity());
+        intent.putExtra("Fos7a_Date", list.get(position).getDate());
+        intent.putExtra("Fos7a_Time", list.get(position).getFos7a_Time());
+        intent.putExtra("Is_Public", list.get(position).getIs_Public());
+        intent.putExtra("Place_Name", list.get(position).getLocation());
+        intent.putExtra("Image", list.get(position).getImage());
+
+
         startActivity(intent);
     }
 }
