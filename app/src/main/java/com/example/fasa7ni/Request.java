@@ -5,9 +5,9 @@ public class Request
     String Requester;
     int mutual;
     int remove, add;
-    int image;
+    String image;
 
-    public Request(String name, int mutual, int remove, int add, int image)
+    public Request(String name, int mutual, int remove, int add, String image)
     {
         this.Requester = name;
         this.image = image;
@@ -48,11 +48,11 @@ public class Request
         this.add = add;
     }
 
-    public int getImage() {
+    public String getImage() {
         return image;
     }
 
-    public void setImage(int image)
+    public void setImage(String image)
     {
         this.image = image;
     }

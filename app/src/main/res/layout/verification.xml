@@ -24,6 +24,7 @@ android:orientation="vertical"
 android:gravity="center"
 android:layout_weight="0.75">
 <EditText
+    android:id="@+id/verification_text"
     android:layout_width="match_parent"
     android:layout_height="55dp"
     android:background="@drawable/email_password_shape"
@@ -31,6 +32,7 @@ android:layout_weight="0.75">
     android:layout_marginEnd="40dp"
     android:paddingLeft="20dp"
     android:hint="Verification Code"
+    android:inputType="number"
     />
 
 

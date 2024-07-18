@@ -105,32 +105,24 @@ public class Login extends AppCompatActivity implements View.OnClickListener
     }
 
     private void Verify(String username, String pass) throws IOException, JSONException {
-        String url = "http://10.0.2.2:4000/Login"; //add type
+        String url = "http://10.0.2.2:4000/Login";
         RequestQueue requestQueue = Volley.newRequestQueue(this);
 
         JSONArray jsonObject = new JSONArray();
         jsonObject.put(username);
         jsonObject.put(pass);
 
-        Log.d("HEYYYYYYYY",jsonObject.toString());
-
-
-        AtomicBoolean result = new AtomicBoolean(false);
-
         JsonArrayRequest jsonObjectRequest = new JsonArrayRequest(
                 Request.Method.POST, url, jsonObject,
                 response ->
                 {
-                    if(response.length()==1){
+                    if(response.length()==1)
                         Go_Home();
-                    }
-                    else{
+                    else
                         Toast.makeText(Login.this, "Username or Password is incorrect", Toast.LENGTH_SHORT).show();
-                    }
                 },
                 Throwable::printStackTrace
         );
-        Log.d("HEYYYYYYYY",result.toString());
         requestQueue.add(jsonObjectRequest);
     }
 

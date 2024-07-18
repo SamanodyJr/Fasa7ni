@@ -8,7 +8,7 @@ srv.use(express.json());
 srv.use(bodyParser.json());
 
 
-var mysqlcon = mysql.createConnection({host: "localhost", user: "root", password: "", database : "Fasa7ni"});
+var mysqlcon = mysql.createConnection({host: "localhost", user: "root", password: "Heggi_2002", database : "Fasa7ni"});
 
 mysqlcon.connect( function (err)
 {
@@ -125,7 +125,7 @@ srv.get('/Fetch_Friends', function(req, res)
     var q = url.parse(req.url, true).query;
     var Reciever=q.Reciever_USERNAME;
 
-    var Retrieve_Query="SELECT Username,Accepted FROM Friend_Requests FR INNER JOIN User U ON FR.Requester_USERNAME=U.USERNAME WHERE Reciever_USERNAME=?" ;
+    var Retrieve_Query="SELECT Username,Accepted,ProfilePic FROM Friend_Requests FR INNER JOIN User U ON FR.Requester_USERNAME=U.USERNAME WHERE Reciever_USERNAME=?" ;
 
 
     mysqlcon.query(Retrieve_Query,[Reciever], function (err, result)
@@ -152,7 +152,7 @@ srv.get('/Fetch_My_Fosa7', function(req, res)
     var q = url.parse(req.url, true).query;
     var User=q.Username;
 
-    var Retrieve_Query="SELECT F.* FROM Fosa7 F LEFT OUTER JOIN Fosa7_Requests FR ON F.Host_USERNAME=FR.Host_USERNAME AND F.Fos7a_Name=FR.Fos7a_Name AND F.Fos7a_Date=FR.Fos7a_Date AND F.Fos7a_Time = FR.Fos7a_Time WHERE F.Host_USERNAME=? OR (FR.Requester_USERNAME=? AND FR.Accepted=1)" ;
+    var Retrieve_Query="SELECT DISTINCT F.* FROM Fosa7 F LEFT OUTER JOIN Fosa7_Requests FR ON F.Host_USERNAME=FR.Host_USERNAME AND F.Fos7a_Name=FR.Fos7a_Name AND F.Fos7a_Date=FR.Fos7a_Date AND F.Fos7a_Time = FR.Fos7a_Time WHERE (FR.Host_USERNAME=?) OR (FR.Requester_USERNAME=? AND FR.Accepted=1)" ;
 
 
     mysqlcon.query(Retrieve_Query,[User,User], function (err, result)
@@ -378,18 +378,18 @@ srv.post('/Login', function(req, res)
 srv.get('/Update_User', function(req, res)
 {
 
-    console.log("Accepting Request...");
+    console.log("Update Request...");
     var q = url.parse(req.url, true).query;
     var olduser = q.olduser;
-    var Phone = q.Phone;
-    var Username = q.Username;
+    var Phone = q.phone;
+    var Username = q.username;
     var BirthDate = q.BirthDate;
     var Area = q.Area;
 
     var Retrieve_Query= "UPDATE User SET Phone = ?, Username = ?, BirthDate = ?, Area = ? WHERE Username = ?" ;
 
 
-    mysqlcon.query(Retrieve_Query,[Phone, Username, ProfilePic, BirthDate, Area, olduser], function (err, result)
+    mysqlcon.query(Retrieve_Query,[Phone, Username, BirthDate, Area, olduser], function (err, result)
     {
         if (err)
         {
@@ -470,6 +470,31 @@ srv.get('/Add_Interests', function(req, res)
     }
     res.send("Done");
 });
+
+srv.get('/Get_Interests', function(req, res)
+{
+    console.log("Accepting Request...");
+    var q = url.parse(req.url, true).query;
+    var Username = q.Username;
+
+    var Select_Query = "SELECT Interest FROM User_Interests WHERE Username = ?";
+
+    mysqlcon.query(Select_Query,[Username], function (err, result)
+    {
+        if (err)
+        {
+            console.log("Select Failed.");
+            throw err;
+        }
+        else
+        {
+            console.log("Interests Retrieved Successfully.");
+            res.send(result);
+        }
+    });
+
+});
+
 
 srv.get('/Search', function(req, res)
 {

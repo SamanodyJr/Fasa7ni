@@ -11,6 +11,8 @@ import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.PopupWindow;
 import android.widget.SearchView;
+import com.bumptech.glide.Glide;
+
 
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -95,9 +97,11 @@ public class Home extends AppCompatActivity implements View.OnClickListener,Recy
         FetchPlaces();
         FetchUpcoming();
 
-        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener()
+        {
             @Override
-            public boolean onQueryTextSubmit(String query) {
+            public boolean onQueryTextSubmit(String query)
+            {
                 // Perform search when user submits query
                 return true;
             }
@@ -110,13 +114,18 @@ public class Home extends AppCompatActivity implements View.OnClickListener,Recy
             }
         });
 
-        searchView.setOnQueryTextFocusChangeListener(new View.OnFocusChangeListener() {
+        searchView.setOnQueryTextFocusChangeListener(new View.OnFocusChangeListener()
+        {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
-                if (hasFocus) {
+                if (hasFocus)
+                {
                     showDropdown();
-                } else {
-                    if (popupWindow != null && popupWindow.isShowing()) {
+                }
+                else
+                {
+                    if (popupWindow != null && popupWindow.isShowing())
+                    {
                         popupWindow.dismiss();
                     }
                 }
@@ -124,7 +133,7 @@ public class Home extends AppCompatActivity implements View.OnClickListener,Recy
         });
 
     }
-    private void FetchUpcoming( )
+    private void FetchUpcoming()
     {
         list.clear();
         String url;
@@ -138,6 +147,7 @@ public class Home extends AppCompatActivity implements View.OnClickListener,Recy
                 Request.Method.GET, url, null,
                 response ->
                 {
+                    Log.d("Home",response.toString());
                     try {
                         for (int i = 0; i < response.length(); i++)
                         {
@@ -146,11 +156,12 @@ public class Home extends AppCompatActivity implements View.OnClickListener,Recy
                             String Host = place.getString("Host_Username");
                             String description = place.getString("Description");
                             int cap = place.getInt("Capacity");
-                            String Fos7a_Date = place.getString("Fos7a_Date");
+                            String Fos7a_Date = place.getString("Fos7a_Date").substring(0, Math.min(place.getString("Fos7a_Date").length(), 10));;
                             String Fos7a_Time = place.getString("Fos7a_Time");
                             int Is_Public = place.getInt("Is_Public");
                             String Place_Name = place.getString("Place_Name");
-                            list.add(new Event(name, Host, description,Fos7a_Time, Fos7a_Date,cap, R.drawable.padel, Is_Public, Place_Name));
+                            String Image = place.getString("Pic");
+                            list.add(new Event(name, Host, description,Fos7a_Time, Fos7a_Date,cap, Image, Is_Public, Place_Name));
                         }
                         Event_Adapter.notifyDataSetChanged();
                     }
@@ -167,13 +178,9 @@ public class Home extends AppCompatActivity implements View.OnClickListener,Recy
     private void FetchPlaces()
     {
         places_list.clear();
-        String url = "http://10.0.2.2:4000/Fetch_Places?Cat=Near"; //add type
+        String url = "http://10.0.2.2:4000/Fetch_Places?Cat=All"; //add type
         RequestQueue requestQueue = Volley.newRequestQueue(this);
 
-        int ID[]={
-                R.drawable.adrenaline_park_laser_tag,R.drawable.bibliotecha,R.drawable.b,R.drawable.befit_360,R.drawable.bounce_egypt
-
-        };
         JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(
                 Request.Method.GET, url, null,
                 response ->
@@ -189,7 +196,7 @@ public class Home extends AppCompatActivity implements View.OnClickListener,Recy
                             String openingTime = place.getString("OpeningTime");
                             String closingTime = place.getString("ClosingTime");
                             String workingDays = place.getString("WorkingDays");
-                            int Image=ID[i%5];
+                            String Image = place.getString("PlacePic");
                             places_list.add(new Place(name, location, description, phone, openingTime, closingTime, workingDays, Image));
                         }
                         placeAdapter.notifyDataSetChanged();
@@ -236,7 +243,8 @@ public class Home extends AppCompatActivity implements View.OnClickListener,Recy
 
 
     @Override
-    public void onClick(View v) {
+    public void onClick(View v)
+    {
         if(v.getId()==Listat.getId())
             Go_List();
 

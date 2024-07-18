@@ -126,24 +126,22 @@ public class Friends extends AppCompatActivity implements View.OnClickListener, 
         list.clear();
         req.clear();
         String url;
-        url = "http://10.0.2.2:4000/Fetch_Friends?Reciever_Username="+username; //add username
+        url = "http://10.0.2.2:4000/Fetch_Friends?Reciever_USERNAME="+username;
 
         RequestQueue requestQueue = Volley.newRequestQueue(this);
-
-        int ID[]={R.drawable.heggo_image,R.drawable.heggo_image,R.drawable.sarah};
 
         JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(
                 com.android.volley.Request.Method.GET, url, null,
                 response ->
                 {
-                    Log.d("Requester", Integer.toString(response.length()));
+                    Log.d("Requester", response.toString());
                     try {
                         for (int i = 0; i < response.length(); i++)
                         {
                             JSONObject friend = response.getJSONObject(i);
                             String Username = friend.getString("Username");
                             int Accepted = friend.getInt("Accepted");
-                            int Image=ID[i%3];
+                            String Image = friend.getString("ProfilePic");
                             if(Accepted==1)
                                 list.add(new Friend(Username,Image,23,R.id.remove_friend_btn));
                             else

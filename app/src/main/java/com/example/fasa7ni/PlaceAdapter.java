@@ -9,6 +9,8 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
+
 import java.util.List;
 
 public class PlaceAdapter extends RecyclerView.Adapter<PlaceViewHolder>
@@ -34,7 +36,10 @@ public class PlaceAdapter extends RecyclerView.Adapter<PlaceViewHolder>
     public void onBindViewHolder(@NonNull PlaceViewHolder holder, int position)
     {
         holder.name.setText(places.get(position).getName());
-        holder.image.setImageResource(places.get(position).getImage());
+        String imagePath = "file:///android_asset/" + places.get(position).getImage();
+        Glide.with(context)
+                .load(imagePath)
+                .into(holder.image);
         holder.location.setText(places.get(position).getLocation());
     }
     @Override

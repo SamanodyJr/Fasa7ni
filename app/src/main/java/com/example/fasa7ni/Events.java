@@ -32,7 +32,6 @@ import java.util.List;
 public class Events extends AppCompatActivity implements View.OnClickListener, RecyclerViewInterface
 {
     private String username;
-    private String placename;
     private ImageButton Listat;
     private ImageButton Home;
     private ImageButton Friends;
@@ -92,12 +91,13 @@ public class Events extends AppCompatActivity implements View.OnClickListener, R
     {
         list.clear();
         String url;
-        if(Type.equals("Mine"))
+        if(Type=="Mine")
             url = "http://10.0.2.2:4000/Fetch_My_Fosa7?Username=" + username; //add type
         else
             url = "http://10.0.2.2:4000/Fetch_Fosa7?Type=" + Type; //add type
 
         RequestQueue requestQueue = Volley.newRequestQueue(this);
+
         int ID[]={
                 R.drawable.adrenaline_park_laser_tag,
                 R.drawable.the_great_pyramid_of_giza,
@@ -109,7 +109,6 @@ public class Events extends AppCompatActivity implements View.OnClickListener, R
                 response ->
                 {
                     try {
-
                         for (int i = 0; i < response.length(); i++)
                         {
                             JSONObject place = response.getJSONObject(i);
@@ -121,10 +120,9 @@ public class Events extends AppCompatActivity implements View.OnClickListener, R
                             String Fos7a_Time = place.getString("Fos7a_Time");
                             int Is_Public = place.getInt("Is_Public");
                             String Place_Name = place.getString("Place_Name");
-                            String blank=Place_Name.replaceAll("_", " ").toLowerCase();
-                            int Image =ID[i];
+                            String Image = place.getString("Pic");
+                            Log.d("boooooo",Image);
                             list.add(new Event(name, Host, description,Fos7a_Time, Fos7a_Date,cap, Image, Is_Public, Place_Name));
-
                         }
                         Event_Adapter.notifyDataSetChanged();
                     }
@@ -173,9 +171,7 @@ public class Events extends AppCompatActivity implements View.OnClickListener, R
         if (bundle != null)
         {
             username = bundle.getString("Username");
-            placename = bundle.getString("Place_Name");
         }
-
 
         Event_Adapter = new EventAdapter(this,getApplicationContext(),list);
 
@@ -210,14 +206,7 @@ public class Events extends AppCompatActivity implements View.OnClickListener, R
         RecyclerView recyclerView = findViewById(R.id.fosa7_recylcerview);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setAdapter(Event_Adapter);
-        if(placename != null) {
-            Event_Buttons[0].setBackgroundColor(Color.parseColor("#41F2F8"));
-            Event_Buttons[0].setTextColor(Color.parseColor("#2C2B2B"));
-            Event_Status[0] = false;
-            FetchEvents(placename);
-        }
-        else
-            FetchEvents("All");
+        FetchEvents("All");
     }
 
     @Override
@@ -323,8 +312,7 @@ public class Events extends AppCompatActivity implements View.OnClickListener, R
                 FetchEvents("All");
                 break;
             default:
-
-                    FetchEvents("All");
+                FetchEvents("All");
                 break;
 
         }
@@ -334,15 +322,6 @@ public class Events extends AppCompatActivity implements View.OnClickListener, R
     @Override
     public void onItemClicked(int recycleViewID, int position) {
         Intent intent = new Intent(this, EventProfile.class);
-        intent.putExtra("Fos7a_Name", list.get(position).getName());
-        intent.putExtra("Host_Username", list.get(position).getHostName());
-        intent.putExtra("Description", list.get(position).getDescription());
-        intent.putExtra("Capacity", list.get(position).getCapacity());
-        intent.putExtra("Fos7a_Date", list.get(position).getDate());
-        intent.putExtra("Fos7a_Time", list.get(position).getFos7a_Time());
-        intent.putExtra("Is_Public", list.get(position).getIs_Public());
-        intent.putExtra("Place_Name", list.get(position).getLocation());
-        intent.putExtra("Image", list.get(position).getImage());
         startActivity(intent);
     }
 }

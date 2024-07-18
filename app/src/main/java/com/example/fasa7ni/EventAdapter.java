@@ -1,6 +1,7 @@
 package com.example.fasa7ni;
 
 import android.content.Context;
+import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -8,6 +9,9 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
+
+import java.io.File;
 import java.util.List;
 
 public class EventAdapter extends RecyclerView.Adapter<EventViewHolder>
@@ -31,10 +35,14 @@ public class EventAdapter extends RecyclerView.Adapter<EventViewHolder>
     @Override
     public void onBindViewHolder(@NonNull EventViewHolder holder, int position) {
         holder.name.setText(fos7as.get(position).getName());
-        holder.image.setImageResource(fos7as.get(position).getImage());
         holder.location.setText(fos7as.get(position).getLocation());
         holder.hostName.setText(fos7as.get(position).getHostName());
-        holder.openingHours.setText(fos7as.get(position).getDate());    }
+        holder.openingHours.setText(fos7as.get(position).getDate());
+        String imagePath = "file:///android_asset/" + fos7as.get(position).getImage();
+        Glide.with(context)
+                .load(imagePath)
+                .into(holder.image);
+    }
     @Override
     public int getItemCount()
     {

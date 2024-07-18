@@ -8,6 +8,7 @@ import android.os.Bundle;
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -25,6 +26,7 @@ import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.Volley;
+import com.bumptech.glide.Glide;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -33,7 +35,7 @@ public class Profile extends AppCompatActivity implements View.OnClickListener
 {
     private String username;
     private String olduser;
-    private int pic;
+    private String picstr;
     private String birth;
     private String phone;
     private String Location;
@@ -45,6 +47,7 @@ public class Profile extends AppCompatActivity implements View.OnClickListener
     private EditText MobileNumber;
     private Button EditIntrest;
     private Spinner spinner;
+
     @SuppressLint("SourceLockedOrientationActivity")
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -57,7 +60,6 @@ public class Profile extends AppCompatActivity implements View.OnClickListener
 
     private void Start()
     {
-        FetchUser();
         Bundle bundle = getIntent().getExtras();
         if (bundle != null)
         {
@@ -80,49 +82,7 @@ public class Profile extends AppCompatActivity implements View.OnClickListener
         MobileNumber.setOnClickListener(this);
         EditIntrest.setOnClickListener(this);
 
-        User.setText(username);
-        ProfilePic.setImageResource(pic);
-        DOB.setText(birth);
-        MobileNumber.setText(phone);
-
-        int pos = 0;
-        switch (Location)
-        {
-            case "Maadi":
-                pos = 0;
-                break;
-            case "New Cairo":
-                pos = 1;
-                break;
-            case "Sheikh Zayed":
-                pos = 2;
-                break;
-            case "6th of October":
-                pos = 3;
-                break;
-            case "Nasr City":
-                pos = 4;
-                break;
-            case "Zamalek":
-                pos = 5;
-                break;
-            case "Heliopolis":
-                pos = 6;
-                break;
-            case "Katameya":
-                pos = 7;
-                break;
-            case "Mokattam":
-                pos = 8;
-                break;
-            case "Downtown":
-                pos = 9;
-                break;
-            case"Madinaty":
-                pos=10;
-                break;
-        }
-        spinner.setSelection(pos);
+        FetchUser();
 
     }
 
@@ -130,7 +90,7 @@ public class Profile extends AppCompatActivity implements View.OnClickListener
     public void onClick(View v)
     {
         if(v.getId()==BackButton.getId())
-            Go_BackButton();
+            Go_Home();
         else if(v.getId()==EditButton.getId())
             Go_EditButton();
         else if(v.getId()==EditIntrest.getId())
@@ -140,14 +100,15 @@ public class Profile extends AppCompatActivity implements View.OnClickListener
 
     }
 
-    private void Go_BackButton()
+    private void Go_Home()
     {
-        finish();
+        Intent P_H = new Intent(Profile.this, Home.class);
+        P_H.putExtra("Username", username);
+        startActivity(P_H);
     }
 
     private void Go_EditButton()
     {
-        olduser = username;
         boolean isEnabled = !User.isEnabled();
         User.setEnabled(isEnabled);
         DOB.setEnabled(isEnabled);
@@ -164,20 +125,19 @@ public class Profile extends AppCompatActivity implements View.OnClickListener
         else
         {
             EditButton.setText("EDIT");
+            olduser = username;
+            username = User.getText().toString();
+            birth = DOB.getText().toString();
+            phone = MobileNumber.getText().toString();
+            Location = spinner.getSelectedItem().toString();
+            UpdateUser();
         }
-
-        username = User.getText().toString();
-        birth = DOB.getText().toString();
-        phone = MobileNumber.getText().toString();
-        Location = spinner.getSelectedItem().toString();
-        UpdateUser();
     }
 
     private void UpdateUser()
     {
         String url;
-        url = "http://10.0.2.2:4000/Update_User?olduser="+olduser+"&phone="+phone+"&username="+username+"&BirthDate"+birth+"&Area="+Location;
-
+        url = "http://10.0.2.2:4000/Update_User?olduser="+olduser+"&phone="+phone+"&username="+username+"&BirthDate="+birth+"&Area="+Location;
         RequestQueue requestQueue = Volley.newRequestQueue(this);
 
         JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(
@@ -207,15 +167,65 @@ public class Profile extends AppCompatActivity implements View.OnClickListener
                 Request.Method.GET, url, null,
                 response ->
                 {
-                    try {
-                        for (int i = 0; i < response.length(); i++)
+                    Log.d("Profile", response.toString());
+                    try
+                    {
+                        JSONObject user = response.getJSONObject(0);
+                        picstr = user.getString("ProfilePic");
+                        birth = user.getString("BirthDate");
+                        phone = user.getString("Phone");
+                        Location = user.getString("Area");
+
+                        String imagePath = "file:///android_asset/" + picstr;
+                        Glide.with(getApplicationContext())
+                                .load(imagePath)
+                                .into(ProfilePic);
+
+                        runOnUiThread(() ->
                         {
-                            JSONObject user = response.getJSONObject(i);
-                            pic = user.getInt("ProfilePic");
-                            birth = user.getString("BirthDate");
-                            phone = user.getString("Phone");
-                            Location = user.getString("Area");
-                        }
+                            User.setText(username);
+                            DOB.setText(birth);
+                            MobileNumber.setText(phone);
+
+                            int pos = 0;
+                            switch (Location)
+                            {
+                                case "Maadi":
+                                    pos = 0;
+                                    break;
+                                case "New Cairo":
+                                    pos = 1;
+                                    break;
+                                case "Sheikh Zayed":
+                                    pos = 2;
+                                    break;
+                                case "6th of October":
+                                    pos = 3;
+                                    break;
+                                case "Nasr City":
+                                    pos = 4;
+                                    break;
+                                case "Zamalek":
+                                    pos = 5;
+                                    break;
+                                case "Heliopolis":
+                                    pos = 6;
+                                    break;
+                                case "Katameya":
+                                    pos = 7;
+                                    break;
+                                case "Mokattam":
+                                    pos = 8;
+                                    break;
+                                case "Downtown":
+                                    pos = 9;
+                                    break;
+                                case "Madinaty":
+                                    pos = 10;
+                                    break;
+                            }
+                            spinner.setSelection(pos);
+                        });
                     }
                     catch (JSONException e)
                     {

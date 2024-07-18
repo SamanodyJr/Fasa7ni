@@ -1,12 +1,15 @@
 package com.example.fasa7ni;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -14,10 +17,21 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.toolbox.JsonArrayRequest;
+import com.android.volley.toolbox.Volley;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
 public class Interests extends AppCompatActivity implements View.OnClickListener
 {
     private ImageButton BackButton;
-    String username;
+    private Button btnSave;
+    private String username;
+    private String Interests;
+    private String[] interests;
     private Button[] interestButtons = new Button[37];
     private boolean[] status= new boolean[37];
 
@@ -30,15 +44,18 @@ public class Interests extends AppCompatActivity implements View.OnClickListener
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         Start();
     }
-    private void Start() {
+    private void Start()
+    {
         Bundle bundle = getIntent().getExtras();
         if (bundle != null)
         {
             username = bundle.getString("Username");
         }
         BackButton = findViewById(R.id.backButton);
-
         BackButton.setOnClickListener(this);
+
+        btnSave = findViewById(R.id.btnSave);
+        btnSave.setOnClickListener(this);
 
         int[] buttonIDs =
                 {
@@ -57,23 +74,102 @@ public class Interests extends AppCompatActivity implements View.OnClickListener
             interestButtons[i] = findViewById(buttonIDs[i]);
             interestButtons[i].setOnClickListener(this);
         }
+        GetInterests();
 
     }
     @Override
     public void onClick(View v)
     {
         if(v.getId()==BackButton.getId())
-            Go_BackButton();
-        else
+            Go_Profile();
+        else if(v.getId()==btnSave.getId())
         {
-            Go_Select_Intrests(v.getId());
+            Interests = "";
+            for (int i = 0; i < 36; i++)
+            {
+                if(status[i])
+                    Interests += interestButtons[i].getText().toString()+",";
+            }
+            Interests = Interests.substring(0, Interests.length()-1);
+            AddInterests();
+            Go_Profile();
         }
+        else
+            Go_Select_Intrests(v.getId());
 
     }
 
-    private void Go_BackButton()
+    private void GetInterests()
     {
-        finish();
+        String url;
+        url = "http://10.0.2.2:4000/Get_Interests?Username="+username;
+        RequestQueue requestQueue = Volley.newRequestQueue(this);
+        JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(
+                Request.Method.GET, url, null,
+                response ->
+                {
+                    try
+                    {
+                        interests = new String[response.length()];
+                        for (int i = 0; i < response.length(); i++)
+                        {
+                            JSONObject interest = response.getJSONObject(i);
+                            interests[i] = interest.getString("Interest");
+                        }
+
+                        runOnUiThread(() ->
+                        {
+                            for (int i = 0; i < interests.length; i++)
+                            {
+                                for (int j = 0; j < 36; j++)
+                                {
+                                    if(interests[i].equals(interestButtons[j].getText().toString()))
+                                        status[j]=true;
+
+                                    if(status[j]) //selected
+                                    {
+                                        interestButtons[j].setBackgroundColor(Color.parseColor("#41F2F8"));
+                                        interestButtons[j].setTextColor(Color.parseColor("#2C2B2B"));
+                                    }
+                                    else
+                                    {
+                                        interestButtons[j].setBackgroundColor(Color.parseColor("#FF6767"));
+                                        interestButtons[j].setTextColor(Color.parseColor("#EDEDED"));
+                                    }
+                                }
+                            }
+                        });
+                    }
+                    catch (JSONException e)
+                    {
+                        e.printStackTrace();
+                    }
+                },
+                Throwable::printStackTrace
+        );
+        requestQueue.add(jsonArrayRequest);
+
+    }
+
+    private void AddInterests()
+    {
+        String url;
+        url = "http://10.0.2.2:4000/Add_Interests?Username="+username+"&Interests="+Interests;
+        RequestQueue requestQueue = Volley.newRequestQueue(this);
+        JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(
+                Request.Method.GET, url, null,
+                response ->
+                        Toast.makeText(Interests.this, "Updated Successfully", Toast.LENGTH_SHORT).show(),
+                Throwable::printStackTrace
+        );
+        requestQueue.add(jsonArrayRequest);
+    }
+
+    private void Go_Profile()
+    {
+        Intent I_P = new Intent(Interests.this, Profile.class);
+        I_P.putExtra("Username", username);
+        startActivity(I_P);
     }
 
     private void Go_Select_Intrests(int Id)
@@ -84,7 +180,7 @@ public class Interests extends AppCompatActivity implements View.OnClickListener
             if(Id==interestButtons[i].getId())
             {
                 status[i]=!status[i];
-                if(status[i])
+                if(status[i]) //selected
                 {
                     interestButtons[i].setBackgroundColor(Color.parseColor("#41F2F8"));
                     interestButtons[i].setTextColor(Color.parseColor("#2C2B2B"));
@@ -97,4 +193,5 @@ public class Interests extends AppCompatActivity implements View.OnClickListener
             }
         }
     }
+
 }

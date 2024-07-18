@@ -4,24 +4,31 @@ import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
-import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
-
-import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
 
-public class Verification extends AppCompatActivity  implements View.OnClickListener
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.toolbox.JsonArrayRequest;
+import com.android.volley.toolbox.Volley;
+
+import org.json.JSONArray;
+import java.util.concurrent.atomic.AtomicBoolean;
+
+
+public class Verification extends AppCompatActivity
 {
-    private Button Verify;
-    private  String email;
+    private Button verifyBtn;
+    private  String Username;
     private String phone;
+    private String pass;
     private EditText User_Code;
+    private String receivedToken;
+
     private boolean verified;
+
     @SuppressLint("SourceLockedOrientationActivity")
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -33,50 +40,65 @@ public class Verification extends AppCompatActivity  implements View.OnClickList
         Start();
     }
 
+
     private void Start()
     {
+        User_Code = findViewById(R.id.verification_text);
+        verifyBtn = findViewById(R.id.verify_btn);
 
-        Verify = findViewById(R.id.verify_btn);
-        Verify.setOnClickListener(this);
         Bundle bundle = getIntent().getExtras();
 
         if (bundle != null)
         {
-            email = bundle.getString("Email");
+            Username = bundle.getString("Username");
             phone = bundle.getString("Phone");
+            pass = bundle.getString("Pass");
+            receivedToken = getIntent().getStringExtra("Token");
         }
-        //request code from API
-    }
 
-
-    @Override
-    public void onClick(View v) {
-        if(v.getId()==Verify.getId()) {
-            verified = Confirm_Code();
-
-            if(verified)
+        verifyBtn.setOnClickListener(v ->
+        {
+            String enteredToken = User_Code.getText().toString();
+            if (enteredToken.equals(receivedToken))
+            {
+                Toast.makeText(Verification.this, "Token verified successfully!", Toast.LENGTH_SHORT).show();
+                Add_User();
                 Go_Home();
+            }
             else
-                Toast.makeText(Verification.this, "Incorrect Code", Toast.LENGTH_SHORT).show();
-        }
-        else
-            return;
+            {
+                Toast.makeText(Verification.this, "Invalid token. Please try again.", Toast.LENGTH_SHORT).show();
+                Verification.this.finish();
+            }
+        });
     }
 
-    private boolean Confirm_Code()
-    {
-        String code;
-        code= User_Code.getText().toString();
-
-        //Check with requested code
-
-        return true;
-    }
 
     private void Go_Home()
     {
         Intent V_H = new Intent(Verification.this, Home.class);
-        V_H.putExtra("Email", email);
+        V_H.putExtra("Username", Username);
         startActivity(V_H);
+    }
+
+    private void Add_User()
+    {
+        String url = "http://10.0.2.2:4000/Add_User";
+        RequestQueue requestQueue = Volley.newRequestQueue(this);
+
+        JSONArray jsonObject = new JSONArray();
+        jsonObject.put(Username);
+        jsonObject.put(phone);
+        jsonObject.put(pass);
+
+        JsonArrayRequest jsonObjectRequest = new JsonArrayRequest(
+                Request.Method.POST, url, jsonObject,
+                response ->
+                {
+                    Toast.makeText(Verification.this, "User added successfully!", Toast.LENGTH_SHORT).show();
+                },
+                Throwable::printStackTrace
+        );
+        requestQueue.add(jsonObjectRequest);
     }
 }

@@ -1,0 +1,203 @@
+Index: Population/Create.sql
+===================================================================
+diff --git a/Population/Create.sql b/Population/Create.sql
+deleted file mode 100644
+--- a/Population/Create.sql	(revision 5061a01ac610970b6befcdebfd9e7e55d870efdc)
++++ /dev/null	(revision 5061a01ac610970b6befcdebfd9e7e55d870efdc)
+@@ -1,159 +0,0 @@
+-drop database Fasa7ni;
+-create database Fasa7ni;
+-use Fasa7ni;
+-CREATE TABLE User (
+-    FirstName VARCHAR(255),
+-    LastName VARCHAR(255),
+-    Area VARCHAR(255),
+-    Phone VARCHAR(11),
+-    Username VARCHAR(255),
+-    Pass VARCHAR(255),
+-    ProfilePic TEXT, 
+-    BirthDate DATE,
+-    NationalID VARCHAR(255),
+-    Email VARCHAR(255) PRIMARY KEY
+-);
+-CREATE TABLE Friend_Requests (
+-    Accepted BOOLEAN DEFAULT true,
+-    Requester_Email VARCHAR(255),
+-    Reciever_Email VARCHAR(255),
+-    FOREIGN KEY (Requester_Email) REFERENCES User(Email),
+-    FOREIGN KEY (Reciever_Email) REFERENCES User(Email),
+-    PRIMARY KEY (Requester_Email, Reciever_Email)
+-);
+-
+-CREATE TABLE Tags (
+-    Tag_Name VARCHAR(255) PRIMARY KEY
+-);
+-
+-CREATE TABLE User_Interests(
+-    Interest VARCHAR(255),
+-    Email VARCHAR(255),
+-    FOREIGN KEY (Interest) REFERENCES Tags(Tag_Name),
+-    FOREIGN KEY (Email) REFERENCES User(Email),
+-    PRIMARY KEY (Interest, Email)
+-);
+-
+-
+-
+-CREATE TABLE Places (
+-    Place_Name VARCHAR(255) PRIMARY KEY,
+-    Description TEXT,
+-    Phone VARCHAR(255),
+-    OpeningTime TIME,
+-    ClosingTime TIME,
+-    WorkingDays VARCHAR(255),
+-    PlacePic TEXT
+-);
+-
+-CREATE TABLE Fosa7 (
+-    Fos7a_Name VARCHAR(255),
+-    Host_Email VARCHAR(255),
+-    Place_Name VARCHAR(255),
+-    Description TEXT,
+-    Capacity INT,
+-    Fos7a_Time TIME,
+-    Fos7a_Date DATE,
+-    Image TEXT,
+-    Is_Public BOOLEAN,
+-    FOREIGN KEY (Host_Email) REFERENCES User(Email),
+-	FOREIGN KEY (Place_Name) REFERENCES Places(Place_Name),
+-    PRIMARY KEY (Host_Email, Fos7a_Name ,Fos7a_Date,Fos7a_Time)
+-);
+-
+-CREATE TABLE Fosa7_Requests (
+-    Accepted BOOLEAN,
+-    Requester_Email VARCHAR(255),
+-    Host_Email VARCHAR(255),
+-    Fos7a_Name VARCHAR(255),
+-    Fos7a_Date DATE,
+-    Fos7a_Time TIME,
+-    FOREIGN KEY (Requester_Email) REFERENCES User(Email),
+-	FOREIGN KEY (Host_Email, Fos7a_Name, Fos7a_Date, Fos7a_Time) REFERENCES Fosa7(Host_Email, Fos7a_Name, Fos7a_Date, Fos7a_Time),
+-    PRIMARY KEY (Requester_Email, Host_Email, Fos7a_Name ,Fos7a_Date,Fos7a_Time)
+-);
+-
+-CREATE TABLE Fosa7_Tags(
+-    Tag_Name VARCHAR(255),
+-    Host_Email VARCHAR(255),
+-    Fos7a_Name VARCHAR(255),
+-    Fos7a_Date DATE,
+-    Fos7a_Time TIME,
+-    FOREIGN KEY (Tag_Name) REFERENCES Tags(Tag_Name),
+-  	FOREIGN KEY (Host_Email, Fos7a_Name, Fos7a_Date, Fos7a_Time) REFERENCES Fosa7(Host_Email, Fos7a_Name, Fos7a_Date, Fos7a_Time),
+-    PRIMARY KEY (Tag_Name, Host_Email, Fos7a_Name ,Fos7a_Date,Fos7a_Time) 
+-);
+-
+-CREATE TABLE Place_Tags(
+-    Tag_Name VARCHAR(255),
+-    Place_Name VARCHAR(255),
+-    FOREIGN KEY (Tag_Name) REFERENCES Tags(Tag_Name),
+-    FOREIGN KEY (Place_Name) REFERENCES Places(Place_Name),
+-    PRIMARY KEY (Tag_Name, Place_Name)
+-);
+-
+-CREATE TABLE Categories (
+-    Cat_Name VARCHAR(255) PRIMARY KEY
+-);
+-
+-CREATE TABLE Fosa7_Cats (
+-    Cat_Name VARCHAR(255),
+-    Host_Email VARCHAR(255),
+-    Fos7a_Name VARCHAR(255),
+-    Fos7a_Date DATE,
+-    Fos7a_Time TIME,
+-	FOREIGN KEY (Host_Email, Fos7a_Name, Fos7a_Date, Fos7a_Time) REFERENCES Fosa7(Host_Email, Fos7a_Name, Fos7a_Date, Fos7a_Time),
+-    FOREIGN KEY (Cat_Name) REFERENCES Categories(Cat_Name),
+-    PRIMARY KEY (Host_Email ,Fos7a_Name, Fos7a_Date,Fos7a_Time, Cat_Name )
+-
+-);
+-
+-
+-CREATE TABLE Place_Cats (
+-    Place_Name VARCHAR(255),
+-    Cat_Name VARCHAR(255),
+-    FOREIGN KEY (Place_Name ) REFERENCES Places(Place_Name),
+-    FOREIGN KEY (Cat_Name ) REFERENCES Categories(Cat_Name),
+-    PRIMARY KEY (Place_Name,Cat_Name )
+-);
+-CREATE TABLE Social_Media(
+-    Place_Name VARCHAR(255),
+-    Account_Name VARCHAR(255),
+-    SM_Type VARCHAR(255),
+-    FOREIGN KEY (Place_Name ) REFERENCES Places(Place_Name),
+-    PRIMARY KEY (Place_Name, Account_Name  )
+-);
+-
+-CREATE TABLE Address(
+-    Place_Name VARCHAR(255),
+-    Address VARCHAR(255),
+-    FOREIGN KEY (Place_Name ) REFERENCES Places(Place_Name),
+-    PRIMARY KEY (Place_Name, Address  )
+-);
+-
+--- INSERT INTO Categories (Cat_Name) VALUES ("Sports");
+--- INSERT INTO Categories (Cat_Name) VALUES ("Food");
+-
+--- INSERT INTO Places (Place_Name) VALUES ("AUC");
+--- INSERT INTO Places (Place_Name) VALUES ("Hameed");
+-
+--- INSERT INTO Place_Cats (Place_Name,Cat_Name) VALUES ("AUC","Sports");
+--- INSERT INTO Place_Cats (Place_Name,Cat_Name) VALUES ("Hameed","Food");
+-
+--- INSERT INTO User (Email) VALUES ("Mariam");
+--- INSERT INTO User (Email) VALUES ("Heggi");
+--- INSERT INTO User (Email) VALUES ("Sarah");
+--- INSERT INTO User (Email) VALUES ("Nour");
+--- INSERT INTO User (Email) VALUES ("Tawfik");
+-
+--- INSERT INTO Fosa7 (Fos7a_Name,Is_Public,Host_Email,Fos7a_Date,Fos7a_Time) VALUES ("Ahlan",true,"Mariam",current_date(),current_time());
+--- INSERT INTO Fosa7 (Fos7a_Name,Is_Public,Host_Email,Fos7a_Date,Fos7a_Time) VALUES ("Wasahlan",false,"Mariam",current_date(),current_time());
+--- INSERT INTO Fosa7 (Fos7a_Name,Is_Public,Host_Email,Fos7a_Date,Fos7a_Time) VALUES ("Epic Fos7a",false,"Heggi",current_date(),current_time());
+-
+--- INSERT INTO Friend_Requests (Reciever_Email,Requester_Email) VALUES ("Mariam","Heggi");
+--- INSERT INTO Friend_Requests (Reciever_Email,Requester_Email) VALUES ("Mariam","Tawfik");
+-
+--- INSERT INTO Fosa7_Requests(Requester_Email,Host_Email,Fos7a_Name,Fos7a_Date,Fos7a_Time) VALUES ("Mariam","Heggi","Epic Fos7a",current_date(),current_time());
+-
+--- ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY 'SQLZammar_79';
+--- FLUSH PRIVILEGES;
+\ No newline at end of file
+Index: .gradle/config.properties
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>#Tue Jul 16 23:31:01 EEST 2024\njava.home=/private/var/folders/sw/vxf5_yr166z8x6y44lpfbc9w0000gn/T/AppTranslocation/ED805DBA-8AC8-479C-B038-D6A649FB4BBD/d/Android Studio.app/Contents/jbr/Contents/Home\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>ISO-8859-1
+===================================================================
+diff --git a/.gradle/config.properties b/.gradle/config.properties
+--- a/.gradle/config.properties	(revision 5061a01ac610970b6befcdebfd9e7e55d870efdc)
++++ b/.gradle/config.properties	(date 1721245799197)
+@@ -1,2 +1,2 @@
+-#Tue Jul 16 23:31:01 EEST 2024
+-java.home=/private/var/folders/sw/vxf5_yr166z8x6y44lpfbc9w0000gn/T/AppTranslocation/ED805DBA-8AC8-479C-B038-D6A649FB4BBD/d/Android Studio.app/Contents/jbr/Contents/Home
++#Wed Jul 17 22:49:59 EEST 2024
++java.home=/Applications/Android Studio.app/Contents/jbr/Contents/Home
+Index: apis/APIs.js
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>var express = require(\"express\");\nvar mysql = require('mysql');\nvar url = require('url');\nvar srv = express();\nconst bodyParser = require('body-parser');\nconst {JSON} = require(\"mysql/lib/protocol/constants/types\");\nsrv.use(express.json());\nsrv.use(bodyParser.json());\n\n\nvar mysqlcon = mysql.createConnection({host: \"localhost\", user: \"root\", password: \"\", database : \"Fasa7ni\"});\n\nmysqlcon.connect( function (err)\n{\n    if (err)\n    {\n        console.log(\"Error in Connection\");\n        throw err;\n    }\n    else\n        console.log(\"Connected!\");\n});\n\nsrv.get('/Fetch_Places', function(req, res)\n{\n    console.log(\"Getting Places from DB...\");\n    var q = url.parse(req.url, true).query;\n    var Category=q.Cat;\n\n    if(Category==\"All\")\n        var Retrieve_Query= \"SELECT * FROM Places P INNER JOIN ADDRESS A ON P.Place_Name = A.Place_Name\";\n    else if(Category == \"Near\")\n        var Retrieve_Query= \"SELECT * FROM Places P INNER JOIN ADDRESS A ON P.Place_Name = A.Place_Name INNER JOIN USER U ON A.AREA = U.AREA WHERE A.AREA = ?\" ;\n    else\n        var Retrieve_Query= \"SELECT P.*, A.Address FROM Places P INNER JOIN Place_Cats PC ON P.Place_Name=PC.Place_Name INNER JOIN ADDRESS A ON P.PLACE_NAME = A.PLACE_NAME WHERE PC.Cat_Name=?\" ;\n\n    mysqlcon.query(Retrieve_Query,[Category], function (err, result)\n    {\n        if (err)\n        {\n            console.log(\"Retrieval Failed.\");\n            throw err;\n        }\n        else\n        {\n            console.log(\"Places Recieved Successfully.\");\n            res.send(result);\n        }\n    });\n\n});\n\nsrv.get(\"/Fetch_Places_Socials\", function (req, res) {\n  console.log(\"Getting Places Socials from DB...\");\n  var q = url.parse(req.url, true).query;\n  var name = q.name;\n  var Retrieve_Query =\n    \"SELECT S.Account_Name,S.SM_Type FROM Places P INNER JOIN Social_Media S ON P.Place_Name = S.Place_Name WHERE S.Place_Name = ?\";\n  console.log(\"Retrieved Query\", Retrieve_Query);\n\n  mysqlcon.query(Retrieve_Query, [name], function (err, result) {\n    if (err) {\n      console.log(\"Retrieval Failed.\");\n      throw err;\n    } else {\n      console.log(\"Place Socials Recieved Successfully.\");\n      res.send(result);\n    }\n  });\n});\n\n//added sarah\nsrv.get(\"/Fetch_Places_Tags\", function (req, res) {\n  console.log(\"Getting Places Tags from DB...\");\n  var q = url.parse(req.url, true).query;\n  var name = q.name;\n  var Retrieve_Query =\n    \"SELECT T.Tag_Name FROM Places P INNER JOIN Place_Tags T ON P.Place_Name = T.Place_Name WHERE T.Place_Name = ?\";\n\n  mysqlcon.query(Retrieve_Query, [name], function (err, result) {\n    if (err) {\n      console.log(\"Retrieval Failed.\");\n      throw err;\n    } else {\n      console.log(\"Place Tags Recieved Successfully.\");\n      res.send(result);\n    }\n  });\n});\n\n\nsrv.get('/Fetch_Fosa7', function(req, res)\n{\n    console.log(\"Getting Fosa7 from DB...\");\n    var q = url.parse(req.url, true).query;\n    var Type=q.Type;\n\n    if(Type==\"All\")\n        var Retrieve_Query=\"SELECT * FROM Fosa7\" ;\n    else if (Type==\"0\" || Type==\"1\")\n        var Retrieve_Query=\"SELECT * FROM Fosa7 WHERE Is_Public=?\" ;\n    else\n        var Retrieve_Query=\"SELECT * FROM Fosa7 WHERE Place_Name=?\" ;\n\n    mysqlcon.query(Retrieve_Query,[Type], function (err, result)\n    {\n        if (err)\n        {\n            console.log(\"Retrieval Failed.\");\n            throw err;\n        }\n        else\n        {\n            console.log(\"Fosa7 Recieved Successfully.\");\n            res.send(result);\n        }\n    });\n\n});\n\nsrv.get('/Fetch_Friends', function(req, res)\n{\n\n    console.log(\"Getting Friends from DB...\");\n    var q = url.parse(req.url, true).query;\n    var Reciever=q.Reciever_USERNAME;\n\n    var Retrieve_Query=\"SELECT Username,Accepted FROM Friend_Requests FR INNER JOIN User U ON FR.Requester_USERNAME=U.USERNAME WHERE Reciever_USERNAME=?\" ;\n\n\n    mysqlcon.query(Retrieve_Query,[Reciever], function (err, result)\n    {\n        if (err)\n        {\n            console.log(\"Retrieval Failed.\");\n            throw err;\n        }\n        else\n        {\n            console.log(\"Friends Recieved Successfully.\");\n            res.send(result);\n        }\n    });\n\n});\n\n\nsrv.get('/Fetch_My_Fosa7', function(req, res)\n{\n\n    console.log(\"Getting my Fosa7 from DB...\");\n    var q = url.parse(req.url, true).query;\n    var User=q.Username;\n\n    var Retrieve_Query=\"SELECT F.* FROM Fosa7 F LEFT OUTER JOIN Fosa7_Requests FR ON F.Host_USERNAME=FR.Host_USERNAME AND F.Fos7a_Name=FR.Fos7a_Name AND F.Fos7a_Date=FR.Fos7a_Date AND F.Fos7a_Time = FR.Fos7a_Time WHERE F.Host_USERNAME=? OR (FR.Requester_USERNAME=? AND FR.Accepted=1)\" ;\n\n\n    mysqlcon.query(Retrieve_Query,[User,User], function (err, result)\n    {\n        if (err)\n        {\n            console.log(\"Retrieval Failed.\");\n            throw err;\n        }\n        else\n        {\n            console.log(\"My Fosa7 Recieved Successfully.\");\n            res.send(result);\n        }\n    });\n\n});\n\nsrv.post('/Create_Fos7a', function(req, res)\n{\n\n    console.log(\"Adding Fos7a to DB...\");\n    const {Fos7a_Name, Host_USERNAME,Description,Capacity,Fos7a_Time,Fos7a_Date,Image,Is_Public,Cat_Name} = req.body;\n\n    var Insert_Query=\"INSERT INTO Fosa7 (Fos7a_Name, Host_USERNAME,Description,Capacity,Fos7a_Time,Fos7a_Date,Image,Is_Public) VALUES (?,?,?,?,?,?,?,?)\" ;\n\n    mysqlcon.query(Insert_Query,[Fos7a_Name, Host_USERNAME,Description,Capacity,Fos7a_Time,Fos7a_Date,Image,Is_Public],function (err, result)\n    {\n        if (err)\n        {\n            console.log(\"Insertion Failed.\");\n            throw err;\n        }\n        else\n        {\n            console.log(\"Fos7a Inserted Successfully.\");\n            res.send(result);\n        }\n    });\n    var Insert_Query2=\"INSERT INTO Fosa7_Cats (Fos7a_Name, Host_USERNAME,Fos7a_Time,Fos7a_Date,Cat_Name) VALUES (?,?,?,?,?)\" ;\n\n    mysqlcon.query(Insert_Query2,[Fos7a_Name, Host_USERNAME,Fos7a_Time,Fos7a_Date,Cat_Name],function (err, result)\n    {\n        if (err)\n        {\n            console.log(\"Insertion Failed.\");\n            throw err;\n        }\n        else\n        {\n            console.log(\"Fos7a Cat Inserted Successfully.\");\n            res.send(result);\n        }\n    });\n\n});\n\nsrv.post('/Request_Fos7a', function(req, res) {\n\n    console.log(\"Adding Request to DB...\");\n    const {\n        Requester_USERNAME,\n        Host_USERNAME,\n        Fos7a_Name,\n        Fos7a_Date,\n        Fos7a_Time,\n    } = req.body;\n\n    var Insert_Query = \"INSERT INTO Fosa7_Requests (Accepted, Requester_USERNAME, Host_USERNAME, Fos7a_Name, Fos7a_Date,Fos7a_Time) VALUES (?,?,?,?,?,?)\";\n\n    mysqlcon.query(Insert_Query, [0,Requester_USERNAME, Host_USERNAME, Fos7a_Name, Fos7a_Date,Fos7a_Time], function (err, result) {\n        if (err) {\n            console.log(\"Insertion Failed.\");\n            throw err;\n        } else {\n            console.log(\"Request Inserted Successfully.\");\n            res.send(result);\n        }\n    });\n\n});\n\nsrv.get('/Accept_Fos7a', function(req, res)\n{\n\n    console.log(\"Accepting Request...\");\n    var q = url.parse(req.url, true).query;\n\n    var Requester_USERNAME = q.Requester_USERNAME;\n    var Host_USERNAME = q.Host_USERNAME;\n    var Fos7a_Name = q.Fos7a_Name;\n    var Fos7a_Date = q.Fos7a_Date;\n    var Fos7a_Time = q.Fos7a_Time;\n\n    var Retrieve_Query= \"UPDATE FOSA7_REQUESTS SET ACCEPTED = 1 WHERE Requester_USERNAME = ? AND Host_USERNAME = ? AND Fos7a_Name = ? AND Fos7a_DATE = ? AND Fos7a_Time = ?\" ;\n\n\n    mysqlcon.query(Retrieve_Query,[Requester_USERNAME,Host_USERNAME, Fos7a_Name, Fos7a_Date, Fos7a_Time], function (err, result)\n    {\n        if (err)\n        {\n            console.log(\"Update Failed.\");\n            throw err;\n        }\n        else\n        {\n            console.log(\"Request Accepted Successfully.\");\n            res.send(result);\n        }\n    });\n\n});\n\nsrv.post('/Request_Friend', function(req, res)\n{\n\n    console.log(\"Adding Request to DB...\");\n    const {\n        Requester_USERNAME,\n        Reciever_USERNAME,\n    } = req.body;\n\n    var Insert_Query = \"INSERT INTO Friend_Requests (Accepted, Requester_USERNAME, Reciever_USERNAME) VALUES (?,?,?)\";\n\n    mysqlcon.query(Insert_Query, [0,Requester_USERNAME, Reciever_USERNAME], function (err, result)\n    {\n        if (err)\n        {\n            console.log(\"Insertion Failed.\");\n            throw err;\n        }\n        else\n        {\n            console.log(\"Request Inserted Successfully.\");\n            res.send(result);\n        }\n    });\n\n});\n\nsrv.get('/Accept_Friend', function(req, res)\n{\n\n    console.log(\"Accepting Request...\");\n    var q = url.parse(req.url, true).query;\n\n    var Requester_USERNAME = q.Requester_USERNAME;\n    var Reciever_USERNAME = q.Reciever_USERNAME;\n\n    var Retrieve_Query= \"UPDATE Friend_Requests SET ACCEPTED = 1 WHERE Requester_USERNAME = ? AND Reciever_USERNAME = ?\" ;\n\n\n    mysqlcon.query(Retrieve_Query,[Requester_USERNAME,Reciever_USERNAME], function (err, result)\n    {\n        if (err)\n        {\n            console.log(\"Update Failed.\");\n            throw err;\n        }\n        else\n        {\n            console.log(\"Request Accepted Successfully.\");\n            res.send(result);\n        }\n    });\n\n});\n\nsrv.post('/Add_User', function(req, res)\n{\n\n    console.log(\"Adding User to DB...\");\n    const [\n        Username,\n        Pass,\n        Phone\n    ] = req.body;\n\n    var Insert_Query = \"INSERT INTO User (Username, Pass, Phone) VALUES (?,?,?)\";\n\n    mysqlcon.query(Insert_Query, [Username,Pass, Phone], function (err, result)\n    {\n        if (err)\n        {\n            console.log(\"Insertion Failed.\");\n            throw err;\n        }\n        else\n        {\n            console.log(\"User Inserted Successfully.\");\n            res.send(result);\n        }\n    });\n});\n\nsrv.post('/Login', function(req, res)\n{\n    console.log(\"Verifying User Details...\");\n    const [\n        Username,\n        Pass\n     ] = req.body;\n    console.log(Username,Pass);\n\n    var Checking_Query = \"SELECT Username, Pass FROM User WHERE Username=? AND Pass=?\";\n\n    mysqlcon.query(Checking_Query, [Username,Pass], function (err, result)\n    {\n        if (err)\n        {\n            console.log(\"Insertion Failed.\");\n            throw err;\n        }\n        else\n        {\n            console.log(\"User Inserted Successfully.\");\n            console.log(result);\n            res.send(result);\n        }\n    });\n});\n\nsrv.get('/Update_User', function(req, res)\n{\n\n    console.log(\"Accepting Request...\");\n    var q = url.parse(req.url, true).query;\n    var olduser = q.olduser;\n    var Phone = q.Phone;\n    var Username = q.Username;\n    var BirthDate = q.BirthDate;\n    var Area = q.Area;\n\n    var Retrieve_Query= \"UPDATE User SET Phone = ?, Username = ?, BirthDate = ?, Area = ? WHERE Username = ?\" ;\n\n\n    mysqlcon.query(Retrieve_Query,[Phone, Username, ProfilePic, BirthDate, Area, olduser], function (err, result)\n    {\n        if (err)\n        {\n            console.log(\"Update Failed.\");\n            throw err;\n        }\n        else\n        {\n            console.log(\"Updated Successfully.\");\n            res.send(result);\n        }\n    });\n\n});\n\nsrv.get('/Fetch_User', function(req, res)\n{\n\n    console.log(\"Accepting Request...\");\n    var q = url.parse(req.url, true).query;\n    var Username = q.Username;\n\n\n    var Retrieve_Query= \"SELECT* FROM User WHERE  Username = ?\" ;\n\n\n    mysqlcon.query(Retrieve_Query,[Username], function (err, result)\n    {\n        if (err)\n        {\n            console.log(\"Update Failed.\");\n            throw err;\n        }\n        else\n        {\n            console.log(\"Updated Successfully.\");\n            res.send(result);\n        }\n    });\n\n});\n\nsrv.get('/Add_Interests', function(req, res)\n{\n    console.log(\"Accepting Request...\");\n    var q = url.parse(req.url, true).query;\n    var Username = q.Username;\n    var Interests = q.Interests;\n    const arr_interests = Interests.split(\",\");\n\n    var Delete_Query = \"DELETE FROM User_Interests WHERE Username = ?\";\n\n    mysqlcon.query(Delete_Query,[Username], function (err, result)\n    {\n        if (err)\n        {\n            console.log(\"Delete Failed.\");\n            throw err;\n        }\n        else\n            console.log(\"Deleted Successfully.\");\n    });\n\n    var Insert_Query = \"INSERT INTO User_Interests (Interest, Username) VALUES (?,?)\";\n\n    for (let i = 0; i < arr_interests.length; i++)\n    {\n        mysqlcon.query(Insert_Query,[arr_interests[i], Username], function (err, result)\n        {\n            if (err)\n            {\n                console.log(\"Insertion Failed.\");\n                throw err;\n            }\n            else\n                console.log(\"Inserted Successfully.\");\n        });\n    }\n    res.send(\"Done\");\n});\n\nsrv.get('/Search', function(req, res)\n{\n    let arr_res = [];\n    console.log(\"search started...\");\n    var q = url.parse(req.url, true).query;\n    var Type = q.Type;\n    var Name = q.Name;\n\n    var List_Query = \"SELECT * FROM Places WHERE Place_Name LIKE ?\";\n    var Event_Query = \"SELECT * FROM Fosa7 WHERE Fos7a_Name LIKE ?\";\n    var Friend_Query = \"SELECT * FROM User WHERE FirstName LIKE ? OR LastName LIKE ?\";\n\n    var Target_Query;\n\n    if (Type == \"Home\")\n    {\n        mysqlcon.query(List_Query,[Name+'%'], function (err, result)\n        {\n            if (err)\n            {\n                console.log(\"List Search Failed.\");\n                throw err;\n            }\n            else\n            {\n                arr_res.push(result);\n                console.log(\"Successful.\");\n            }\n        });\n\n        mysqlcon.query(Event_Query,[Name+'%'], function (err, result)\n        {\n            if (err)\n            {\n                console.log(\"Event Search Failed.\");\n                throw err;\n            }\n            else\n            {\n                arr_res.push(result);\n                console.log(\"Successful.\");\n                res.send(arr_res);\n            }\n        });\n    }\n    else\n    {\n        if (Type == \"Listat\")\n            Target_Query = List_Query;\n        else if (Type == \"Events\")\n            Target_Query = Event_Query;\n        else\n            Target_Query = Friend_Query;\n\n        mysqlcon.query(Target_Query,[Name+'%', Name+'%'], function (err, result)\n        {\n            if (err)\n            {\n                console.log(\"Search Failed.\");\n                throw err;\n            }\n            else\n            {\n                arr_res = result;\n                console.log(\"Successful.\");\n                res.send(arr_res);\n            }\n        });\n    }\n\n});\n\nsrv.post(\"/sendSMS\", function (req, res) {\n    console.log(\"send SMS\");\n    const { phone, body } = req.body;\n\n    const sql =\n        \"INSERT INTO message (phone, body, timestamp, status) VALUES (?, ?, CURRENT_TIMESTAMP, 0)\";\n    mysqlcon.query(sql, [phone, body], (err, result) => {\n        if (err) {\n            console.error(\"Error inserting message:\", err);\n            return res.status(500).send(\"Internal server error\");\n        }\n        console.log(\"1 record inserted\");\n        res.sendStatus(200);\n    });\n});\n\nsrv.get(\"/getSMS\", function (req, res) {\n    console.log(\"get SMS\");\n\n    var sql =\n        \"SELECT id,phone,body FROM message WHERE status = 0 ORDER BY timestamp ASC LIMIT 1\"; // sql command to get data from database\n\n    // execute sql command\n    mysqlcon.query(sql, function (err, result) {\n        if (err) {\n            res.send(\"0\");\n            throw err;\n        }\n\n        console.log(\"SMS received\");\n        res.send(result);\n    });\n});\n\nsrv.get(\"/smsSent\", function (req, res) {\n    console.log(\"sms is sent successfully\");\n\n    var q = url.parse(req.url, true).query;\n    var id = q.id;\n\n    var sql = \"UPDATE message SET status = 1 WHERE id=?\"; // sql command to update the sent status of a record\n\n    mysqlcon.query(sql, [id], function (err) {\n        if (err) throw err;\n        console.log(\"the status of \" + id + \" set to 1\");\n        res.send(\"Status updated\");\n    });\n});\n\n\nsrv.listen(4000, function () {console.log(\"Server is running on port 4000\");});
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/apis/APIs.js b/apis/APIs.js
+--- a/apis/APIs.js	(revision 5061a01ac610970b6befcdebfd9e7e55d870efdc)
++++ b/apis/APIs.js	(date 1721245777774)
+@@ -8,7 +8,7 @@
+ srv.use(bodyParser.json());
+ 
+ 
+-var mysqlcon = mysql.createConnection({host: "localhost", user: "root", password: "", database : "Fasa7ni"});
++var mysqlcon = mysql.createConnection({host: "localhost", user: "root", password: "Heggi_2002", database : "Fasa7ni"});
+ 
+ mysqlcon.connect( function (err)
+ {
+diff --git a/DB.sql b/DB.sql
+deleted file mode 100644

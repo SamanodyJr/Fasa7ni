@@ -37,7 +37,7 @@ public class EventViewHolder extends RecyclerView.ViewHolder
         name.setText(event.getName());
         location.setText(event.getLocation());
         hostName.setText(event.getHostName());
-        image.setImageResource(event.getImage());
+//        image.setImageResource(event.getImage());
         openingHours.setText(event.getDate());
 
     }
