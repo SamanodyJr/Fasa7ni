@@ -48,7 +48,6 @@ public class RequestAdapter extends RecyclerView.Adapter<RequestViewHolder>
         {
             requests.remove(position);
             notifyItemRemoved(position);
-            // remove from database
         });
 
         holder.add.setOnClickListener(v ->

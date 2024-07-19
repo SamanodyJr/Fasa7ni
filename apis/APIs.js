@@ -495,6 +495,42 @@ srv.get('/Get_Interests', function(req, res)
 
 });
 
+srv.get('/Fosa7_Requests', function(req, res)
+{
+    console.log("fetching Requests...");
+    var q = url.parse(req.url, true).query;
+    var Requester_USERNAME = q.Requester_Username;
+    var Host_USERNAME = q.Host_Username;
+    var Fos7a_Name = q.Fos7a_Name;
+    var Fos7a_Date = q.Fos7a_Date;
+    var Fos7a_Time = q.Fos7a_Time;
+    var Type = q.type;
+
+    var Select_Query1 = "SELECT U.Username, U.ProfilePic FROM Fosa7_Requests FR INNER JOIN USER U ON FR.Requester_Username = U.USERNAME WHERE Requester_Username = ? AND Host_Username = ? AND Fos7a_Name = ? AND Fos7a_Date = ? AND Fos7a_Time = ? AND ACCEPTED = 0";
+    var Select_Query2 = "SELECT U.Username, U.ProfilePic FROM Fosa7_Requests FR INNER JOIN USER U ON FR.Requester_Username = U.USERNAME WHERE Requester_Username = ? AND Host_Username = ? AND Fos7a_Name = ? AND Fos7a_Date = ? AND Fos7a_Time = ? AND ACCEPTED = 1";
+    var Select_Query;
+
+    if (Type == "Request")
+        Select_Query = Select_Query1;
+    else
+        Select_Query=Select_Query2;
+
+    mysqlcon.query(Select_Query,[Requester_USERNAME,Host_USERNAME, Fos7a_Name, Fos7a_Date, Fos7a_Time], function (err, result)
+    {
+        if (err)
+        {
+            console.log("Select Failed.");
+            throw err;
+        }
+        else
+        {
+            console.log("Requests Retrieved Successfully.");
+            res.send(result);
+        }
+    });
+
+});
+
 
 srv.get('/Search', function(req, res)
 {
