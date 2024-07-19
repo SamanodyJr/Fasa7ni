@@ -8,7 +8,7 @@ srv.use(express.json());
 srv.use(bodyParser.json());
 
 
-var mysqlcon = mysql.createConnection({host: "localhost", user: "root", password: "", database : "Fasa7ni"});
+var mysqlcon = mysql.createConnection({host: "localhost", user: "root", password: "Heggi_2002", database : "Fasa7ni"});
 
 mysqlcon.connect( function (err)
 {
@@ -231,16 +231,16 @@ srv.post('/Create_Fos7a', function(req, res)
 
 });
 
-srv.post('/Request_Fos7a', function(req, res) {
+srv.get('/Request_Fos7a', function(req, res) {
 
     console.log("Adding Request to DB...");
-    const {
-        Requester_USERNAME,
-        Host_USERNAME,
-        Fos7a_Name,
-        Fos7a_Date,
-        Fos7a_Time,
-    } = req.body;
+    var q = url.parse(req.url, true).query;
+
+    var Requester_USERNAME = q.Requester_USERNAME;
+    var Host_USERNAME = q.Host_USERNAME;
+    var Fos7a_Name = q.Fos7a_Name;
+    var Fos7a_Date = q.Fos7a_Date;
+    var Fos7a_Time = q.Fos7a_Time;
 
     var Insert_Query = "INSERT INTO Fosa7_Requests (Accepted, Requester_USERNAME, Host_USERNAME, Fos7a_Name, Fos7a_Date,Fos7a_Time) VALUES (?,?,?,?,?,?)";
 
@@ -250,7 +250,67 @@ srv.post('/Request_Fos7a', function(req, res) {
             throw err;
         } else {
             console.log("Request Inserted Successfully.");
+            res.send("Done");
+        }
+    });
+
+});
+
+srv.get('/Check_Fos7a', function(req, res)
+{
+
+    console.log("Checking Request from DB...");
+    var q = url.parse(req.url, true).query;
+
+    var Requester_USERNAME = q.Requester_USERNAME;
+    var Host_USERNAME = q.Host_USERNAME;
+    var Fos7a_Name = q.Fos7a_Name;
+    var Fos7a_Date = q.Fos7a_Date;
+    var Fos7a_Time = q.Fos7a_Time;
+
+    var Select_Query = "Select * FROM Fosa7_Requests WHERE Requester_USERNAME = ? AND Host_USERNAME = ? AND Fos7a_Name = ? AND Fos7a_DATE = ? AND Fos7a_Time = ?";
+
+    mysqlcon.query(Select_Query, [Requester_USERNAME, Host_USERNAME, Fos7a_Name, Fos7a_Date,Fos7a_Time], function (err, result)
+    {
+        if (err)
+        {
+            console.log("Check Failed.");
+            throw err;
+        }
+        else
+        {
+            console.log("Checked Successfully.");
             res.send(result);
+        }
+    });
+
+});
+
+srv.get('/Cancel_Fos7a_Req', function(req, res)
+{
+
+    console.log("Deleting Request from DB...");
+    var q = url.parse(req.url, true).query;
+
+    var Requester_USERNAME = q.Requester_USERNAME;
+    var Host_USERNAME = q.Host_USERNAME;
+    var Fos7a_Name = q.Fos7a_Name;
+    var Fos7a_Date = q.Fos7a_Date;
+    var Fos7a_Time = q.Fos7a_Time;
+
+    var Delete_Query = "DELETE FROM Fosa7_Requests WHERE Requester_USERNAME = ? AND Host_USERNAME = ? AND Fos7a_Name = ? AND Fos7a_DATE = ? AND Fos7a_Time = ?";
+
+    mysqlcon.query(Delete_Query, [Requester_USERNAME, Host_USERNAME, Fos7a_Name, Fos7a_Date,Fos7a_Time], function (err, result)
+    {
+        if (err)
+        {
+            console.log("Delete Failed.");
+            throw err;
+        }
+        else
+        {
+            console.log("Deleted Successfully.");
+            res.send("Done");
         }
     });
 
@@ -520,15 +580,14 @@ srv.get('/Fosa7_Requests', function(req, res)
 {
     console.log("fetching Requests...");
     var q = url.parse(req.url, true).query;
-    var Requester_USERNAME = q.Requester_Username;
     var Host_USERNAME = q.Host_Username;
     var Fos7a_Name = q.Fos7a_Name;
     var Fos7a_Date = q.Fos7a_Date;
     var Fos7a_Time = q.Fos7a_Time;
     var Type = q.type;
 
-    var Select_Query1 = "SELECT U.Username, U.ProfilePic FROM Fosa7_Requests FR INNER JOIN USER U ON FR.Requester_Username = U.USERNAME WHERE Requester_Username = ? AND Host_Username = ? AND Fos7a_Name = ? AND Fos7a_Date = ? AND Fos7a_Time = ? AND ACCEPTED = 0";
-    var Select_Query2 = "SELECT U.Username, U.ProfilePic FROM Fosa7_Requests FR INNER JOIN USER U ON FR.Requester_Username = U.USERNAME WHERE Requester_Username = ? AND Host_Username = ? AND Fos7a_Name = ? AND Fos7a_Date = ? AND Fos7a_Time = ? AND ACCEPTED = 1";
+    var Select_Query1 = "SELECT U.Username, U.ProfilePic FROM Fosa7_Requests FR INNER JOIN USER U ON FR.Requester_Username = U.USERNAME WHERE Host_Username = ? AND Fos7a_Name = ? AND Fos7a_Date = ? AND Fos7a_Time = ? AND ACCEPTED = 0";
+    var Select_Query2 = "SELECT U.Username, U.ProfilePic FROM Fosa7_Requests FR INNER JOIN USER U ON FR.Requester_Username = U.USERNAME WHERE Host_Username = ? AND Fos7a_Name = ? AND Fos7a_Date = ? AND Fos7a_Time = ? AND ACCEPTED = 1";
     var Select_Query;
 
     if (Type == "Request")
@@ -536,7 +595,7 @@ srv.get('/Fosa7_Requests', function(req, res)
     else
         Select_Query=Select_Query2;
 
-    mysqlcon.query(Select_Query,[Requester_USERNAME,Host_USERNAME, Fos7a_Name, Fos7a_Date, Fos7a_Time], function (err, result)
+    mysqlcon.query(Select_Query,[Host_USERNAME, Fos7a_Name, Fos7a_Date, Fos7a_Time], function (err, result)
     {
         if (err)
         {
@@ -561,7 +620,7 @@ srv.get('/Search', function(req, res)
     var Type = q.Type;
     var Name = q.Name;
 
-    var List_Query = "SELECT * FROM Places WHERE Place_Name LIKE ?";
+    var List_Query = "SELECT P.*, A.Address FROM Places P INNER JOIN ADDRESS A ON P.Place_Name = A.Place_Name WHERE P.Place_Name LIKE ?";
     var Event_Query = "SELECT * FROM Fosa7 WHERE Fos7a_Name LIKE ?";
     var Friend_Query = "SELECT * FROM User WHERE FirstName LIKE ? OR LastName LIKE ?";
 
@@ -569,7 +628,7 @@ srv.get('/Search', function(req, res)
 
     if (Type == "Home")
     {
-        mysqlcon.query(List_Query,[Name+'%'], function (err, result)
+        mysqlcon.query(List_Query,['%'+Name+'%'], function (err, result)
         {
             if (err)
             {
@@ -579,11 +638,11 @@ srv.get('/Search', function(req, res)
             else
             {
                 arr_res.push(result);
-                console.log("Successful.");
+                console.log(" list Successful.");
             }
         });
 
-        mysqlcon.query(Event_Query,[Name+'%'], function (err, result)
+        mysqlcon.query(Event_Query,['%'+Name+'%'], function (err, result)
         {
             if (err)
             {
@@ -593,7 +652,7 @@ srv.get('/Search', function(req, res)
             else
             {
                 arr_res.push(result);
-                console.log("Successful.");
+                console.log("event Successful.");
                 res.send(arr_res);
             }
         });
@@ -607,7 +666,7 @@ srv.get('/Search', function(req, res)
         else
             Target_Query = Friend_Query;
 
-        mysqlcon.query(Target_Query,[Name+'%', Name+'%'], function (err, result)
+        mysqlcon.query(Target_Query,['%'+Name+'%', '%'+Name+'%'], function (err, result)
         {
             if (err)
             {
@@ -622,7 +681,6 @@ srv.get('/Search', function(req, res)
             }
         });
     }
-
 });
 
 srv.post("/sendSMS", function (req, res) {

@@ -11,6 +11,8 @@ import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.PopupWindow;
 import android.widget.SearchView;
+import android.widget.Toast;
+
 import com.bumptech.glide.Glide;
 
 
@@ -26,6 +28,7 @@ import com.android.volley.toolbox.Volley;
 
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.json.JSONArray;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -48,6 +51,7 @@ public class Home extends AppCompatActivity implements View.OnClickListener,Recy
     private PlaceAdapter placeAdapter;
     private RecyclerView recyclerView;
     private RecyclerView recyclerView2;
+    private int place_count;
 
 
 
@@ -72,8 +76,6 @@ public class Home extends AppCompatActivity implements View.OnClickListener,Recy
         Event_Adapter = new EventAdapter(this,getApplicationContext(),list);
         placeAdapter = new PlaceAdapter(this,getApplicationContext(),places_list);
 
-        combinedList.addAll(list);
-        combinedList.addAll(places_list);
         recyclerView = findViewById(R.id.upcoming_fosa7_recyclerView);
         recyclerView2 = findViewById(R.id.intrests_recyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
@@ -103,13 +105,13 @@ public class Home extends AppCompatActivity implements View.OnClickListener,Recy
             @Override
             public boolean onQueryTextSubmit(String query)
             {
-                // Perform search when user submits query
+                performSearch(query);
                 return true;
             }
 
             @Override
-            public boolean onQueryTextChange(String newText) {
-                // Perform search when query text changes
+            public boolean onQueryTextChange(String newText)
+            {
                 performSearch(newText);
                 return true;
             }
@@ -118,21 +120,18 @@ public class Home extends AppCompatActivity implements View.OnClickListener,Recy
         searchView.setOnQueryTextFocusChangeListener(new View.OnFocusChangeListener()
         {
             @Override
-            public void onFocusChange(View v, boolean hasFocus) {
+            public void onFocusChange(View v, boolean hasFocus)
+            {
                 if (hasFocus)
-                {
                     showDropdown();
-                }
+
                 else
                 {
                     if (popupWindow != null && popupWindow.isShowing())
-                    {
                         popupWindow.dismiss();
-                    }
                 }
             }
         });
-
     }
     private void FetchUpcoming()
     {
@@ -241,17 +240,76 @@ public class Home extends AppCompatActivity implements View.OnClickListener,Recy
         requestQueue.add(jsonArrayRequest);
 
     }
-    private void performSearch(String text) {
-
-        if (combinedList.isEmpty()) {
-            popupWindow.dismiss();
-        } else {
+    private void performSearch(String text)
+    {
+        if (text.isEmpty())
+        {
+            combinedList.clear();
             showDropdown();
+            return;
         }
+        RequestQueue requestQueue = Volley.newRequestQueue(this);
+        String url = "http://10.0.2.2:4000/Search?Type=Home&Name=" + text;
+        JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(
+                Request.Method.GET, url, null,
+                response -> {
+                    try {
+                        combinedList.clear();
+                        for (int i = 0; i < response.length(); i++)
+                        {
+                            place_count = response.getJSONArray(0).length();
+                            Log.d("Home", "place_count: " + place_count);
+                            JSONArray jsonArray = response.getJSONArray(i);
+                            for (int j = 0; j < jsonArray.length(); j++)
+                            {
+                                JSONObject obj = jsonArray.getJSONObject(j);
+                                if (i == 0)
+                                { // Places
+                                    String name = obj.getString("Place_Name");
+                                    String location = obj.getString("Address");
+                                    String description = obj.getString("Description");
+                                    String phone = obj.getString("Phone");
+                                    String openingTime = obj.getString("OpeningTime");
+                                    String closingTime = obj.getString("ClosingTime");
+                                    String workingDays = obj.getString("WorkingDays");
+                                    String Image = obj.getString("PlacePic");
+                                    combinedList.add(new Place(name, location, description, phone, openingTime, closingTime, workingDays, Image));
+                                }
+                                else
+                                { // Events
+                                    String name = obj.getString("Fos7a_Name");
+                                    String Host = obj.getString("Host_Username");
+                                    String description = obj.getString("Description");
+                                    int cap = obj.getInt("Capacity");
+                                    String Fos7a_Date = obj.getString("Fos7a_Date");
+                                    String Fos7a_Time = obj.getString("Fos7a_Time");
+                                    int Is_Public = obj.getInt("Is_Public");
+                                    String Place_Name = obj.getString("Place_Name");
+                                    String Image = obj.getString("Pic");
+                                    combinedList.add(new Event(name, Host, description, Fos7a_Time, Fos7a_Date, cap, Image, Is_Public, Place_Name));
+                                }
+                            }
+                        }
+                        showDropdown();
+                    } catch (JSONException e)
+                    {
+                        e.printStackTrace();
+                        Toast.makeText(Home.this, "Search failed", Toast.LENGTH_SHORT).show();
+                    }
+                },
+                error ->
+                {
+                    error.printStackTrace();
+                    Toast.makeText(Home.this, "Search failed", Toast.LENGTH_SHORT).show();
+                }
+        );
+        requestQueue.add(jsonArrayRequest);
     }
 
-    private void showDropdown() {
-        if (popupWindow == null) {
+    private void showDropdown()
+    {
+        if (popupWindow == null)
+        {
             View view = LayoutInflater.from(this).inflate(R.layout.dropdown_search_results, null);
             RecyclerView recyclerView = view.findViewById(R.id.recyclerView);
             recyclerView.setLayoutManager(new LinearLayoutManager(this));
@@ -261,12 +319,16 @@ public class Home extends AppCompatActivity implements View.OnClickListener,Recy
             popupWindow.setOutsideTouchable(true);
             popupWindow.setFocusable(false);
         }
-
-        if (!popupWindow.isShowing() && !combinedList.isEmpty()) {
-            popupWindow.showAsDropDown(searchView);
+        else
+        {
+            View view = popupWindow.getContentView();
+            RecyclerView recyclerView = view.findViewById(R.id.recyclerView);
+            recyclerView.getAdapter().notifyDataSetChanged();
         }
-    }
 
+        if (!popupWindow.isShowing() && !combinedList.isEmpty())
+            popupWindow.showAsDropDown(searchView);
+    }
 
 
     @Override
@@ -329,8 +391,10 @@ public class Home extends AppCompatActivity implements View.OnClickListener,Recy
 
 
     @Override
-    public void onItemClicked(int recycleViewID, int position) {
-        if (recycleViewID == 0){ //Place
+    public void onItemClicked(int recycleViewID, int position)
+    {
+        if (recycleViewID == 0)
+        { //Place
             Intent intent = new Intent(this, PlaceProfile.class);
             intent.putExtra("Username", username);
             intent.putExtra("Location", places_list.get(position).location);
@@ -342,8 +406,11 @@ public class Home extends AppCompatActivity implements View.OnClickListener,Recy
             intent.putExtra("WorkingDays", places_list.get(position).WorkingDays);
             intent.putExtra("Image", places_list.get(position).image);
             startActivity(intent);
-        } else if (recycleViewID == 1) { //Event
+        }
+        else if (recycleViewID == 1)
+        { //Event
             Intent intent = new Intent(this, EventProfile.class);
+            intent.putExtra("Username", username);
             intent.putExtra("Fos7a_Name", list.get(position).getName());
             intent.putExtra("Host_Username", list.get(position).getHostName());
             intent.putExtra("Description", list.get(position).getDescription());
@@ -355,6 +422,36 @@ public class Home extends AppCompatActivity implements View.OnClickListener,Recy
             intent.putExtra("Image", list.get(position).getImage());
             startActivity(intent);
         }
-
+        else if (recycleViewID == 2)
+        {
+            Intent intent = new Intent(this, EventProfile.class);
+            Event event = (Event) combinedList.get(position-place_count);
+            intent.putExtra("Username", username);
+            intent.putExtra("Fos7a_Name", event.getName());
+            intent.putExtra("Host_Username", event.getHostName());
+            intent.putExtra("Description", event.getDescription());
+            intent.putExtra("Capacity", event.getCapacity());
+            intent.putExtra("Fos7a_Date", event.getDate());
+            intent.putExtra("Fos7a_Time", event.getFos7a_Time());
+            intent.putExtra("Is_Public", event.getIs_Public());
+            intent.putExtra("Place_Name", event.getLocation());
+            intent.putExtra("Image", event.getImage());
+            startActivity(intent);
+        }
+        else if (recycleViewID == 3)
+        {
+            Intent intent = new Intent(this, PlaceProfile.class);
+            Place place = (Place) combinedList.get(position);
+            intent.putExtra("Username", username);
+            intent.putExtra("Location", place.getLocation());
+            intent.putExtra("Description", place.getDescription());
+            intent.putExtra("OpeningTime", place.getOpeningTime());
+            intent.putExtra("ClosingTime", place.getClosingTime());
+            intent.putExtra("Phone", place.getPhone());
+            intent.putExtra("Name", place.getName());
+            intent.putExtra("WorkingDays", place.getWorkingDays());
+            intent.putExtra("Image", place.getImage());
+            startActivity(intent);
+        }
     }
 }

@@ -6,6 +6,8 @@ public class Request
     int mutual;
     int remove, add;
     String image;
+    private int isRequest;  //0->friends, 1->request to attend fos7a, 2->fos7a attendee
+
 
     public Request(String name, int mutual, int remove, int add, String image)
     {
@@ -14,8 +16,16 @@ public class Request
         this.mutual = mutual;
         this.remove = remove;
         this.add = add;
+        this.isRequest = 0;
     }
 
+    public int getIsRequest() {
+        return isRequest;
+    }
+
+    public void setIsRequest(int removeButtonVisible) {
+        isRequest = removeButtonVisible;
+    }
     public String getName() {
         return Requester;
     }

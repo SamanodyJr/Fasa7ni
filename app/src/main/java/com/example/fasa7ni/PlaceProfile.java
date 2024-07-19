@@ -3,6 +3,7 @@ package com.example.fasa7ni;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -60,6 +61,7 @@ public class PlaceProfile extends AppCompatActivity implements View.OnClickListe
 
     private ImageButton BackButton;
     private Button Show_Events;
+    private Button directionsBtn;
     private ImageView Place_Image;
     private TextView Place_Name;
     private TextView Description;
@@ -141,6 +143,19 @@ public class PlaceProfile extends AppCompatActivity implements View.OnClickListe
             setting_view();
 
         }
+
+        directionsBtn=findViewById(R.id.button2);
+        directionsBtn.setOnClickListener(v ->
+        {
+            String source="AUC";
+
+            Uri uri = Uri.parse("https://www.google.com/maps/dir/"+source+"/"+location);
+
+            Intent intent = new Intent(Intent.ACTION_VIEW, uri);
+            intent.setPackage("com.google.android.apps.maps");
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            startActivity(intent);
+        });
     }
 
 
@@ -252,4 +267,5 @@ public class PlaceProfile extends AppCompatActivity implements View.OnClickListe
         P_E.putExtra("Username", username);
         startActivity(P_E);
     }
+
 }

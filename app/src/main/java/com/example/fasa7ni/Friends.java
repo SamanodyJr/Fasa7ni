@@ -163,16 +163,18 @@ public class Friends extends AppCompatActivity implements View.OnClickListener, 
     }
 
 
-    private void performSearch(String text) {
-        if (list.isEmpty()) {
+    private void performSearch(String text)
+    {
+        if (list.isEmpty())
             popupWindow.dismiss();
-        } else {
+        else
             showDropdown();
-        }
     }
 
-    private void showDropdown() {
-        if (popupWindow == null) {
+    private void showDropdown()
+    {
+        if (popupWindow == null)
+        {
             View view = LayoutInflater.from(this).inflate(R.layout.dropdown_search_results, null);
             RecyclerView recyclerView = view.findViewById(R.id.recyclerView); // Corrected line
             recyclerView.setLayoutManager(new LinearLayoutManager(this));

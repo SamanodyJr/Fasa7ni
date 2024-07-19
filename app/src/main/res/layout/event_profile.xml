@@ -13,6 +13,9 @@
         android:orientation="vertical"
         >
 
+
+
+
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">
@@ -101,34 +104,6 @@
                 android:orientation="horizontal"
                 >
 
-                <TextView
-                    android:id="@+id/tag1"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_marginRight="9dp"
-                    android:background="@drawable/rounded_corner"
-                    android:gravity="center"
-                    android:padding="3dp"
-                    android:text="#adventure"
-                    android:textColor="@color/white"
-                    android:textSize="16sp" />
-
-                <TextView
-                    android:id="@+id/tag2"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_marginRight="9dp"
-                    android:background="@drawable/rounded_corner"
-                    android:gravity="center"
-                    android:padding="3dp"
-                    android:text="#paintball"
-                    android:textColor="@color/white"
-                    android:textSize="16sp" />
-
-
-
             </LinearLayout>
 
 
@@ -151,6 +126,7 @@
 
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_gravity="center"
                         android:layout_marginRight="8dp"
                         app:srcCompat="@drawable/attendee_icon" />
 
@@ -159,6 +135,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
+
                         android:text="10 attendees"
                         android:textColor="@color/offwhite"
                         android:textSize="14sp" />
@@ -175,6 +152,7 @@
 
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_gravity="center"
                         android:layout_marginRight="8dp"
                         app:srcCompat="@drawable/timings_icon" />
 
@@ -200,6 +178,7 @@
 
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_gravity="center"
                         android:layout_marginRight="8dp"
                         app:srcCompat="@drawable/location_icon" />
 
@@ -226,6 +205,7 @@
 
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_gravity="center"
                         android:layout_marginRight="8dp"
                         app:srcCompat="@drawable/baseline_manage_accounts_24" />
 
@@ -257,6 +237,40 @@
                     android:paddingRight="18dp"
                     android:paddingBottom="0dp"
                     android:text="Join Fos7a"
+                    android:textColor="@color/black" />
+                <Button
+                    android:id="@+id/showAttendees"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_gravity="right"
+                    android:layout_marginTop="40dp"
+                    android:background="@null"
+                    android:backgroundTint="@color/blue"
+                    android:foregroundGravity="right"
+                    android:includeFontPadding="true"
+                    android:paddingLeft="18dp"
+                    android:paddingTop="0dp"
+                    android:paddingRight="18dp"
+                    android:paddingBottom="0dp"
+                    android:text="Show Attendees"
+                    android:textColor="@color/black" />
+                <Button
+                    android:id="@+id/show_requests_btn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_gravity="right"
+                    android:layout_marginTop="-5dp"
+                    android:background="@null"
+                    android:backgroundTint="@color/blue"
+                    android:foregroundGravity="right"
+                    android:includeFontPadding="true"
+                    android:paddingLeft="18dp"
+                    android:paddingTop="0dp"
+                    android:paddingRight="18dp"
+                    android:paddingBottom="0dp"
+                    android:text="Show Requests"
                     android:textColor="@color/black" />
 
 
@@ -290,12 +304,15 @@
                 android:layout_width="match_parent"
                 android:layout_marginTop="6dp"
                 android:layout_height="wrap_content"
+                android:maxLines="3"
+                android:ellipsize="end"
                 android:textColor="@color/offwhite"
                 android:text="Paintball is a competitive team shooting sport in which players eliminate opponents from play by hitting them with spherical dye-filled gelatin capsules called paintballs that break upon impact."
                 android:textSize="16sp"
                 />
 
             <TextView
+                android:id="@+id/read_more"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/read_more"
@@ -307,75 +324,6 @@
                 android:focusable="true"
                 android:textColorLink="@color/white"
                 />
-
-            <!--                line-->
-            <View
-                android:layout_marginTop="16dp"
-                android:layout_marginBottom="10dp"
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:layout_gravity="center_horizontal"
-                android:background="@color/deadwhite" />
-
-            <!--************************* -->
-            <TextView
-                android:id="@+id/show_in_map"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textColor="@color/white"
-                android:text="Show In Map"
-                android:textSize="22sp"
-                />
-
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:layout_marginTop="10dp"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
-
-                <ImageView
-
-                    android:id="@+id/imageView2"
-                    android:layout_width="match_parent"
-                    android:layout_height="200dp"
-                    android:background="@color/blue"
-                    android:scaleType="centerCrop"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:srcCompat="@drawable/maps_image" />
-
-                <View
-                    android:id="@+id/view"
-                    android:layout_width="match_parent"
-                    android:layout_height="60dp"
-
-                    android:background="@color/ghost_white"
-                    app:layout_constraintBottom_toBottomOf="@+id/imageView2"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.0"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="@+id/imageView2"
-                    app:layout_constraintVertical_bias="1.0" />
-
-                <Button
-                    android:id="@+id/button2"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:backgroundTint="@color/red"
-                    android:paddingTop="4dp"
-                    android:paddingBottom="4dp"
-                    android:text="Get Directions"
-                    app:layout_constraintBottom_toBottomOf="@+id/imageView2"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.5"
-                    app:layout_constraintStart_toStartOf="@+id/view"
-                    app:layout_constraintTop_toTopOf="@+id/view"
-                    app:layout_constraintVertical_bias="0.5" />
-
-
-            </androidx.constraintlayout.widget.ConstraintLayout>
-
 
             <!--                line-->
             <View
@@ -439,10 +387,6 @@
                 android:layout_marginBottom="30dp"
                 android:background="@color/support_grey"
                 />
-
-
-
-
         </LinearLayout>
 
 

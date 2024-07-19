@@ -117,7 +117,7 @@ public class Events extends AppCompatActivity implements View.OnClickListener, R
                             String Host = place.getString("Host_Username");
                             String description = place.getString("Description");
                             int cap = place.getInt("Capacity");
-                            String Fos7a_Date = place.getString("Fos7a_Date").substring(0, Math.min(place.getString("Fos7a_Date").length(), 10));;
+                            String Fos7a_Date = place.getString("Fos7a_Date");
                             String Fos7a_Time = place.getString("Fos7a_Time");
                             int Is_Public = place.getInt("Is_Public");
                             String Place_Name = place.getString("Place_Name");
@@ -331,6 +331,7 @@ public class Events extends AppCompatActivity implements View.OnClickListener, R
     @Override
     public void onItemClicked(int recycleViewID, int position) {
         Intent intent = new Intent(this, EventProfile.class);
+        intent.putExtra("Username", username);
         intent.putExtra("Fos7a_Name", list.get(position).getName());
         intent.putExtra("Host_Username", list.get(position).getHostName());
         intent.putExtra("Description", list.get(position).getDescription());

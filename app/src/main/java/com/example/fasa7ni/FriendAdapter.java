@@ -9,6 +9,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 
 import java.util.List;
 
@@ -41,6 +42,7 @@ public class FriendAdapter extends RecyclerView.Adapter<FriendViewHolder> {
 
         Glide.with(context)
                 .load(imagePath)
+                .apply(RequestOptions.circleCropTransform())
                 .into(holder.image);
 
         holder.remove.setOnClickListener(v -> {

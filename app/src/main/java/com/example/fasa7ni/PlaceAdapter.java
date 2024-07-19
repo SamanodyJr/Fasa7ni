@@ -10,6 +10,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 
 import java.util.List;
 
@@ -39,6 +40,7 @@ public class PlaceAdapter extends RecyclerView.Adapter<PlaceViewHolder>
         String imagePath = "file:///android_asset/" + places.get(position).getImage();
         Glide.with(context)
                 .load(imagePath)
+                .apply(RequestOptions.circleCropTransform())
                 .into(holder.image);
         holder.location.setText(places.get(position).getLocation());
     }

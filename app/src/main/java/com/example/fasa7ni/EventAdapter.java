@@ -10,6 +10,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 
 import java.io.File;
 import java.util.List;
@@ -41,6 +42,7 @@ public class EventAdapter extends RecyclerView.Adapter<EventViewHolder>
         String imagePath = "file:///android_asset/" + fos7as.get(position).getImage();
         Glide.with(context)
                 .load(imagePath)
+                .apply(RequestOptions.circleCropTransform())
                 .into(holder.image);
     }
     @Override

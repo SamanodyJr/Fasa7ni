@@ -27,6 +27,7 @@ import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.Volley;
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -179,6 +180,7 @@ public class Profile extends AppCompatActivity implements View.OnClickListener
                         String imagePath = "file:///android_asset/" + picstr;
                         Glide.with(getApplicationContext())
                                 .load(imagePath)
+                                .apply(RequestOptions.circleCropTransform())
                                 .into(ProfilePic);
 
                         runOnUiThread(() ->

@@ -1,11 +1,15 @@
 package com.example.fasa7ni;
 
+import android.content.Context;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 
 public class EventViewHolder extends RecyclerView.ViewHolder
 {
@@ -33,12 +37,17 @@ public class EventViewHolder extends RecyclerView.ViewHolder
             }
         });
     }
-    public void bind(Event event) {
+    public void bind(Event event, Context context)
+    {
         name.setText(event.getName());
         location.setText(event.getLocation());
         hostName.setText(event.getHostName());
-//        image.setImageResource(event.getImage());
-        openingHours.setText(event.getDate());
+       String imagePath = "file:///android_asset/" + event.getImage();
+
+        Glide.with(context)
+                .load(imagePath)
+                .apply(RequestOptions.circleCropTransform())
+                .into(image);
 
     }
 }
