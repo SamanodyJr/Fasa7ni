@@ -1,6 +1,7 @@
 package com.example.fasa7ni;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,29 +13,28 @@ import com.bumptech.glide.Glide;
 
 import java.util.List;
 
-public class RequestAdapter extends RecyclerView.Adapter<RequestViewHolder>
-{
+public class RequestAdapter extends RecyclerView.Adapter<RequestViewHolder> {
     private final RecyclerViewInterface recyclerViewInterface;
     Context context;
     List<Request> requests;
-    public RequestAdapter(RecyclerViewInterface recyclerViewInterface, Context context, List<Request> requests)
-    {
+
+    public RequestAdapter(RecyclerViewInterface recyclerViewInterface, Context context, List<Request> requests) {
         this.recyclerViewInterface = recyclerViewInterface;
         this.context = context;
         this.requests = requests;
     }
+
     @NonNull
     @Override
-    public RequestViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType)
-    {
-        View view = LayoutInflater.from(context).inflate(R.layout.request_row,parent,false);
-        return new RequestViewHolder(view,recyclerViewInterface);
+    public RequestViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        View view = LayoutInflater.from(context).inflate(R.layout.request_row, parent, false);
+        return new RequestViewHolder(view, recyclerViewInterface);
     }
+
     @Override
-    public void onBindViewHolder(@NonNull RequestViewHolder holder, int position)
-    {
+    public void onBindViewHolder(@NonNull RequestViewHolder holder, int position) {
         holder.name.setText(requests.get(position).getName());
-        holder.mutual.setText(Integer.toString(requests.get(position).getMutual())+" Mutual Friends");
+        holder.mutual.setText(Integer.toString(requests.get(position).getMutual()) + " Mutual Friends");
         holder.remove.setImageResource(R.drawable.x_sign);
         holder.add.setText("ADD");
 
@@ -52,14 +52,15 @@ public class RequestAdapter extends RecyclerView.Adapter<RequestViewHolder>
 
         holder.add.setOnClickListener(v ->
         {
-//            requests.add(position);
-//            notifyItemRemoved(position);
-            // add to database
+            if (context instanceof Friends) {
+                ((Friends) context).Accept_Friend(position);
+                Log.d("FriendsAdapter", "weslt walaa: ");
+            }
         });
     }
+
     @Override
-    public int getItemCount()
-    {
+    public int getItemCount() {
         return requests.size();
     }
 

@@ -22,6 +22,7 @@ import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.Volley;
+import com.bumptech.glide.Glide;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -30,7 +31,7 @@ import java.util.ArrayList;
 
 public class PlaceProfile extends AppCompatActivity implements View.OnClickListener
 {
-
+    private String username;
     private String place_Name;
     private String description;
     private String openingTime;
@@ -40,7 +41,7 @@ public class PlaceProfile extends AppCompatActivity implements View.OnClickListe
     private String workingDays;
     private String facebook_account="temp";
 
-    private int image;
+    private String image;
 
 
     private  class Social{
@@ -96,7 +97,7 @@ public class PlaceProfile extends AppCompatActivity implements View.OnClickListe
 
         Show_Events = findViewById(R.id.show_fosa7_btn);
         Show_Events.setOnClickListener(this);
-        //Place_Image = findViewById(R.id.place_image);
+        Place_Image = findViewById(R.id.placeImageView);
         Place_Name = findViewById(R.id.placeName);
         Description = findViewById(R.id.placeDescription);
         Timings = findViewById(R.id.placeTimings);
@@ -126,6 +127,7 @@ public class PlaceProfile extends AppCompatActivity implements View.OnClickListe
 
         Bundle Bundle = getIntent().getExtras();
         if(Bundle!=null){
+            username = Bundle.getString("Username");
             location=Bundle.getString("Location");
             description=Bundle.getString("Description");
             openingTime=Bundle.getString("OpeningTime");
@@ -133,7 +135,7 @@ public class PlaceProfile extends AppCompatActivity implements View.OnClickListe
             phone=Bundle.getString("Phone");
             place_Name=Bundle.getString("Name");
             workingDays=Bundle.getString("WorkingDays");
-            image=Bundle.getInt("Image");
+            image=Bundle.getString("Image");
             FetchSocials(place_Name);
             FetchTags(place_Name);
             setting_view();
@@ -150,7 +152,10 @@ public class PlaceProfile extends AppCompatActivity implements View.OnClickListe
         Location.setText(location);
         Phone.setText(phone);
         Facebook.setText(facebook_account);
-        //Place_Image.setImageResource(image);
+        String imagePath = "file:///android_asset/" + image;
+        Glide.with(getApplicationContext())
+                .load(imagePath)
+                .into(Place_Image);
     }
 
     private void FetchSocials(String name)
@@ -244,6 +249,7 @@ public class PlaceProfile extends AppCompatActivity implements View.OnClickListe
     {
         Intent P_E = new Intent(PlaceProfile.this, Events.class);
         P_E.putExtra("Place_Name", place_Name);
+        P_E.putExtra("Username", username);
         startActivity(P_E);
     }
 }

@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.activity.EdgeToEdge;
@@ -18,6 +19,7 @@ import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.Volley;
+import com.bumptech.glide.Glide;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -27,8 +29,8 @@ import java.util.ArrayList;
 public class EventProfile extends AppCompatActivity implements View.OnClickListener
 {
 
-    private TextView fos7aImage, fos7aTitle,fos7aDescription,fos7aDate,Fos7a_Location,fos7aCapacity,fos7aPublic,fos7aHost;
-
+    private TextView fos7aTitle,fos7aDescription,fos7aDate,Fos7a_Location,fos7aCapacity,fos7aPublic,fos7aHost;
+    private ImageView fos7aImage;
     private ArrayList<TextView> Tags = new ArrayList<TextView>();
     private ImageButton BackButton;
     private Button Join;
@@ -57,7 +59,7 @@ public class EventProfile extends AppCompatActivity implements View.OnClickListe
         BackButton = findViewById(R.id.backButton);
         BackButton.setOnClickListener(this);
 
-        //fos7aImage = findViewById(R.id.imageView3);
+        fos7aImage = findViewById(R.id.imageView3);
         fos7aTitle = findViewById(R.id.Fos7aTitle);
         fos7aDescription = findViewById(R.id.Fos7aDescription);
         fos7aCapacity = findViewById(R.id.Fos7aCapacity);
@@ -80,10 +82,9 @@ public class EventProfile extends AppCompatActivity implements View.OnClickListe
             String Fos7a_Time = Bundle.getString("Fos7a_Time");
             int Is_Public = Bundle.getInt("Is_Public");
             String Place_Name = Bundle.getString("Place_Name");
-            int Image = Bundle.getInt("Image");
+            String Image = Bundle.getString("Image");
 
-            //setting views
-            //fos7aImage.setImageResource(Image);
+
             fos7aTitle.setText(Name);
             fos7aDescription.setText(Description);
             fos7aCapacity.setText(Capacity);
@@ -91,8 +92,10 @@ public class EventProfile extends AppCompatActivity implements View.OnClickListe
             fos7aPublic.setText(Is_Public==1?"Public":"Private");
             fos7aHost.setText(Host_Username);
             Fos7a_Location.setText(Place_Name);
-            //FetchTags(Name);
-
+            String imagePath = "file:///android_asset/" + Image;
+            Glide.with(getApplicationContext())
+                    .load(imagePath)
+                    .into(fos7aImage);
         }
 
 

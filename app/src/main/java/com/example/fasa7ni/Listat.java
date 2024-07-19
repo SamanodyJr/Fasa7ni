@@ -287,6 +287,15 @@ public class Listat extends AppCompatActivity implements View.OnClickListener, R
     public void onItemClicked(int recycleViewID, int position)
     {
         Intent intent = new Intent(this, PlaceProfile.class);
+        intent.putExtra("Username", username);
+        intent.putExtra("Location", places_list.get(position).location);
+        intent.putExtra("Description", places_list.get(position).description);
+        intent.putExtra("OpeningTime", places_list.get(position).OpeningTime);
+        intent.putExtra("ClosingTime", places_list.get(position).ClosingTime);
+        intent.putExtra("Phone", places_list.get(position).phone);
+        intent.putExtra("Name", places_list.get(position).name);
+        intent.putExtra("WorkingDays", places_list.get(position).WorkingDays);
+        intent.putExtra("Image", places_list.get(position).image);
         startActivity(intent);
     }
 

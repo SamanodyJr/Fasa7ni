@@ -8,7 +8,6 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.PopupWindow;
 import android.widget.SearchView;
@@ -32,9 +31,6 @@ import java.util.List;
 public class Friends extends AppCompatActivity implements View.OnClickListener, RecyclerViewInterface
 {
     private String username;
-    private String Requester_Username;
-    private String Reciever_Username;
-    private Button add_friend_btn;
     private ImageButton Listat;
     private ImageButton Home;
     private ImageButton Profile;
@@ -116,14 +112,12 @@ public class Friends extends AppCompatActivity implements View.OnClickListener, 
         Home = findViewById(R.id.small_home_btn);
         Recommender = findViewById(R.id.small_recommender_btn);
         Profile = findViewById(R.id.profile_btn);
-        add_friend_btn = findViewById(R.id.add_friend_btn);
 
         Listat.setOnClickListener(this);
         Events.setOnClickListener(this);
         Home.setOnClickListener(this);
         Recommender.setOnClickListener(this);
         Profile.setOnClickListener(this);
-        add_friend_btn.setOnClickListener(this);
 
         FetchFriends();
 
@@ -213,27 +207,9 @@ public class Friends extends AppCompatActivity implements View.OnClickListener, 
         else if (v.getId()==Profile.getId())
             Go_Profile();
 
-        else if (v.getId()==add_friend_btn.getId())
-            Accept_Friend();
-
         else
             return;
 
-    }
-
-    private void Accept_Friend()
-    {
-        String url;
-        url = "http://10.0.2.2:4000/Accept_Friend?Requester_USERNAME="+Requester_Username+"&Reciever_USERNAME="+Reciever_Username;
-        RequestQueue requestQueue = Volley.newRequestQueue(this);
-
-        JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(
-                com.android.volley.Request.Method.GET, url, null,
-                response ->
-                        Toast.makeText(Friends.this, "Updated Successfully", Toast.LENGTH_SHORT).show(),
-                Throwable::printStackTrace
-        );
-        requestQueue.add(jsonArrayRequest);
     }
 
     private void Go_List()
@@ -272,22 +248,40 @@ public class Friends extends AppCompatActivity implements View.OnClickListener, 
     }
 
     @Override
-    public void onItemClicked(int recycleViewID, int position)
-    {
-        if (recycleViewID == 2)
-        { // Remove item from list
+    public void onItemClicked(int recycleViewID, int position) {
+        if (recycleViewID == 2) { // Remove item from list
             list.remove(position);
             RecyclerView recyclerView = findViewById(R.id.friends_recyclerView);
             recyclerView.getAdapter().notifyItemRemoved(position);
             recyclerView.getAdapter().notifyItemRangeChanged(position, list.size());
-        } else if (recycleViewID == 1)
-        { // View profile
+        } else if (recycleViewID == 1) { // View profile
             Intent intent = new Intent(this, Profile.class);
             startActivity(intent);
-        } else if (recycleViewID == 3)
-        { //Request
+        } else if (recycleViewID == 3) { //Request
             Intent intent = new Intent(this, Profile.class);
             startActivity(intent);
         }
+    }
+
+    public void Accept_Friend(int position)
+    {
+        Request request = req.get(position);
+
+        String url;
+        url = "http://10.0.2.2:4000/Accept_Friend?Requester_USERNAME="+request.getName()+"&Reciever_USERNAME="+username;
+        RequestQueue requestQueue = Volley.newRequestQueue(this);
+
+        Log.d("FriendsActivity", "Reciever_Username: " + username);
+        JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(
+                com.android.volley.Request.Method.GET, url, null,
+                response -> {
+                    Toast.makeText(Friends.this, "Updated Successfully", Toast.LENGTH_SHORT).show();
+                    req.remove(position);
+                    Request_Adapter.notifyItemRemoved(position);
+                },
+                Throwable::printStackTrace
+        );
+        requestQueue.add(jsonArrayRequest);
+        FetchFriends();
     }
 }

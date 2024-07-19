@@ -8,7 +8,7 @@ srv.use(express.json());
 srv.use(bodyParser.json());
 
 
-var mysqlcon = mysql.createConnection({host: "localhost", user: "root", password: "Heggi_2002", database : "Fasa7ni"});
+var mysqlcon = mysql.createConnection({host: "localhost", user: "root", password: "", database : "Fasa7ni"});
 
 mysqlcon.connect( function (err)
 {
@@ -29,10 +29,11 @@ srv.get('/Fetch_Places', function(req, res)
 
     if(Category=="All")
         var Retrieve_Query= "SELECT * FROM Places P INNER JOIN ADDRESS A ON P.Place_Name = A.Place_Name";
-    else if(Category == "Near")
-        var Retrieve_Query= "SELECT * FROM Places P INNER JOIN ADDRESS A ON P.Place_Name = A.Place_Name INNER JOIN USER U ON A.AREA = U.AREA WHERE A.AREA = ?" ;
-    else
+    else if(Category == "Sports" || Category == "Food" || Category == "Activities" || Category == "Sightseeing")
         var Retrieve_Query= "SELECT P.*, A.Address FROM Places P INNER JOIN Place_Cats PC ON P.Place_Name=PC.Place_Name INNER JOIN ADDRESS A ON P.PLACE_NAME = A.PLACE_NAME WHERE PC.Cat_Name=?" ;
+    else
+        var Retrieve_Query= "SELECT * FROM Places P INNER JOIN ADDRESS A ON P.Place_Name = A.Place_Name INNER JOIN USER U ON A.AREA = U.AREA WHERE A.AREA = ?" ;
+
 
     mysqlcon.query(Retrieve_Query,[Category], function (err, result)
     {
@@ -49,6 +50,26 @@ srv.get('/Fetch_Places', function(req, res)
     });
 
 });
+
+srv.get("/Fetch_User_Area", function (req, res) {
+  console.log("Getting User Area from DB...");
+  var q = url.parse(req.url, true).query;
+  var username = q.username;
+  var Retrieve_Query =
+    "SELECT Area FROM User WHERE Username = ?";
+  console.log("Retrieved Query", Retrieve_Query);
+
+  mysqlcon.query(Retrieve_Query, [username], function (err, result) {
+    if (err) {
+      console.log("Retrieval Failed.");
+      throw err;
+    } else {
+      console.log("User Area Recieved Successfully.");
+      res.send(result);
+    }
+  });
+});
+
 
 srv.get("/Fetch_Places_Socials", function (req, res) {
   console.log("Getting Places Socials from DB...");

@@ -33,6 +33,7 @@ import java.util.List;
 public class Home extends AppCompatActivity implements View.OnClickListener,RecyclerViewInterface
 {
     private String username;
+    private String area;
     private ImageButton Listat;
     private ImageButton Events;
     private ImageButton Friends;
@@ -67,6 +68,7 @@ public class Home extends AppCompatActivity implements View.OnClickListener,Recy
         {
             username = bundle.getString("Username");
         }
+        FetchArea();
         Event_Adapter = new EventAdapter(this,getApplicationContext(),list);
         placeAdapter = new PlaceAdapter(this,getApplicationContext(),places_list);
 
@@ -94,7 +96,6 @@ public class Home extends AppCompatActivity implements View.OnClickListener,Recy
         Recommender.setOnClickListener(this);
         Profile.setOnClickListener(this);
 
-        FetchPlaces();
         FetchUpcoming();
 
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener()
@@ -178,7 +179,10 @@ public class Home extends AppCompatActivity implements View.OnClickListener,Recy
     private void FetchPlaces()
     {
         places_list.clear();
-        String url = "http://10.0.2.2:4000/Fetch_Places?Cat=All"; //add type
+
+        if(area == null)
+            area = "All";
+        String url = "http://10.0.2.2:4000/Fetch_Places?Cat="+area; //add type
         RequestQueue requestQueue = Volley.newRequestQueue(this);
 
         JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(
@@ -213,7 +217,30 @@ public class Home extends AppCompatActivity implements View.OnClickListener,Recy
     }
 
 
+    private void FetchArea()
+    {
+        String url = "http://10.0.2.2:4000/Fetch_User_Area?username="+username; //add type
+        RequestQueue requestQueue = Volley.newRequestQueue(this);
 
+        JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(
+                Request.Method.GET, url, null,
+                response ->
+                {
+                    try {
+                        JSONObject place = response.getJSONObject(0);
+                         area = place.getString("Area");
+                        FetchPlaces();
+                    }
+                    catch (JSONException e)
+                    {
+                        e.printStackTrace();
+                    }
+                },
+                Throwable::printStackTrace
+        );
+        requestQueue.add(jsonArrayRequest);
+
+    }
     private void performSearch(String text) {
 
         if (combinedList.isEmpty()) {
@@ -305,9 +332,27 @@ public class Home extends AppCompatActivity implements View.OnClickListener,Recy
     public void onItemClicked(int recycleViewID, int position) {
         if (recycleViewID == 0){ //Place
             Intent intent = new Intent(this, PlaceProfile.class);
+            intent.putExtra("Username", username);
+            intent.putExtra("Location", places_list.get(position).location);
+            intent.putExtra("Description", places_list.get(position).description);
+            intent.putExtra("OpeningTime", places_list.get(position).OpeningTime);
+            intent.putExtra("ClosingTime", places_list.get(position).ClosingTime);
+            intent.putExtra("Phone", places_list.get(position).phone);
+            intent.putExtra("Name", places_list.get(position).name);
+            intent.putExtra("WorkingDays", places_list.get(position).WorkingDays);
+            intent.putExtra("Image", places_list.get(position).image);
             startActivity(intent);
         } else if (recycleViewID == 1) { //Event
             Intent intent = new Intent(this, EventProfile.class);
+            intent.putExtra("Fos7a_Name", list.get(position).getName());
+            intent.putExtra("Host_Username", list.get(position).getHostName());
+            intent.putExtra("Description", list.get(position).getDescription());
+            intent.putExtra("Capacity", list.get(position).getCapacity());
+            intent.putExtra("Fos7a_Date", list.get(position).getDate());
+            intent.putExtra("Fos7a_Time", list.get(position).getFos7a_Time());
+            intent.putExtra("Is_Public", list.get(position).getIs_Public());
+            intent.putExtra("Place_Name", list.get(position).getLocation());
+            intent.putExtra("Image", list.get(position).getImage());
             startActivity(intent);
         }
 
