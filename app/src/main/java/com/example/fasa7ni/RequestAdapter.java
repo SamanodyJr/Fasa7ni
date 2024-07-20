@@ -46,9 +46,11 @@ public class RequestAdapter extends RecyclerView.Adapter<RequestViewHolder>
     @Override
     public void onBindViewHolder(@NonNull RequestViewHolder holder, int position)
     {
+        Log.d("RequestAdapter", "Here");
         Request request = requests.get(position);
         holder.name.setText(requests.get(position).getName());
         holder.mutual.setText(Integer.toString(requests.get(position).getMutual()) + " Mutual Friends");
+        holder.add.findViewById(R.id.add_friend_btn);
         holder.remove.setImageResource(R.drawable.x_sign);
         holder.add.setText("ADD");
 
@@ -62,15 +64,19 @@ public class RequestAdapter extends RecyclerView.Adapter<RequestViewHolder>
         //getIsRequest() -> 0->friends, 1->request to attend fos7a, 2->fos7a attendee
         if (request.getIsRequest()==0)
         {    //friends
+            Log.d("RequestAdapter", "Here2");
             holder.add.setVisibility(View.VISIBLE);
             holder.remove.setVisibility(View.VISIBLE);
             holder.add.setOnClickListener(v ->
             {
-                if (context instanceof Friends)
-                {
-                    ((Friends) context).Accept_Friend(position);
-                }
+                activity2.Accept_Friend(request.getName());
             });
+
+            holder.remove.setOnClickListener(v ->
+            {
+                activity2.Remove_Friend(request.getName());
+            });
+
         }
         else if(request.getIsRequest()==1)
         {
@@ -85,21 +91,23 @@ public class RequestAdapter extends RecyclerView.Adapter<RequestViewHolder>
                 notifyItemRemoved(position);
             });
         }
+        else if (request.getIsRequest()==4)
+        {    //search friends
+            Log.d("RequestAdapter", "Here3");
+            holder.add.setVisibility(View.VISIBLE);
+            holder.remove.setVisibility(View.INVISIBLE);
+            holder.add.setOnClickListener(v ->
+            {
+                activity2.RequestFriend(request.getName());
+            });
+
+        }
         else
         {     //fos7a attendee
             holder.add.setVisibility(View.GONE);
             holder.remove.setVisibility(View.GONE);
             holder.mutual.setVisibility(View.GONE);
         }
-
-
-        holder.remove.setOnClickListener(v ->
-        {
-            requests.remove(position);
-            notifyItemRemoved(position);
-        });
-
-
     }
 
     @Override

@@ -19,8 +19,10 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.JsonArrayRequest;
+import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -40,12 +42,11 @@ public class Friends extends AppCompatActivity implements View.OnClickListener, 
     private List<Friend> list = new ArrayList<Friend>();
     private SearchView searchView;
     private List<Request> req = new ArrayList<Request>();
+    private List<Request> req_search = new ArrayList<Request>();
     private RequestAdapter Request_Adapter;
     private FriendAdapter Friend_Adapter;
     private RecyclerView recyclerView;
     private RecyclerView recyclerView2;
-
-
 
 
     @SuppressLint("SourceLockedOrientationActivity")
@@ -62,31 +63,35 @@ public class Friends extends AppCompatActivity implements View.OnClickListener, 
     {
 
         searchView = findViewById(R.id.searchView);
-
-        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener()
+        {
             @Override
-            public boolean onQueryTextSubmit(String query) {
-                // Perform search when user submits query
+            public boolean onQueryTextSubmit(String query)
+            {
+                performSearch(query);
                 return true;
             }
 
             @Override
-            public boolean onQueryTextChange(String newText) {
-                // Perform search when query text changes
+            public boolean onQueryTextChange(String newText)
+            {
                 performSearch(newText);
                 return true;
             }
         });
 
-        searchView.setOnQueryTextFocusChangeListener(new View.OnFocusChangeListener() {
+        searchView.setOnQueryTextFocusChangeListener(new View.OnFocusChangeListener()
+        {
             @Override
-            public void onFocusChange(View v, boolean hasFocus) {
-                if (hasFocus) {
+            public void onFocusChange(View v, boolean hasFocus)
+            {
+                if (hasFocus)
                     showDropdown();
-                } else {
-                    if (popupWindow != null && popupWindow.isShowing()) {
+
+                else
+                {
+                    if (popupWindow != null && popupWindow.isShowing())
                         popupWindow.dismiss();
-                    }
                 }
             }
         });
@@ -97,7 +102,9 @@ public class Friends extends AppCompatActivity implements View.OnClickListener, 
             username = bundle.getString("Username");
         }
         Request_Adapter = new RequestAdapter(this,getApplicationContext(),req);
+        Request_Adapter.setActivity2(this);
         Friend_Adapter = new FriendAdapter(this,getApplicationContext(),list);
+        Friend_Adapter.setActivity(this);
 
         recyclerView = findViewById(R.id.friends_recyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
@@ -137,6 +144,7 @@ public class Friends extends AppCompatActivity implements View.OnClickListener, 
                 {
                     Log.d("Requester", response.toString());
                     try {
+                        int j = 0;
                         for (int i = 0; i < response.length(); i++)
                         {
                             JSONObject friend = response.getJSONObject(i);
@@ -146,7 +154,11 @@ public class Friends extends AppCompatActivity implements View.OnClickListener, 
                             if(Accepted==1)
                                 list.add(new Friend(Username,Image,23,R.id.remove_friend_btn));
                             else
+                            {
                                 req.add(new Request(Username,100,R.id.remove_friend_btn,R.id.add_friend_btn,Image));
+                                req.get(j).setIsRequest(0);
+                                j++;
+                            }
                         }
                         Friend_Adapter.notifyDataSetChanged();
                         Request_Adapter.notifyDataSetChanged();
@@ -165,35 +177,72 @@ public class Friends extends AppCompatActivity implements View.OnClickListener, 
 
     private void performSearch(String text)
     {
-        if (list.isEmpty())
-            popupWindow.dismiss();
-        else
+        if (text.isEmpty())
+        {
+            req_search.clear();
             showDropdown();
+            return;
+        }
+        RequestQueue requestQueue = Volley.newRequestQueue(this);
+        String url = "http://10.0.2.2:4000/Search?Type=Friend&Name=" + text + "&user=" + username;
+        JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(
+                com.android.volley.Request.Method.GET, url, null,
+                response -> {
+                    try {
+                        req_search.clear();
+                        Log.d("Search", "Search results: " + response.toString());
+                        for (int i = 0; i < response.length(); i++)
+                        {
+                            JSONObject request = response.getJSONObject(i);
+                            String Username = request.getString("Username");
+                            String Image = request.getString("ProfilePic");
+                            req_search.add(new Request(Username,20, R.id.add_friend_btn,Image));
+                        }
+                        showDropdown();
+                    } catch (JSONException e)
+                    {
+                        e.printStackTrace();
+                        Toast.makeText(Friends.this, "Search failed", Toast.LENGTH_SHORT).show();
+                    }
+                },
+                error ->
+                {
+                    error.printStackTrace();
+                    Toast.makeText(Friends.this, "Search failed", Toast.LENGTH_SHORT).show();
+                }
+        );
+        requestQueue.add(jsonArrayRequest);
     }
 
     private void showDropdown()
     {
-        if (popupWindow == null)
-        {
+        if (popupWindow == null) {
             View view = LayoutInflater.from(this).inflate(R.layout.dropdown_search_results, null);
-            RecyclerView recyclerView = view.findViewById(R.id.recyclerView); // Corrected line
+            RecyclerView recyclerView = view.findViewById(R.id.recyclerView);
             recyclerView.setLayoutManager(new LinearLayoutManager(this));
-            recyclerView.setAdapter(new RequestAdapter(this,getApplicationContext(),req)); // Assuming EventAdapter constructor accepts List<Event>
+            RequestAdapter adapter = new RequestAdapter(this,getApplicationContext(), req_search);
+            adapter.setActivity2(this);
+            recyclerView.setAdapter(adapter);
 
             popupWindow = new PopupWindow(view, ViewGroup.LayoutParams.MATCH_PARENT, 1000);
             popupWindow.setOutsideTouchable(true);
             popupWindow.setFocusable(false);
-
+        }
+        else
+        {
+            View view = popupWindow.getContentView();
+            RecyclerView recyclerView = view.findViewById(R.id.recyclerView);
+            recyclerView.getAdapter().notifyDataSetChanged();
         }
 
-        if (!popupWindow.isShowing() && !list.isEmpty()) {
+        if (!popupWindow.isShowing() && !req_search.isEmpty())
             popupWindow.showAsDropDown(searchView);
-        }
     }
 
 
     @Override
-    public void onClick(View v) {
+    public void onClick(View v)
+    {
         if(v.getId()==Listat.getId())
             Go_List();
 
@@ -265,25 +314,80 @@ public class Friends extends AppCompatActivity implements View.OnClickListener, 
         }
     }
 
-    public void Accept_Friend(int position)
+    public void Accept_Friend(String requester)
     {
-        Request request = req.get(position);
 
         String url;
-        url = "http://10.0.2.2:4000/Accept_Friend?Requester_USERNAME="+request.getName()+"&Reciever_USERNAME="+username;
+        url = "http://10.0.2.2:4000/Accept_Friend?Requester_USERNAME=" + requester + "&Reciever_USERNAME=" + username;
         RequestQueue requestQueue = Volley.newRequestQueue(this);
-
-        Log.d("FriendsActivity", "Reciever_Username: " + username);
-        JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(
+        Log.e("RequestAdapter", url);
+        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(
                 com.android.volley.Request.Method.GET, url, null,
                 response -> {
-                    Toast.makeText(Friends.this, "Updated Successfully", Toast.LENGTH_SHORT).show();
-                    req.remove(position);
-                    Request_Adapter.notifyItemRemoved(position);
+                    Toast.makeText(this, "Updated Successfully", Toast.LENGTH_SHORT).show();
+                    Friend_Adapter.notifyDataSetChanged();
+                    Request_Adapter.notifyDataSetChanged();
                 },
-                Throwable::printStackTrace
+
+                //Throwable::printStackTrace
+                error -> {
+                    // Handle errors
+                    error.printStackTrace();
+                    Toast.makeText(this, "Request failed", Toast.LENGTH_SHORT).show();
+                }
         );
-        requestQueue.add(jsonArrayRequest);
+        requestQueue.add(jsonObjectRequest);
+        FetchFriends();
+
+    }
+
+    public void Remove_Friend(String requester)
+    {
+
+        String url;
+        url = "http://10.0.2.2:4000/Remove_Friend?Requester_USERNAME=" + requester + "&Reciever_USERNAME=" + username;
+        RequestQueue requestQueue = Volley.newRequestQueue(this);
+        Log.e("RequestAdapter", url);
+        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(
+                com.android.volley.Request.Method.GET, url, null,
+                response -> {
+                    Toast.makeText(this, "Updated Successfully", Toast.LENGTH_SHORT).show();
+                    Friend_Adapter.notifyDataSetChanged();
+                    Request_Adapter.notifyDataSetChanged();
+                },
+
+                //Throwable::printStackTrace
+                error -> {
+                    // Handle errors
+                    error.printStackTrace();
+                    Toast.makeText(this, "Request failed", Toast.LENGTH_SHORT).show();
+                }
+        );
+        requestQueue.add(jsonObjectRequest);
         FetchFriends();
     }
+
+    public void RequestFriend(String Reciever)
+    {
+        String url;
+        url = "http://10.0.2.2:4000/Request_Friend?Requester_Username=" + username + "&Reciever_Username=" + Reciever;
+        RequestQueue requestQueue = Volley.newRequestQueue(this);
+        Log.e("RequestAdapter", url);
+        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(
+                com.android.volley.Request.Method.GET, url, null,
+                response -> {
+                    Toast.makeText(this, "Friend Request Sent", Toast.LENGTH_SHORT).show();
+                },
+
+                //Throwable::printStackTrace
+                error -> {
+                    // Handle errors
+                    error.printStackTrace();
+                    Toast.makeText(this, "Request failed", Toast.LENGTH_SHORT).show();
+                }
+        );
+        requestQueue.add(jsonObjectRequest);
+
+    }
+
 }

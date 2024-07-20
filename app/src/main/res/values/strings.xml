@@ -21,8 +21,6 @@
         <item>Mokattam</item>
         <item>Downtown</item>
         <item>Madinaty</item>
-        <item>Giza</item>
-        <item>Ismailia</item>
     </string-array>
     <string-array name="capacity">
         <item>2-4</item>
@@ -30,6 +28,28 @@
         <item>6-8</item>
         <item>8-12</item>
         <item>12-20</item>
+    </string-array>
+    <string-array name="Places">
+        <item>Adrenaline Park-Laser Tag</item>
+        <item>Alexandria Bibliotheca</item>
+        <item>B-URN</item>
+        <item>BeFit 360</item>
+        <item>Bounce Egypt</item>
+        <item>BRGR</item>
+        <item>Brown Nose Coffee</item>
+        <item>Bunker</item>
+        <item>C.O.D.E Paintball Egypt</item>
+        <item>Cairo Tower</item>
+        <item>Citadel of Salah El-Din</item>
+        <item>Go!Padel</item>
+        <item>Nile Kayak Club</item>
+        <item>Osana</item>
+        <item>Sizzler</item>
+        <item>Spectra</item>
+        <item>The Egyptian Museum in Cairo</item>
+        <item>The Great Pyramid of Giza</item>
+        <item>The House</item>
+        <item>What the Crust</item>
     </string-array>
     <string name="read_more">
         <u>Read More</u>

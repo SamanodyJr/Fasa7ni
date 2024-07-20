@@ -62,6 +62,7 @@ public class PlaceProfile extends AppCompatActivity implements View.OnClickListe
     private ImageButton BackButton;
     private Button Show_Events;
     private Button directionsBtn;
+    private Button add_fos7a_btn;
     private ImageView Place_Image;
     private TextView Place_Name;
     private TextView Description;
@@ -70,6 +71,7 @@ public class PlaceProfile extends AppCompatActivity implements View.OnClickListe
     private TextView Facebook;
     private TextView Phone;
     private TextView ReadMore;
+    private String page;
     private boolean  isExpanded = false;
     private ArrayList<TextView> Tags = new ArrayList<TextView>();
 
@@ -97,6 +99,9 @@ public class PlaceProfile extends AppCompatActivity implements View.OnClickListe
         BackButton = findViewById(R.id.backButton);
         BackButton.setOnClickListener(this);
 
+        add_fos7a_btn = findViewById(R.id.add_fos7a_btn);
+        add_fos7a_btn.setOnClickListener(this);
+
         Show_Events = findViewById(R.id.show_fosa7_btn);
         Show_Events.setOnClickListener(this);
         Place_Image = findViewById(R.id.placeImageView);
@@ -111,12 +116,16 @@ public class PlaceProfile extends AppCompatActivity implements View.OnClickListe
         ReadMore.setOnClickListener(new View.OnClickListener()
         {
             @Override
-            public void onClick(View v) {
-                if (isExpanded) {
+            public void onClick(View v)
+            {
+                if (isExpanded)
+                {
                     Description.setMaxLines(3);
                     Description.setEllipsize(android.text.TextUtils.TruncateAt.END);
                     ReadMore.setText("Read More");
-                } else {
+                }
+                else
+                {
                     Description.setMaxLines(Integer.MAX_VALUE);
                     Description.setEllipsize(null);
                     ReadMore.setText("Read Less");
@@ -129,6 +138,7 @@ public class PlaceProfile extends AppCompatActivity implements View.OnClickListe
 
         Bundle Bundle = getIntent().getExtras();
         if(Bundle!=null){
+            page=Bundle.getString("page");
             username = Bundle.getString("Username");
             location=Bundle.getString("Location");
             description=Bundle.getString("Description");
@@ -251,13 +261,36 @@ public class PlaceProfile extends AppCompatActivity implements View.OnClickListe
     public void onClick(View v)
     {
         if(v.getId() == BackButton.getId())
-            finish();
+        {
+            if (page.equals("home"))
+            {
+                Intent P_H = new Intent(PlaceProfile.this, Home.class);
+                P_H.putExtra("Username", username);
+                startActivity(P_H);
+            }
+            else
+            {
+                Intent P_B = new Intent(PlaceProfile.this, Listat.class);
+                P_B.putExtra("Username", username);
+                startActivity(P_B);
+            }
+        }
+        else if (v.getId() == add_fos7a_btn.getId())
+            Go_Add_Fos7a();
 
         else if (v.getId() == Show_Events.getId())
             Go_Events();
 
         else
             return;
+    }
+
+    private void Go_Add_Fos7a()
+    {
+        Intent P_A = new Intent(PlaceProfile.this, Create.class);
+        P_A.putExtra("Place_Name", place_Name);
+        P_A.putExtra("Username", username);
+        startActivity(P_A);
     }
 
     private void Go_Events()

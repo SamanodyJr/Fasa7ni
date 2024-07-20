@@ -18,11 +18,17 @@ public class FriendAdapter extends RecyclerView.Adapter<FriendViewHolder> {
     private final RecyclerViewInterface recyclerViewInterface;
     private Context context;
     private List<Friend> friends;
+    private Friends activity;
+
 
     public FriendAdapter(RecyclerViewInterface recyclerViewInterface, Context context, List<Friend> friends) {
         this.recyclerViewInterface = recyclerViewInterface;
         this.context = context;
         this.friends = friends;
+    }
+
+    public void setActivity(Friends activity) {
+        this.activity = activity;
     }
 
     @NonNull
@@ -46,9 +52,7 @@ public class FriendAdapter extends RecyclerView.Adapter<FriendViewHolder> {
                 .into(holder.image);
 
         holder.remove.setOnClickListener(v -> {
-            friends.remove(position);
-            notifyItemRemoved(position);
-            notifyItemRangeChanged(position, friends.size());
+            activity.Remove_Friend(friends.get(position).getName());
         });
     }
 

@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 public class RequestViewHolder extends RecyclerView.ViewHolder
 {
+    TextView title;
     ImageView  image;
     ImageButton remove;
     Button add;

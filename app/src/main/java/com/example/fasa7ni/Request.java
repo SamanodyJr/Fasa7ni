@@ -19,6 +19,15 @@ public class Request
         this.isRequest = 0;
     }
 
+    public Request(String name, int mutual, int add, String image)
+    {
+        this.Requester = name;
+        this.image = image;
+        this.mutual = mutual;
+        this.add = add;
+        this.isRequest = 4;
+    }
+
     public int getIsRequest() {
         return isRequest;
     }

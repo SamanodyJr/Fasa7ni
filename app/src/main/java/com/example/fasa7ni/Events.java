@@ -13,6 +13,7 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.SearchView;
 import android.widget.PopupWindow;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -23,6 +24,7 @@ import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.Volley;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -44,6 +46,7 @@ public class Events extends AppCompatActivity implements View.OnClickListener, R
     private boolean[] Event_Status= new boolean[4];
     private SearchView searchView;
     private List<Event> list = new ArrayList<Event>();
+    private List<Event> Searchlist = new ArrayList<Event>();
     private EventAdapter Event_Adapter;
     private RecyclerView recyclerView;
 
@@ -59,30 +62,35 @@ public class Events extends AppCompatActivity implements View.OnClickListener, R
         searchView = findViewById(R.id.searchView);
 
 
-        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener()
+        {
             @Override
-            public boolean onQueryTextSubmit(String query) {
-                // Perform search when user submits query
+            public boolean onQueryTextSubmit(String query)
+            {
+                performSearch(query);
                 return true;
             }
 
             @Override
-            public boolean onQueryTextChange(String newText) {
-                // Perform search when query text changes
+            public boolean onQueryTextChange(String newText)
+            {
                 performSearch(newText);
                 return true;
             }
         });
 
-        searchView.setOnQueryTextFocusChangeListener(new View.OnFocusChangeListener() {
+        searchView.setOnQueryTextFocusChangeListener(new View.OnFocusChangeListener()
+        {
             @Override
-            public void onFocusChange(View v, boolean hasFocus) {
-                if (hasFocus) {
+            public void onFocusChange(View v, boolean hasFocus)
+            {
+                if (hasFocus)
                     showDropdown();
-                } else {
-                    if (popupWindow != null && popupWindow.isShowing()) {
+
+                else
+                {
+                    if (popupWindow != null && popupWindow.isShowing())
                         popupWindow.dismiss();
-                    }
                 }
             }
         });
@@ -138,32 +146,77 @@ public class Events extends AppCompatActivity implements View.OnClickListener, R
     }
 
 
-    private void performSearch(String text) {
-        if (list.isEmpty()) {
-            popupWindow.dismiss();
-        } else {
+    private void performSearch(String text)
+    {
+        if (text.isEmpty())
+        {
+            Searchlist.clear();
             showDropdown();
+            return;
         }
+        RequestQueue requestQueue = Volley.newRequestQueue(this);
+        String url = "http://10.0.2.2:4000/Search?Type=Events&Name=" + text;
+        JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(
+                Request.Method.GET, url, null,
+                response ->
+                {
+                    try {
+                        Searchlist.clear();
+                        for (int i = 0; i < response.length(); i++)
+                        {
+                            JSONObject obj = response.getJSONObject(i);
+                            String name = obj.getString("Fos7a_Name");
+                            String Host = obj.getString("Host_Username");
+                            String description = obj.getString("Description");
+                            int cap = obj.getInt("Capacity");
+                            String Fos7a_Date = obj.getString("Fos7a_Date");
+                            String Fos7a_Time = obj.getString("Fos7a_Time");
+                            int Is_Public = obj.getInt("Is_Public");
+                            String Place_Name = obj.getString("Place_Name");
+                            String Image = obj.getString("Pic");
+                            Searchlist.add(new Event(name, Host, description, Fos7a_Time, Fos7a_Date, cap, Image, Is_Public, Place_Name));
+                        }
+                        showDropdown();
+                    } catch (JSONException e)
+                    {
+                        e.printStackTrace();
+                        Toast.makeText(Events.this, "Search failed", Toast.LENGTH_SHORT).show();
+                    }
+                },
+                error ->
+                {
+                    error.printStackTrace();
+                    Toast.makeText(Events.this, "Search failed", Toast.LENGTH_SHORT).show();
+                }
+        );
+        requestQueue.add(jsonArrayRequest);
     }
 
     private void showDropdown() {
         if (popupWindow == null) {
             View view = LayoutInflater.from(this).inflate(R.layout.dropdown_search_results, null);
-            RecyclerView recyclerView = view.findViewById(R.id.recyclerView); // Corrected line
+            RecyclerView recyclerView = view.findViewById(R.id.recyclerView);
             recyclerView.setLayoutManager(new LinearLayoutManager(this));
-            recyclerView.setAdapter(new EventAdapter(this,getApplicationContext(),list)); // Assuming EventAdapter constructor accepts List<Event>
+            EventAdapter adapter = new EventAdapter(getApplicationContext(), Searchlist, new RecyclerViewInterface() {
+                @Override
+                public void onItemClicked(int recycleViewID, int position) {
+                    handleItemClick(2, position);
+                }
+            });
+            recyclerView.setAdapter(adapter);
 
             popupWindow = new PopupWindow(view, ViewGroup.LayoutParams.MATCH_PARENT, 1000);
             popupWindow.setOutsideTouchable(true);
             popupWindow.setFocusable(false);
-
+        } else {
+            View view = popupWindow.getContentView();
+            RecyclerView recyclerView = view.findViewById(R.id.recyclerView);
+            recyclerView.getAdapter().notifyDataSetChanged();
         }
 
-        if (!popupWindow.isShowing() && !list.isEmpty()) {
+        if (!popupWindow.isShowing() && !Searchlist.isEmpty())
             popupWindow.showAsDropDown(searchView);
-        }
     }
-
 
 
     private void Start()
@@ -175,7 +228,7 @@ public class Events extends AppCompatActivity implements View.OnClickListener, R
             placename = bundle.getString("Place_Name");
         }
 
-        Event_Adapter = new EventAdapter(this,getApplicationContext(),list);
+        Event_Adapter = new EventAdapter(getApplicationContext(),list,this);
 
         Listat = findViewById(R.id.small_list_btn);
         Home = findViewById(R.id.small_home_btn);
@@ -330,17 +383,43 @@ public class Events extends AppCompatActivity implements View.OnClickListener, R
 
     @Override
     public void onItemClicked(int recycleViewID, int position) {
-        Intent intent = new Intent(this, EventProfile.class);
-        intent.putExtra("Username", username);
-        intent.putExtra("Fos7a_Name", list.get(position).getName());
-        intent.putExtra("Host_Username", list.get(position).getHostName());
-        intent.putExtra("Description", list.get(position).getDescription());
-        intent.putExtra("Capacity", list.get(position).getCapacity());
-        intent.putExtra("Fos7a_Date", list.get(position).getDate());
-        intent.putExtra("Fos7a_Time", list.get(position).getFos7a_Time());
-        intent.putExtra("Is_Public", list.get(position).getIs_Public());
-        intent.putExtra("Place_Name", list.get(position).getLocation());
-        intent.putExtra("Image", list.get(position).getImage());
-        startActivity(intent);
+        handleItemClick(recycleViewID, position);
+    }
+
+    private void handleItemClick(int recycleViewID, int position)
+    {
+        if (recycleViewID == 2)
+        {
+            Intent intent = new Intent(this, EventProfile.class);
+            Event event = Searchlist.get(position);
+            intent.putExtra("page", "events");
+            intent.putExtra("Username", username);
+            intent.putExtra("Fos7a_Name", event.getName());
+            intent.putExtra("Host_Username", event.getHostName());
+            intent.putExtra("Description", event.getDescription());
+            intent.putExtra("Capacity", event.getCapacity());
+            intent.putExtra("Fos7a_Date", event.getDate());
+            intent.putExtra("Fos7a_Time", event.getFos7a_Time());
+            intent.putExtra("Is_Public", event.getIs_Public());
+            intent.putExtra("Place_Name", event.getLocation());
+            intent.putExtra("Image", event.getImage());
+            startActivity(intent);
+        }
+        else
+        {
+            Intent intent = new Intent(this, EventProfile.class);
+            intent.putExtra("page", "events");
+            intent.putExtra("Username", username);
+            intent.putExtra("Fos7a_Name", list.get(position).getName());
+            intent.putExtra("Host_Username", list.get(position).getHostName());
+            intent.putExtra("Description", list.get(position).getDescription());
+            intent.putExtra("Capacity", list.get(position).getCapacity());
+            intent.putExtra("Fos7a_Date", list.get(position).getDate());
+            intent.putExtra("Fos7a_Time", list.get(position).getFos7a_Time());
+            intent.putExtra("Is_Public", list.get(position).getIs_Public());
+            intent.putExtra("Place_Name", list.get(position).getLocation());
+            intent.putExtra("Image", list.get(position).getImage());
+            startActivity(intent);
+        }
     }
 }

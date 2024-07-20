@@ -1,4 +1,3 @@
-
 package com.example.fasa7ni;
 
 import android.content.Context;
@@ -19,7 +18,7 @@ public class PlaceAdapter extends RecyclerView.Adapter<PlaceViewHolder>
     private final RecyclerViewInterface recyclerViewInterface;
     Context context;
     List<Place> places;
-    public PlaceAdapter(RecyclerViewInterface recyclerViewInterface, Context context, List<Place> places)
+    public PlaceAdapter( Context context, List<Place> places, RecyclerViewInterface recyclerViewInterface)
     {
         this.recyclerViewInterface = recyclerViewInterface;
         this.context = context;

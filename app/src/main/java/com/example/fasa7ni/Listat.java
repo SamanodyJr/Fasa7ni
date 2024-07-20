@@ -13,6 +13,7 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.PopupWindow;
 import android.widget.SearchView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -43,6 +44,7 @@ public class Listat extends AppCompatActivity implements View.OnClickListener, R
     private boolean[] List_Status= new boolean[5];
     private SearchView searchView;
     private List<Place> places_list = new ArrayList<Place>();
+    private List<Place> Searchlist = new ArrayList<Place>();
     private PlaceAdapter placeAdapter;
     private RecyclerView recyclerView;
 
@@ -63,7 +65,7 @@ public class Listat extends AppCompatActivity implements View.OnClickListener, R
             username = bundle.getString("Username");
         }
 
-        placeAdapter = new PlaceAdapter(this,getApplicationContext(),places_list);
+        placeAdapter = new PlaceAdapter(getApplicationContext(),places_list,this);
 
         Event = findViewById(R.id.small_event_btn);
         Home = findViewById(R.id.small_home_btn);
@@ -105,14 +107,13 @@ public class Listat extends AppCompatActivity implements View.OnClickListener, R
             @Override
             public boolean onQueryTextSubmit(String query)
             {
-                // Perform search when user submits query
+                performSearch(query);
                 return true;
             }
 
             @Override
             public boolean onQueryTextChange(String newText)
             {
-                // Perform search when query text changes
                 performSearch(newText);
                 return true;
             }
@@ -125,6 +126,7 @@ public class Listat extends AppCompatActivity implements View.OnClickListener, R
             {
                 if (hasFocus)
                     showDropdown();
+
                 else
                 {
                     if (popupWindow != null && popupWindow.isShowing())
@@ -177,29 +179,76 @@ public class Listat extends AppCompatActivity implements View.OnClickListener, R
 
     private void performSearch(String text)
     {
-        if (places_list.isEmpty())
-            popupWindow.dismiss();
-        else
+        if (text.isEmpty())
+        {
+            Searchlist.clear();
             showDropdown();
+            return;
+        }
+        RequestQueue requestQueue = Volley.newRequestQueue(this);
+        String url = "http://10.0.2.2:4000/Search?Type=Listat&Name=" + text;
+        JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(
+                Request.Method.GET, url, null,
+                response ->
+                {
+                    try {
+                        Searchlist.clear();
+                        for (int i = 0; i < response.length(); i++)
+                        {
+
+                            JSONObject place = response.getJSONObject(i);
+                            String name = place.getString("Place_Name");
+                            String location = place.getString("Address");
+                            String description = place.getString("Description");
+                            String phone = place.getString("Phone");
+                            String openingTime = place.getString("OpeningTime");
+                            String closingTime = place.getString("ClosingTime");
+                            String workingDays = place.getString("WorkingDays");
+                            String Image = place.getString("PlacePic");
+                            Searchlist.add(new Place(name, location, description, phone, openingTime, closingTime, workingDays, Image));
+                        }
+                        showDropdown();
+                    } catch (JSONException e)
+                    {
+                        e.printStackTrace();
+                        Toast.makeText(Listat.this, "Search failed", Toast.LENGTH_SHORT).show();
+                    }
+                },
+                error ->
+                {
+                    error.printStackTrace();
+                    Toast.makeText(Listat.this, "Search failed", Toast.LENGTH_SHORT).show();
+                }
+        );
+        requestQueue.add(jsonArrayRequest);
     }
 
-    private void showDropdown()
-    {
-        if (popupWindow == null)
-        {
+    private void showDropdown() {
+        if (popupWindow == null) {
             View view = LayoutInflater.from(this).inflate(R.layout.dropdown_search_results, null);
-            RecyclerView recyclerView = view.findViewById(R.id.recyclerView); // Corrected line
+            RecyclerView recyclerView = view.findViewById(R.id.recyclerView);
             recyclerView.setLayoutManager(new LinearLayoutManager(this));
-            recyclerView.setAdapter(new PlaceAdapter(this,getApplicationContext(),places_list)); // Assuming EventAdapter constructor accepts List<Event>
+            PlaceAdapter adapter = new PlaceAdapter(getApplicationContext(), Searchlist, new RecyclerViewInterface() {
+                @Override
+                public void onItemClicked(int recycleViewID, int position) {
+                    handleItemClick(1, position);
+                }
+            });
+            recyclerView.setAdapter(adapter);
 
-            popupWindow = new PopupWindow(view, ViewGroup.LayoutParams.MATCH_PARENT,1000 );
+            popupWindow = new PopupWindow(view, ViewGroup.LayoutParams.MATCH_PARENT, 1000);
             popupWindow.setOutsideTouchable(true);
             popupWindow.setFocusable(false);
+        } else {
+            View view = popupWindow.getContentView();
+            RecyclerView recyclerView = view.findViewById(R.id.recyclerView);
+            recyclerView.getAdapter().notifyDataSetChanged();
         }
 
-        if (!popupWindow.isShowing() && !places_list.isEmpty())
+        if (!popupWindow.isShowing() && !Searchlist.isEmpty())
             popupWindow.showAsDropDown(searchView);
     }
+
     @Override
     public void onClick(View v)
     {
@@ -282,21 +331,40 @@ public class Listat extends AppCompatActivity implements View.OnClickListener, R
         String buttonText = myButton.getText().toString();
         FetchPlaces(buttonText);
     }
-
     @Override
-    public void onItemClicked(int recycleViewID, int position)
-    {
-        Intent intent = new Intent(this, PlaceProfile.class);
-        intent.putExtra("Username", username);
-        intent.putExtra("Location", places_list.get(position).location);
-        intent.putExtra("Description", places_list.get(position).description);
-        intent.putExtra("OpeningTime", places_list.get(position).OpeningTime);
-        intent.putExtra("ClosingTime", places_list.get(position).ClosingTime);
-        intent.putExtra("Phone", places_list.get(position).phone);
-        intent.putExtra("Name", places_list.get(position).name);
-        intent.putExtra("WorkingDays", places_list.get(position).WorkingDays);
-        intent.putExtra("Image", places_list.get(position).image);
-        startActivity(intent);
+    public void onItemClicked(int recycleViewID, int position) {
+        handleItemClick(recycleViewID, position);
+    }
+
+    private void handleItemClick(int recycleViewID, int position) {
+        if (recycleViewID == 1) {
+            Intent intent = new Intent(this, PlaceProfile.class);
+            Place place = Searchlist.get(position);
+            intent.putExtra("Username", username);
+            intent.putExtra("Location", place.location);
+            intent.putExtra("Description", place.description);
+            intent.putExtra("OpeningTime", place.OpeningTime);
+            intent.putExtra("ClosingTime",place.ClosingTime);
+            intent.putExtra("Phone", place.phone);
+            intent.putExtra("Name", place.name);
+            intent.putExtra("WorkingDays", place.WorkingDays);
+            intent.putExtra("Image", place.image);
+            startActivity(intent);
+        }
+        else {
+            Intent intent = new Intent(this, PlaceProfile.class);
+            intent.putExtra("page", "Listat");
+            intent.putExtra("Username", username);
+            intent.putExtra("Location", places_list.get(position).location);
+            intent.putExtra("Description", places_list.get(position).description);
+            intent.putExtra("OpeningTime", places_list.get(position).OpeningTime);
+            intent.putExtra("ClosingTime", places_list.get(position).ClosingTime);
+            intent.putExtra("Phone", places_list.get(position).phone);
+            intent.putExtra("Name", places_list.get(position).name);
+            intent.putExtra("WorkingDays", places_list.get(position).WorkingDays);
+            intent.putExtra("Image", places_list.get(position).image);
+            startActivity(intent);
+        }
     }
 
 }

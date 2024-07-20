@@ -173,7 +173,7 @@ srv.get('/Fetch_My_Fosa7', function(req, res)
     var q = url.parse(req.url, true).query;
     var User=q.Username;
 
-    var Retrieve_Query="SELECT DISTINCT F.* FROM Fosa7 F LEFT OUTER JOIN Fosa7_Requests FR ON F.Host_USERNAME=FR.Host_USERNAME AND F.Fos7a_Name=FR.Fos7a_Name AND F.Fos7a_Date=FR.Fos7a_Date AND F.Fos7a_Time = FR.Fos7a_Time WHERE (FR.Host_USERNAME=?) OR (FR.Requester_USERNAME=? AND FR.Accepted=1)" ;
+    var Retrieve_Query="SELECT DISTINCT F.* FROM Fosa7 F LEFT OUTER JOIN Fosa7_Requests FR ON F.Host_USERNAME=FR.Host_USERNAME AND F.Fos7a_Name=FR.Fos7a_Name AND F.Fos7a_Date=FR.Fos7a_Date AND F.Fos7a_Time = FR.Fos7a_Time WHERE (F.Host_USERNAME=?) OR (FR.Requester_USERNAME=? AND FR.Accepted=1)" ;
 
 
     mysqlcon.query(Retrieve_Query,[User,User], function (err, result)
@@ -194,38 +194,56 @@ srv.get('/Fetch_My_Fosa7', function(req, res)
 
 srv.post('/Create_Fos7a', function(req, res)
 {
+    const {Fos7a_Name, Host_Username,Description,Capacity,Fos7a_Time,Fos7a_Date,Is_Public,Place_Name} = req.body;
 
-    console.log("Adding Fos7a to DB...");
-    const {Fos7a_Name, Host_USERNAME,Description,Capacity,Fos7a_Time,Fos7a_Date,Image,Is_Public,Cat_Name} = req.body;
+    var Fetch_Cat="Select Cat_Name, PlacePic FROM  Place_Cats PC INNER JOIN Places P ON PC.Place_Name = P.Place_Name WHERE P.Place_Name = ?" ;
 
-    var Insert_Query="INSERT INTO Fosa7 (Fos7a_Name, Host_USERNAME,Description,Capacity,Fos7a_Time,Fos7a_Date,Image,Is_Public) VALUES (?,?,?,?,?,?,?,?)" ;
+    var Cat;
+    var Pic;
 
-    mysqlcon.query(Insert_Query,[Fos7a_Name, Host_USERNAME,Description,Capacity,Fos7a_Time,Fos7a_Date,Image,Is_Public],function (err, result)
+    mysqlcon.query(Fetch_Cat,[Place_Name], function (err, result)
     {
         if (err)
         {
-            console.log("Insertion Failed.");
+            console.log("Retrieval Failed.");
             throw err;
         }
         else
         {
-            console.log("Fos7a Inserted Successfully.");
-            res.send(result);
-        }
-    });
-    var Insert_Query2="INSERT INTO Fosa7_Cats (Fos7a_Name, Host_USERNAME,Fos7a_Time,Fos7a_Date,Cat_Name) VALUES (?,?,?,?,?)" ;
+            console.log("Pic and Cat of Fos7a Recieved Successfully.");
+            Cat = result[0].Cat_Name;
+            Pic = result[0].PlacePic;
 
-    mysqlcon.query(Insert_Query2,[Fos7a_Name, Host_USERNAME,Fos7a_Time,Fos7a_Date,Cat_Name],function (err, result)
-    {
-        if (err)
-        {
-            console.log("Insertion Failed.");
-            throw err;
-        }
-        else
-        {
-            console.log("Fos7a Cat Inserted Successfully.");
-            res.send(result);
+            var Insert_Query="INSERT INTO Fosa7 (Fos7a_Name, Host_Username,Description,Capacity,Fos7a_Time,Fos7a_Date,Is_Public,Place_Name,Pic) VALUES (?,?,?,?,?,?,?,?,?)" ;
+
+            mysqlcon.query(Insert_Query,[Fos7a_Name, Host_Username,Description,Capacity,Fos7a_Time,Fos7a_Date,Is_Public,Place_Name,Pic],function (err, result)
+            {
+                if (err)
+                {
+                    console.log("Insertion Failed.");
+                    throw err;
+                }
+                else
+                {
+                    console.log("Fos7a Inserted Successfully.");
+                    var Insert_Query2="INSERT INTO Fosa7_Cats (Fos7a_Name, Host_Username,Fos7a_Time,Fos7a_Date,Cat_Name) VALUES (?,?,?,?,?)" ;
+
+                    mysqlcon.query(Insert_Query2,[Fos7a_Name, Host_Username,Fos7a_Time,Fos7a_Date,Cat,Pic],function (err, result)
+                    {
+                        if (err)
+                        {
+                            console.log("Fos7a Cat Insertion Failed.");
+                            throw err;
+                        }
+                        else
+                        {
+                            console.log("Fos7a Cat Inserted Successfully.");
+                            res.send(result)
+                        }
+                    });
+                }
+            });
+
         }
     });
 
@@ -347,18 +365,16 @@ srv.get('/Accept_Fos7a', function(req, res)
 
 });
 
-srv.post('/Request_Friend', function(req, res)
+srv.get('/Request_Friend', function(req, res)
 {
-
     console.log("Adding Request to DB...");
-    const {
-        Requester_USERNAME,
-        Reciever_USERNAME,
-    } = req.body;
+    var q = url.parse(req.url, true).query;
+    var Requester_Username = q.Requester_Username;
+    var Reciever_Username = q.Reciever_Username;
 
     var Insert_Query = "INSERT INTO Friend_Requests (Accepted, Requester_USERNAME, Reciever_USERNAME) VALUES (?,?,?)";
 
-    mysqlcon.query(Insert_Query, [0,Requester_USERNAME, Reciever_USERNAME], function (err, result)
+    mysqlcon.query(Insert_Query, [0,Requester_Username, Reciever_Username], function (err, result)
     {
         if (err)
         {
@@ -428,6 +444,7 @@ srv.post('/Add_User', function(req, res)
         }
     });
 });
+
 
 srv.post('/Login', function(req, res)
 {
@@ -611,6 +628,35 @@ srv.get('/Fosa7_Requests', function(req, res)
 
 });
 
+srv.get('/Remove_Friend', function(req, res)
+{
+
+    console.log("Removing Request...");
+    var q = url.parse(req.url, true).query;
+
+    var Requester_USERNAME = q.Requester_USERNAME;
+    var Reciever_USERNAME = q.Reciever_USERNAME;
+
+    var Retrieve_Query= "DELETE FROM Friend_Requests WHERE Requester_USERNAME = ? AND Reciever_USERNAME=?" ;
+
+
+    mysqlcon.query(Retrieve_Query,[Requester_USERNAME,Reciever_USERNAME], function (err, result)
+    {
+        if (err)
+        {
+            console.log("Update Failed.");
+            throw err;
+        }
+        else
+        {
+            console.log("Request removed Successfully.");
+            console.log(result);
+            res.send(result);
+
+        }
+    });
+
+});
 
 srv.get('/Search', function(req, res)
 {
@@ -619,10 +665,11 @@ srv.get('/Search', function(req, res)
     var q = url.parse(req.url, true).query;
     var Type = q.Type;
     var Name = q.Name;
+    var user = q.user;
 
     var List_Query = "SELECT P.*, A.Address FROM Places P INNER JOIN ADDRESS A ON P.Place_Name = A.Place_Name WHERE P.Place_Name LIKE ?";
     var Event_Query = "SELECT * FROM Fosa7 WHERE Fos7a_Name LIKE ?";
-    var Friend_Query = "SELECT * FROM User WHERE FirstName LIKE ? OR LastName LIKE ?";
+    var Friend_Query = "SELECT * FROM User U WHERE U.Username LIKE ? AND U.Username NOT IN (SELECT distinct requester_username FROM Friend_Requests r WHERE r.reciever_username = ?)";
 
     var Target_Query;
 
@@ -666,7 +713,7 @@ srv.get('/Search', function(req, res)
         else
             Target_Query = Friend_Query;
 
-        mysqlcon.query(Target_Query,['%'+Name+'%', '%'+Name+'%'], function (err, result)
+        mysqlcon.query(Target_Query,['%'+Name+'%', user], function (err, result)
         {
             if (err)
             {

@@ -20,7 +20,7 @@ public class EventAdapter extends RecyclerView.Adapter<EventViewHolder>
     private final RecyclerViewInterface recyclerViewInterface;
     Context context;
     List<Event> fos7as;
-    public EventAdapter(RecyclerViewInterface recyclerViewInterface, Context context, List<Event> fos7as)
+    public EventAdapter( Context context, List<Event> fos7as, RecyclerViewInterface recyclerViewInterface)
     {
         this.recyclerViewInterface = recyclerViewInterface;
         this.context = context;

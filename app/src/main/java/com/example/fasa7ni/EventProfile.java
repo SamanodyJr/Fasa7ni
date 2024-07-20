@@ -51,6 +51,8 @@ public class EventProfile extends AppCompatActivity implements View.OnClickListe
     private boolean pending = false;
     private boolean status = false;
     private boolean isExpanded = false;
+    private String page;
+    private TextView title;
 
     private List<Request> rows = new ArrayList<Request>();
     private RecyclerView recyclerView;
@@ -115,6 +117,7 @@ public class EventProfile extends AppCompatActivity implements View.OnClickListe
         Bundle Bundle = getIntent().getExtras();
         if (Bundle != null)
         {
+            page = Bundle.getString("page");
             username = Bundle.getString("Username");
             Fos7a_Name = Bundle.getString("Fos7a_Name");
             Host_Username = Bundle.getString("Host_Username");
@@ -212,9 +215,20 @@ public class EventProfile extends AppCompatActivity implements View.OnClickListe
     {
         if (v.getId() == BackButton.getId())
         {
-            Intent P_H = new Intent(EventProfile.this, Home.class);
-            P_H.putExtra("Username", username);
-            startActivity(P_H);
+            if(page.equals("home"))
+            {
+                Intent P_H = new Intent(EventProfile.this, Home.class);
+                P_H.putExtra("Username", username);
+                startActivity(P_H);
+
+            }
+            else
+            {
+                Intent P_E = new Intent(EventProfile.this, Events.class);
+                P_E.putExtra("Username", username);
+                startActivity(P_E);
+            }
+
         }
 
         else if (v.getId() == Join.getId())
@@ -244,7 +258,7 @@ public class EventProfile extends AppCompatActivity implements View.OnClickListe
         }
         else if(v.getId() == show_attendees_btn.getId())
         {
-            showDialog("Attendee",fos7aTitle.getText().toString(),fos7aHost.getText().toString(),fos7aTitle.getText().toString(),fos7aDate.getText().toString(),fos7aDate.getText().toString());
+            showDialog("Attendees",fos7aTitle.getText().toString(),fos7aHost.getText().toString(),fos7aTitle.getText().toString(),fos7aDate.getText().toString(),fos7aDate.getText().toString());
         }
 
 
@@ -255,9 +269,11 @@ public class EventProfile extends AppCompatActivity implements View.OnClickListe
         // Inflate the custom layout
         LayoutInflater inflater = getLayoutInflater();
         View dialogView = inflater.inflate(R.layout.requests_dialouge, null);
+        title = dialogView.findViewById(R.id.title);
+        title.setText(Type);
 
 
-        if(Type.equals("Attendee"))
+        if(Type.equals("Attendees"))
         {
             fetchRequests("Attendee");
         }

@@ -51,7 +51,6 @@ public class Home extends AppCompatActivity implements View.OnClickListener,Recy
     private PlaceAdapter placeAdapter;
     private RecyclerView recyclerView;
     private RecyclerView recyclerView2;
-    private int place_count;
 
 
 
@@ -73,8 +72,8 @@ public class Home extends AppCompatActivity implements View.OnClickListener,Recy
             username = bundle.getString("Username");
         }
         FetchArea();
-        Event_Adapter = new EventAdapter(this,getApplicationContext(),list);
-        placeAdapter = new PlaceAdapter(this,getApplicationContext(),places_list);
+        Event_Adapter = new EventAdapter(getApplicationContext(),list,this);
+        placeAdapter = new PlaceAdapter(getApplicationContext(),places_list,this);
 
         recyclerView = findViewById(R.id.upcoming_fosa7_recyclerView);
         recyclerView2 = findViewById(R.id.intrests_recyclerView);
@@ -227,7 +226,7 @@ public class Home extends AppCompatActivity implements View.OnClickListener,Recy
                 {
                     try {
                         JSONObject place = response.getJSONObject(0);
-                         area = place.getString("Area");
+                        area = place.getString("Area");
                         FetchPlaces();
                     }
                     catch (JSONException e)
@@ -257,8 +256,7 @@ public class Home extends AppCompatActivity implements View.OnClickListener,Recy
                         combinedList.clear();
                         for (int i = 0; i < response.length(); i++)
                         {
-                            place_count = response.getJSONArray(0).length();
-                            Log.d("Home", "place_count: " + place_count);
+
                             JSONArray jsonArray = response.getJSONArray(i);
                             for (int j = 0; j < jsonArray.length(); j++)
                             {
@@ -306,21 +304,23 @@ public class Home extends AppCompatActivity implements View.OnClickListener,Recy
         requestQueue.add(jsonArrayRequest);
     }
 
-    private void showDropdown()
-    {
-        if (popupWindow == null)
-        {
+    private void showDropdown() {
+        if (popupWindow == null) {
             View view = LayoutInflater.from(this).inflate(R.layout.dropdown_search_results, null);
             RecyclerView recyclerView = view.findViewById(R.id.recyclerView);
             recyclerView.setLayoutManager(new LinearLayoutManager(this));
-            recyclerView.setAdapter(new CombinedAdapter(getApplicationContext(), combinedList, this));
+            CombinedAdapter adapter = new CombinedAdapter(getApplicationContext(), combinedList, new RecyclerViewInterface() {
+                @Override
+                public void onItemClicked(int recycleViewID, int position) {
+                    handleItemClick(2, position);
+                }
+            });
+            recyclerView.setAdapter(adapter);
 
             popupWindow = new PopupWindow(view, ViewGroup.LayoutParams.MATCH_PARENT, 1000);
             popupWindow.setOutsideTouchable(true);
             popupWindow.setFocusable(false);
-        }
-        else
-        {
+        } else {
             View view = popupWindow.getContentView();
             RecyclerView recyclerView = view.findViewById(R.id.recyclerView);
             recyclerView.getAdapter().notifyDataSetChanged();
@@ -390,58 +390,17 @@ public class Home extends AppCompatActivity implements View.OnClickListener,Recy
     }
 
 
+
     @Override
-    public void onItemClicked(int recycleViewID, int position)
-    {
-        if (recycleViewID == 0)
-        { //Place
+    public void onItemClicked(int recycleViewID, int position) {
+        handleItemClick(recycleViewID, position);
+    }
+
+    private void handleItemClick(int recycleViewID, int position) {
+        if (recycleViewID == 0) {
             Intent intent = new Intent(this, PlaceProfile.class);
-            intent.putExtra("Username", username);
-            intent.putExtra("Location", places_list.get(position).location);
-            intent.putExtra("Description", places_list.get(position).description);
-            intent.putExtra("OpeningTime", places_list.get(position).OpeningTime);
-            intent.putExtra("ClosingTime", places_list.get(position).ClosingTime);
-            intent.putExtra("Phone", places_list.get(position).phone);
-            intent.putExtra("Name", places_list.get(position).name);
-            intent.putExtra("WorkingDays", places_list.get(position).WorkingDays);
-            intent.putExtra("Image", places_list.get(position).image);
-            startActivity(intent);
-        }
-        else if (recycleViewID == 1)
-        { //Event
-            Intent intent = new Intent(this, EventProfile.class);
-            intent.putExtra("Username", username);
-            intent.putExtra("Fos7a_Name", list.get(position).getName());
-            intent.putExtra("Host_Username", list.get(position).getHostName());
-            intent.putExtra("Description", list.get(position).getDescription());
-            intent.putExtra("Capacity", list.get(position).getCapacity());
-            intent.putExtra("Fos7a_Date", list.get(position).getDate());
-            intent.putExtra("Fos7a_Time", list.get(position).getFos7a_Time());
-            intent.putExtra("Is_Public", list.get(position).getIs_Public());
-            intent.putExtra("Place_Name", list.get(position).getLocation());
-            intent.putExtra("Image", list.get(position).getImage());
-            startActivity(intent);
-        }
-        else if (recycleViewID == 2)
-        {
-            Intent intent = new Intent(this, EventProfile.class);
-            Event event = (Event) combinedList.get(position-place_count);
-            intent.putExtra("Username", username);
-            intent.putExtra("Fos7a_Name", event.getName());
-            intent.putExtra("Host_Username", event.getHostName());
-            intent.putExtra("Description", event.getDescription());
-            intent.putExtra("Capacity", event.getCapacity());
-            intent.putExtra("Fos7a_Date", event.getDate());
-            intent.putExtra("Fos7a_Time", event.getFos7a_Time());
-            intent.putExtra("Is_Public", event.getIs_Public());
-            intent.putExtra("Place_Name", event.getLocation());
-            intent.putExtra("Image", event.getImage());
-            startActivity(intent);
-        }
-        else if (recycleViewID == 3)
-        {
-            Intent intent = new Intent(this, PlaceProfile.class);
-            Place place = (Place) combinedList.get(position);
+            Place place = places_list.get(position);
+            intent.putExtra("page", "home");
             intent.putExtra("Username", username);
             intent.putExtra("Location", place.getLocation());
             intent.putExtra("Description", place.getDescription());
@@ -452,6 +411,55 @@ public class Home extends AppCompatActivity implements View.OnClickListener,Recy
             intent.putExtra("WorkingDays", place.getWorkingDays());
             intent.putExtra("Image", place.getImage());
             startActivity(intent);
+        } else if (recycleViewID == 1) {
+            Intent intent = new Intent(this, EventProfile.class);
+            Event event = list.get(position);
+            intent.putExtra("Username", username);
+            intent.putExtra("page", "home");
+            intent.putExtra("Fos7a_Name", event.getName());
+            intent.putExtra("Host_Username", event.getHostName());
+            intent.putExtra("Description", event.getDescription());
+            intent.putExtra("Capacity", event.getCapacity());
+            intent.putExtra("Fos7a_Date", event.getDate());
+            intent.putExtra("Fos7a_Time", event.getFos7a_Time());
+            intent.putExtra("Is_Public", event.getIs_Public());
+            intent.putExtra("Place_Name", event.getLocation());
+            intent.putExtra("Image", event.getImage());
+            startActivity(intent);
+        } else if (recycleViewID == 2) {
+            if(combinedList.get(position) instanceof Place){
+                Intent intent = new Intent(this, PlaceProfile.class);
+                Place place = (Place) combinedList.get(position);
+                intent.putExtra("page", "home");
+                intent.putExtra("Username", username);
+                intent.putExtra("Location", place.getLocation());
+                intent.putExtra("Description", place.getDescription());
+                intent.putExtra("OpeningTime", place.getOpeningTime());
+                intent.putExtra("ClosingTime", place.getClosingTime());
+                intent.putExtra("Phone", place.getPhone());
+                intent.putExtra("Name", place.getName());
+                intent.putExtra("WorkingDays", place.getWorkingDays());
+                intent.putExtra("Image", place.getImage());
+                startActivity(intent);
+            }
+            else if (combinedList.get(position) instanceof Event ) {
+                Intent intent = new Intent(this, EventProfile.class);
+                Event event = (Event) combinedList.get(position);
+                intent.putExtra("page", "home");
+                intent.putExtra("Username", username);
+                intent.putExtra("Fos7a_Name", event.getName());
+                intent.putExtra("Host_Username", event.getHostName());
+                intent.putExtra("Description", event.getDescription());
+                intent.putExtra("Capacity", event.getCapacity());
+                intent.putExtra("Fos7a_Date", event.getDate());
+                intent.putExtra("Fos7a_Time", event.getFos7a_Time());
+                intent.putExtra("Is_Public", event.getIs_Public());
+                intent.putExtra("Place_Name", event.getLocation());
+                intent.putExtra("Image", event.getImage());
+                startActivity(intent);
+
+            }
+
         }
     }
 }

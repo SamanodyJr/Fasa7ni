@@ -1,5 +1,6 @@
 package com.example.fasa7ni;
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,8 +18,7 @@ public class CombinedAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
     private final RecyclerViewInterface recyclerViewInterface;
     private Context context;
 
-    public CombinedAdapter(Context context, List<Object> items, RecyclerViewInterface recyclerViewInterface)
-    {
+    public CombinedAdapter(Context context, List<Object> items, RecyclerViewInterface recyclerViewInterface) {
         this.context = context;
         this.items = items;
         this.recyclerViewInterface = recyclerViewInterface;
@@ -52,15 +52,13 @@ public class CombinedAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
     }
 
     @Override
-    public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position)
-    {
-        if (holder instanceof EventViewHolder)
-        {
+    public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
+        if (holder instanceof EventViewHolder) {
             ((EventViewHolder) holder).bind((Event) items.get(position), context);
-        }
-        else if (holder instanceof PlaceViewHolder)
-        {
+            holder.itemView.setOnClickListener(v -> recyclerViewInterface.onItemClicked(2, position));
+        } else if (holder instanceof PlaceViewHolder) {
             ((PlaceViewHolder) holder).bind((Place) items.get(position), context);
+            holder.itemView.setOnClickListener(v -> recyclerViewInterface.onItemClicked(3, position));
         }
     }
 
