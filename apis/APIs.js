@@ -8,7 +8,7 @@ srv.use(express.json());
 srv.use(bodyParser.json());
 
 
-var mysqlcon = mysql.createConnection({host: "localhost", user: "root", password: "Heggi_2002", database : "Fasa7ni"});
+var mysqlcon = mysql.createConnection({host: "localhost", user: "root", password: "SQLZammar_79", database : "Fasa7ni"});
 
 mysqlcon.connect( function (err)
 {
@@ -412,7 +412,24 @@ srv.get('/Accept_Friend', function(req, res)
         else
         {
             console.log("Request Accepted Successfully.");
-            res.send(result);
+
+            var Retrieve_Query2= "INSERT INTO Friend_Requests (Accepted, Requester_Username,Reciever_Username) VALUES (1,?,?)" ;
+
+
+            mysqlcon.query(Retrieve_Query2,[Reciever_USERNAME,Requester_USERNAME], function (err, result)
+            {
+                if (err)
+                {
+                    console.log("Second Update Failed.");
+                    throw err;
+                }
+                else
+                {
+                    console.log("Second Update Successfull.");
+                    res.send(result);
+                }
+            });
+        
         }
     });
 
@@ -669,7 +686,7 @@ srv.get('/Search', function(req, res)
 
     var List_Query = "SELECT P.*, A.Address FROM Places P INNER JOIN ADDRESS A ON P.Place_Name = A.Place_Name WHERE P.Place_Name LIKE ?";
     var Event_Query = "SELECT * FROM Fosa7 WHERE Fos7a_Name LIKE ?";
-    var Friend_Query = "SELECT * FROM User U WHERE U.Username LIKE ? AND U.Username NOT IN (SELECT distinct requester_username FROM Friend_Requests r WHERE r.reciever_username = ?)";
+    var Friend_Query = "SELECT * FROM User U WHERE U.Username LIKE ? AND U.Username NOT IN (SELECT distinct requester_username FROM Friend_Requests r WHERE r.reciever_username = ? OR r.requester_username = ?) AND U.Username NOT IN (SELECT distinct reciever_username FROM Friend_Requests r WHERE r.reciever_username = ? OR r.requester_username = ?)";
 
     var Target_Query;
 
@@ -713,7 +730,7 @@ srv.get('/Search', function(req, res)
         else
             Target_Query = Friend_Query;
 
-        mysqlcon.query(Target_Query,['%'+Name+'%', user], function (err, result)
+        mysqlcon.query(Target_Query,['%'+Name+'%', user,user,user,user], function (err, result)
         {
             if (err)
             {
@@ -777,6 +794,72 @@ srv.get("/smsSent", function (req, res) {
         console.log("the status of " + id + " set to 1");
         res.send("Status updated");
     });
+});
+
+srv.get('/Recommend', function(req, res)
+{
+    console.log("Getting Places from DB...");
+    var q = url.parse(req.url, true).query;
+    var Category=q.Cat;
+    var Location=q.Locat;
+
+
+
+    if(Category=="All"){
+        var Retrieve_Query= "SELECT Distinct P.*,A.Address FROM Places P INNER JOIN ADDRESS A ON P.Place_Name = A.Place_Name WHERE A.Area = ?";
+        mysqlcon.query(Retrieve_Query,[Location], function (err, result)
+        {
+            if (err)
+            {
+                console.log("Recommendation Failed.");
+                throw err;
+            }
+            else
+            {
+                console.log("Recommendation Successfull.");
+                res.send(result);
+            }
+        });
+    }
+    else {
+        var Retrieve_Query= "SELECT Distinct P.*,A.Address FROM Places P INNER JOIN Place_Cats PC ON P.Place_Name=PC.Place_Name INNER JOIN ADDRESS A ON P.PLACE_NAME = A.PLACE_NAME WHERE PC.Cat_Name=? AND A.Area=?" ;
+        mysqlcon.query(Retrieve_Query,[Category,Location], function (err, result)
+        {
+            if (err)
+            {
+                console.log("Recommendation Failed.");
+                throw err;
+            }
+            else
+            {
+                if(result.length==0){
+                    console.log("No exact match.");
+                    var Retrieve_Query2= "SELECT Distinct P.* ,A.Address FROM Places P INNER JOIN Place_Cats PC ON P.Place_Name=PC.Place_Name INNER JOIN ADDRESS A ON P.PLACE_NAME = A.PLACE_NAME WHERE PC.Cat_Name=? OR A.Area=?" ;
+                    mysqlcon.query(Retrieve_Query2,[Category,Location], function (err, result)
+                    {
+                        if (err)
+                        {
+                            console.log("Recommendation Failed.");
+                            throw err;
+                        }
+                        else
+                        {
+                            console.log("Recommendation Successfull 2");
+                            console.log(result);
+                            res.send(result);
+                        }
+                    });
+
+                }
+                else{
+                console.log("Recommendation Successfull 3");
+                res.send(result);
+                }
+            }
+        });
+    }
+
+
 });
 
 

@@ -228,7 +228,7 @@ public class Create extends AppCompatActivity implements View.OnClickListener
             {
                 Cap=0;
             }
-            if(Name==""|| Location=="" ||Desc=="" ||Date=="" ||Time=="" ||Cap==0)
+            if(Name.equals("")|| Location.equals("")||Desc.equals("")||Date.equals("") ||Time.equals("")||Cap==0)
             {
                 Message.setVisibility(View.VISIBLE);
             }

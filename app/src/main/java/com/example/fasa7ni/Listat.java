@@ -340,6 +340,7 @@ public class Listat extends AppCompatActivity implements View.OnClickListener, R
         if (recycleViewID == 1) {
             Intent intent = new Intent(this, PlaceProfile.class);
             Place place = Searchlist.get(position);
+            intent.putExtra("page", "Listat");
             intent.putExtra("Username", username);
             intent.putExtra("Location", place.location);
             intent.putExtra("Description", place.description);

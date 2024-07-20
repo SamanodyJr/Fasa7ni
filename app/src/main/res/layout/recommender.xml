@@ -111,6 +111,7 @@
                         />
                     <Spinner
                         android:id="@+id/spinnerCapacity"
+                        android:paddingLeft="5dp"
                         android:layout_width="match_parent"
                         android:layout_height="55dp"
                         android:layout_marginTop="5dp"
@@ -134,6 +135,7 @@
                         android:id="@+id/spinnerLocation"
                         android:layout_width="match_parent"
                         android:layout_height="55dp"
+                        android:paddingLeft="5dp"
                         android:layout_marginTop="5dp"
                         android:layout_marginStart="30dp"
                         android:layout_marginEnd="30dp"
@@ -151,14 +153,19 @@
                         android:textSize="20sp"
                         />
                     <EditText
+                        android:id="@+id/date_text"
                         android:layout_width="match_parent"
                         android:layout_height="55dp"
                         android:layout_marginStart="30dp"
                         android:layout_marginTop="5dp"
                         android:layout_marginEnd="30dp"
                         android:background="@drawable/email_password_shape"
-                        android:hint="YYYY-MM-DD"
-                        android:paddingLeft="20dp" />
+                        android:paddingLeft="20dp"
+                        android:hint="Select Date (YYYY-MM-DD)"
+                        android:inputType="none"
+                        android:onClick="showDatePickerDialog"
+                        android:focusable="false"
+                        android:clickable="true"/>
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -171,16 +178,17 @@
                         android:textSize="20sp"
                         />
                     <Spinner
-                        android:id="@+id/country_spinner"
+                        android:id="@+id/cat_spinner"
                         android:layout_width="match_parent"
                         android:layout_height="55dp"
+                        android:paddingLeft="5dp"
                         android:layout_marginStart="30dp"
                         android:layout_marginTop="5dp"
                         android:layout_marginEnd="30dp"
                         android:layout_marginBottom="30dp"
                         android:background="@drawable/email_password_shape"
                         android:entries="@array/categories"
-                        android:paddingLeft="10dp" />
+                         />
                 </LinearLayout>
             </ScrollView>
 
@@ -188,7 +196,25 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"
-                android:layout_weight="0.5">
+                android:layout_weight="0.5"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/Message"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="Please fill all required fields."
+                    android:textColor="@color/blue"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    android:visibility="invisible"
+                    android:paddingLeft="50dp"
+                    android:paddingRight="50dp"
+                    android:paddingBottom="12dp"
+                    android:paddingTop="12dp"
+                    >
+                </TextView>
 
                 <Button
                     android:id="@+id/generate_btn"

@@ -268,6 +268,13 @@ public class PlaceProfile extends AppCompatActivity implements View.OnClickListe
                 P_H.putExtra("Username", username);
                 startActivity(P_H);
             }
+            else if (page.equals("recommender"))
+            {
+                Intent P_R = new Intent(PlaceProfile.this, Recommender.class);
+                P_R.putExtra("Username", username);
+                startActivity(P_R);
+
+            }
             else
             {
                 Intent P_B = new Intent(PlaceProfile.this, Listat.class);
