@@ -196,7 +196,8 @@ public class Friends extends AppCompatActivity implements View.OnClickListener, 
                             JSONObject request = response.getJSONObject(i);
                             String Username = request.getString("Username");
                             String Image = request.getString("ProfilePic");
-                            req_search.add(new Request(Username,20, R.id.add_friend_btn,Image));
+                            if(!Username.equals(username))
+                                req_search.add(new Request(Username,20, R.id.add_friend_btn,Image));
                         }
                         showDropdown();
                     } catch (JSONException e)

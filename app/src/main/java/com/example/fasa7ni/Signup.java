@@ -1,5 +1,4 @@
 package com.example.fasa7ni;
-
 import android.Manifest;
 import android.annotation.SuppressLint;
 import android.content.Intent;
@@ -8,6 +7,7 @@ import android.content.pm.PackageManager;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
+import android.telephony.SmsManager;
 import android.text.InputType;
 import android.util.Log;
 import android.view.View;
@@ -25,6 +25,11 @@ import androidx.core.content.ContextCompat;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
+
+import com.android.volley.RequestQueue;
+import com.android.volley.toolbox.JsonArrayRequest;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
 
 import org.json.JSONObject;
 
@@ -87,7 +92,6 @@ public class Signup extends AppCompatActivity implements View.OnClickListener
             Phone = PhoneText.getText().toString();
 
             valid = Validate(Phone);
-
             if (valid)
                 Go_Verification();
             else
@@ -112,6 +116,18 @@ public class Signup extends AppCompatActivity implements View.OnClickListener
         else
             return;
     }
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[]grantResults) {
+
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        if (requestCode == 100) {
+            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                Log.d("TAWFIKo", "Permission granted");
+            }
+        }
+    }
+
+
 
     private void Go_Verification()
     {
@@ -123,6 +139,8 @@ public class Signup extends AppCompatActivity implements View.OnClickListener
         generatedToken = generateToken();
         startVerification();
     }
+
+
     private String generateToken()
     {
         Random random = new Random();
@@ -137,7 +155,13 @@ public class Signup extends AppCompatActivity implements View.OnClickListener
 
     private void startVerification()
     {
-        new Signup.SendTokenTask().execute(Phone, generatedToken);
+        //permission check
+        if(ContextCompat.checkSelfPermission(Signup.this, Manifest.permission.SEND_SMS)== PackageManager.PERMISSION_GRANTED){
+            Log.d("TAWFIKo", "Permission granted");
+        }else{
+            ActivityCompat.requestPermissions(Signup.this,new String[]{Manifest.permission.SEND_SMS},100);
+        }
+        sendSMS(Phone, generatedToken);
         Intent S_V = new Intent(Signup.this, Verification.class);
         S_V.putExtra("Phone", Phone);
         S_V.putExtra("Username", Username);
@@ -145,51 +169,38 @@ public class Signup extends AppCompatActivity implements View.OnClickListener
         S_V.putExtra("Token", generatedToken);
         startActivity(S_V);
     }
+    private void sendSMS(String phone, String token) {
 
-    private class SendTokenTask extends AsyncTask<String, Void, Boolean>
-    {
-        @Override
-        protected Boolean doInBackground(String... params) {
-            String phone = params[0];
-            String token = params[1];
-            Log.d("ho2", "phone: " + phone + ", token: " + token);
-            try {
-                URL url = new URL("http://10.0.2.2:3000/sendSMS");
-                HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-                conn.setRequestMethod("POST");
-                conn.setRequestProperty("Content-Type", "application/json");
-                conn.setDoOutput(true);
-
-                JSONObject jsonParam = new JSONObject();
-                jsonParam.put("phone", phone);
-                jsonParam.put("body", "Your verification code is: " + token);
-
-                OutputStream os = conn.getOutputStream();
-                os.write(jsonParam.toString().getBytes());
-                os.flush();
-                os.close();
-
-                int responseCode = conn.getResponseCode();
-                if (responseCode == HttpURLConnection.HTTP_OK)
-                    return true;
-                else
-                    Log.e("ho2", "responseCode: " + responseCode);
-            }
-            catch (Exception e)
-            {
-                e.printStackTrace();
-            }
-            return false;
+        if (phone == null || token == null) {
+            Log.e("TAWFIKo", "Phone or token is null. Phone: " + phone + ", Token: " + "Verification Code For Fasa7ni: " + token);
+            return;
         }
 
-        @Override
-        protected void onPostExecute(Boolean result)
-        {
-            if (result)
-                Toast.makeText(Signup.this, "Token sent successfully!", Toast.LENGTH_SHORT).show();
-            else
-                Toast.makeText(Signup.this, "Failed to send token. Please try again.", Toast.LENGTH_SHORT).show();
+        String url = "http://10.0.2.2:4000/sendSMS?phone=" + phone + "&body= Verification Code For Fasa7ni: " + token;
+        Log.d("TAWFIKo", "URL: " + url);
 
-        }
+        RequestQueue requestQueue = Volley.newRequestQueue(this);
+
+        StringRequest stringRequest = new StringRequest(
+                com.android.volley.Request.Method.GET, url,
+                response -> {
+                    try {
+                        if (response.equals("success")) {
+                            Log.d("TAWFIKo", "SMS sent successfully");
+                        } else {
+                            Log.d("TAWFIKo", "Failed to send SMS");
+                        }
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                },
+                error -> {
+                    error.printStackTrace();
+                    Log.e("TAWFIKo", "Error in sending SMS: " + error.getMessage());
+                }
+        );
+
+        requestQueue.add(stringRequest);
     }
+
 }

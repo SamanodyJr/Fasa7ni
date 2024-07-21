@@ -18,7 +18,7 @@ CREATE TABLE User (
   Phone varchar(11) DEFAULT NULL,
   Username varchar(200),
   Pass varchar(255) DEFAULT NULL,
-  ProfilePic varchar(255) DEFAULT NULL,
+  ProfilePic varchar(255) DEFAULT 'default.png',
   BirthDate varchar(10) DEFAULT NULL,
   NationalID varchar(255) DEFAULT NULL,
   PRIMARY KEY (Username)
