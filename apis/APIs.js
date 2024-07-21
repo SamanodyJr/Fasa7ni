@@ -8,7 +8,7 @@ srv.use(express.json());
 srv.use(bodyParser.json());
 
 
-var mysqlcon = mysql.createConnection({host: "localhost", user: "root", password: "SQLZammar_79", database : "Fasa7ni"});
+var mysqlcon = mysql.createConnection({host: "localhost", user: "root", password: "Heggi_2002", database : "Fasa7ni"});
 
 mysqlcon.connect( function (err)
 {
@@ -412,8 +412,7 @@ srv.get('/Accept_Friend', function(req, res)
         else
         {
             console.log("Request Accepted Successfully.");
-
-        
+            res.send(result);
         }
     });
 
@@ -449,7 +448,7 @@ srv.post('/Add_User', function(req, res)
 srv.get('/Insert_Friend', function(req, res)
 {
 
-    console.log("Accepting Request...");
+    console.log("Insert Request...");
     var q = url.parse(req.url, true).query;
 
     var Requester_USERNAME = q.Requester_USERNAME;
@@ -458,7 +457,7 @@ srv.get('/Insert_Friend', function(req, res)
     var Retrieve_Query= "INSERT INTO Friend_Requests (Accepted, Requester_Username,Reciever_Username) VALUES (1,?,?)";
 
 
-    mysqlcon.query(Retrieve_Query,[Reciever_USERNAME,Requester_USERNAME], function (err, result)
+    mysqlcon.query(Retrieve_Query,[Requester_USERNAME,Reciever_USERNAME], function (err, result)
     {
         if (err)
         {
@@ -467,7 +466,7 @@ srv.get('/Insert_Friend', function(req, res)
         }
         else
         {
-            console.log("Request Accepted Successfully.");
+            console.log("Insert Accepted Successfully.");
             res.send(result);
 
          } 
@@ -687,33 +686,6 @@ srv.get('/Remove_Friend', function(req, res)
 
 });
 
-srv.get('/Remove_Friend2', function(req, res)
-{
-
-    console.log("Removing Request...");
-    var q = url.parse(req.url, true).query;
-
-    var Requester_USERNAME = q.Requester_USERNAME;
-    var Reciever_USERNAME = q.Reciever_USERNAME;
-
-    var Retrieve_Query= "DELETE FROM Friend_Requests WHERE Requester_USERNAME = ? AND Reciever_USERNAME=?" ;
-
-
-    mysqlcon.query(Retrieve_Query,[Reciever_USERNAME,Requester_USERNAME], function (err, result)
-    {
-        if (err)
-        {
-            console.log("Update Failed.");
-            throw err;
-        }
-        else
-        {
-             res.send(result);
-        }
-
-      });
-
-});
 
 srv.get('/Search', function(req, res)
 {
@@ -787,9 +759,11 @@ srv.get('/Search', function(req, res)
     }
 });
 
-srv.post("/sendSMS", function (req, res) {
+srv.get("/sendSMS", function (req, res) {
     console.log("send SMS");
-    const { phone, body } = req.body;
+    var q = url.parse(req.url, true).query;
+    var phone = q.phone;
+    var body = q.body;
 
     const sql =
         "INSERT INTO message (phone, body, timestamp, status) VALUES (?, ?, CURRENT_TIMESTAMP, 0)";
@@ -799,7 +773,7 @@ srv.post("/sendSMS", function (req, res) {
             return res.status(500).send("Internal server error");
         }
         console.log("1 record inserted");
-        res.sendStatus(200);
+        res.send("success");
     });
 });
 

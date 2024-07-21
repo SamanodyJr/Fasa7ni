@@ -185,9 +185,12 @@ public class Signup extends AppCompatActivity implements View.OnClickListener
                 com.android.volley.Request.Method.GET, url,
                 response -> {
                     try {
-                        if (response.equals("success")) {
+                        if (response.equals("success"))
+                        {
                             Log.d("TAWFIKo", "SMS sent successfully");
-                        } else {
+                        }
+                        else
+                        {
                             Log.d("TAWFIKo", "Failed to send SMS");
                         }
                     } catch (Exception e) {

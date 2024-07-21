@@ -1,6 +1,7 @@
 package com.example.fasa7ni;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -39,7 +40,8 @@ public class FriendAdapter extends RecyclerView.Adapter<FriendViewHolder> {
     }
 
     @Override
-    public void onBindViewHolder(@NonNull FriendViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull FriendViewHolder holder, int position)
+    {
         holder.name.setText(friends.get(position).getName());
         holder.mutual.setText(Integer.toString(friends.get(position).getMutual())+ " Mutual Friends");
         holder.remove.setImageResource(R.drawable.x_sign);

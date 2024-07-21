@@ -69,7 +69,7 @@ CREATE TABLE Fosa7 (
   CONSTRAINT fosa7_ibfk_1 FOREIGN KEY (Host_Username) REFERENCES User (Username),
   CONSTRAINT fosa7_ibfk_2 FOREIGN KEY (Place_Name) REFERENCES Places (Place_Name)
 );
-INSERT INTO Fosa7 VALUES ('Laser Tag','Heggo','Adrenaline Park-Laser Tag','Yalla Laser Tagggg, we\'ve been wanting to do this for so long, now\'s the time engzo baa',10,'18:00:00','2024-07-25','Adrenaline_Park-Laser_Tag.png',0),('One of the 7 wonders?','nouryasser1','The Great Pyramid of Giza','If you are either Egyptian or non-Egyptian and you\'re interested in historic landmarks, feel free to take part of this fos7a. We can explore the surrounding necropolis, including the Sphinx, and discuss together the Egyptian mythology and beliefs about the afterlife.',15,'10:00:00','2024-07-19','The_Great_Pyramid_of_Giza.png',1),('Padel?','samanodyjr','Go!Padel','This for anyone who loves padel, even if you\'re not a pro. If you can join and we can do it as a weekly sport activity',8,'19:00:00','2024-07-20','padel.png',1);
+INSERT INTO Fosa7 VALUES ('Laser Tag','heggo','Adrenaline Park-Laser Tag','Yalla Laser Tagggg, we\'ve been wanting to do this for so long, now\'s the time engzo baa',10,'18:00:00','2024-07-25','Adrenaline_Park-Laser_Tag.png',0),('One of the 7 wonders?','nouryasser1','The Great Pyramid of Giza','If you are either Egyptian or non-Egyptian and you\'re interested in historic landmarks, feel free to take part of this fos7a. We can explore the surrounding necropolis, including the Sphinx, and discuss together the Egyptian mythology and beliefs about the afterlife.',15,'10:00:00','2024-07-19','The_Great_Pyramid_of_Giza.png',1),('Padel?','samanodyjr','Go!Padel','This for anyone who loves padel, even if you\'re not a pro. If you can join and we can do it as a weekly sport activity',8,'19:00:00','2024-07-20','padel.png',1);
 
 DROP TABLE IF EXISTS Address;
 CREATE TABLE Address (
@@ -113,7 +113,7 @@ CREATE TABLE Fosa7_Requests (
   CONSTRAINT fosa7_requests_ibfk_2 FOREIGN KEY (Host_Username, Fos7a_Name, Fos7a_Date, Fos7a_Time) REFERENCES Fosa7 (Host_Username, Fos7a_Name, Fos7a_Date, Fos7a_Time)
 );
 
-INSERT INTO Fosa7_Requests VALUES (0,'Heggo','nouryasser1','One of the 7 wonders?','2024-07-19','10:00:00'),(0,'Heggo','samanodyjr','Padel?','2024-07-20','19:00:00'),(0,'mariamghobz','nouryasser1','One of the 7 wonders?','2024-07-19','10:00:00'),(1,'mariamghobz','samanodyjr','Padel?','2024-07-20','19:00:00'),(0,'nouryasser1','Heggo','Laser Tag','2024-07-25','18:00:00'),(1,'nouryasser1','samanodyjr','Padel?','2024-07-20','19:00:00'),(0,'samanodyjr','nouryasser1','One of the 7 wonders?','2024-07-19','10:00:00'),(1,'taw','Heggo','Laser Tag','2024-07-25','18:00:00'),(1,'taw','nouryasser1','One of the 7 wonders?','2024-07-19','10:00:00'),(1,'taw','samanodyjr','Padel?','2024-07-20','19:00:00');
+INSERT INTO Fosa7_Requests VALUES (0,'heggo','nouryasser1','One of the 7 wonders?','2024-07-19','10:00:00'),(0,'heggo','samanodyjr','Padel?','2024-07-20','19:00:00'),(0,'mariamghobz','nouryasser1','One of the 7 wonders?','2024-07-19','10:00:00'),(1,'mariamghobz','samanodyjr','Padel?','2024-07-20','19:00:00'),(0,'nouryasser1','heggo','Laser Tag','2024-07-25','18:00:00'),(1,'nouryasser1','samanodyjr','Padel?','2024-07-20','19:00:00'),(0,'samanodyjr','nouryasser1','One of the 7 wonders?','2024-07-19','10:00:00'),(1,'taw','heggo','Laser Tag','2024-07-25','18:00:00'),(1,'taw','nouryasser1','One of the 7 wonders?','2024-07-19','10:00:00'),(1,'taw','samanodyjr','Padel?','2024-07-20','19:00:00');
 
 DROP TABLE IF EXISTS Fosa7_Tags;
 
@@ -140,7 +140,7 @@ CREATE TABLE Friend_Requests (
   CONSTRAINT friend_requests_ibfk_2 FOREIGN KEY (Reciever_Username) REFERENCES User (Username)
 );
 
-INSERT INTO Friend_Requests VALUES (0,'Heggo','mariamghobz'),(1,'nouryasser1','Heggo'),(0,'nouryasser1','mariamghobz'),(0,'nouryasser1','taw'),(1,'samanodyjr','Heggo'),(1,'samanodyjr','mariamghobz'),(1,'taw','Heggo'),(0,'taw','mariamghobz'),(1,'taw','samanodyjr');
+INSERT INTO Friend_Requests VALUES (0,'heggo','mariamghobz'),(1,'nouryasser1','heggo'), (1,'heggo','nouryasser1'),(0,'nouryasser1','mariamghobz'),(0,'nouryasser1','taw'),(0,'samanodyjr','heggo'), (1,'samanodyjr','mariamghobz'), (1,'mariamghobz', 'samanodyjr'),(0,'taw','heggo'), (0,'taw','mariamghobz'),(1,'taw','samanodyjr'), (1,'samanodyjr','taw');
 
 DROP TABLE IF EXISTS message;
 

@@ -98,7 +98,8 @@ public class RequestAdapter extends RecyclerView.Adapter<RequestViewHolder>
             holder.remove.setVisibility(View.INVISIBLE);
             holder.add.setOnClickListener(v ->
             {
-                activity2.RequestFriend(request.getName());
+                activity2.RequestFriend(request.getName(), position);
+
             });
 
         }

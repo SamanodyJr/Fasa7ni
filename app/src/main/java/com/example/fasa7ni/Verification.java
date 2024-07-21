@@ -98,8 +98,8 @@ public class Verification extends AppCompatActivity
 
 
     public void getSMS(){
-        String phoneNumber = "+15551234567"; // Replace with the recipient's phone number
-        String message = "Your Verification Code is: "+receivedToken; // Replace with your desired message
+        String phoneNumber = "+15555215554";
+        String message = "Your Verification Code is: "+receivedToken;
 
         SmsManager smsManager = SmsManager.getDefault();
         smsManager.sendTextMessage(phoneNumber, null, message, null, null);

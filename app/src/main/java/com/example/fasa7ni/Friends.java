@@ -49,6 +49,7 @@ public class Friends extends AppCompatActivity implements View.OnClickListener, 
     private FriendAdapter Friend_Adapter;
     private RecyclerView recyclerView;
     private RecyclerView recyclerView2;
+    private RequestAdapter adapter;
 
 
     @SuppressLint("SourceLockedOrientationActivity")
@@ -223,7 +224,7 @@ public class Friends extends AppCompatActivity implements View.OnClickListener, 
             View view = LayoutInflater.from(this).inflate(R.layout.dropdown_search_results, null);
             RecyclerView recyclerView = view.findViewById(R.id.recyclerView);
             recyclerView.setLayoutManager(new LinearLayoutManager(this));
-            RequestAdapter adapter = new RequestAdapter(this,getApplicationContext(), req_search);
+            adapter = new RequestAdapter(this,getApplicationContext(), req_search);
             adapter.setActivity2(this);
             recyclerView.setAdapter(adapter);
 
@@ -302,24 +303,20 @@ public class Friends extends AppCompatActivity implements View.OnClickListener, 
     }
 
     @Override
-    public void onItemClicked(int recycleViewID, int position) {
-        if (recycleViewID == 2) { // Remove item from list
+    public void onItemClicked(int recycleViewID, int position)
+    {
+        if (recycleViewID == 2)
+        { // Remove item from list
             list.remove(position);
             RecyclerView recyclerView = findViewById(R.id.friends_recyclerView);
             recyclerView.getAdapter().notifyItemRemoved(position);
             recyclerView.getAdapter().notifyItemRangeChanged(position, list.size());
-        } else if (recycleViewID == 1) { // View profile
-            Intent intent = new Intent(this, Profile.class);
-            startActivity(intent);
-        } else if (recycleViewID == 3) { //Request
-            Intent intent = new Intent(this, Profile.class);
-            startActivity(intent);
         }
+
     }
 
     public void Accept_Friend(String requester)
     {
-
         String url;
         url = "http://10.0.2.2:4000/Accept_Friend?Requester_USERNAME=" + requester + "&Reciever_USERNAME=" + username;
         RequestQueue requestQueue = Volley.newRequestQueue(this);
@@ -327,6 +324,7 @@ public class Friends extends AppCompatActivity implements View.OnClickListener, 
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(
                 com.android.volley.Request.Method.GET, url, null,
                 response -> {
+                    FetchFriends();
                     Toast.makeText(this, "Updated Successfully", Toast.LENGTH_SHORT).show();
                 },
 
@@ -340,15 +338,13 @@ public class Friends extends AppCompatActivity implements View.OnClickListener, 
         requestQueue.add(jsonObjectRequest);
 
         String url2;
-        url2 = "http://10.0.2.2:4000/Accept_Friend?Requester_USERNAME=" + username + "&Reciever_USERNAME=" + requester;
+        url2 = "http://10.0.2.2:4000/Insert_Friend?Requester_USERNAME=" + username + "&Reciever_USERNAME=" + requester;
         RequestQueue requestQueue2 = Volley.newRequestQueue(this);
         Log.e("RequestAdapter", url2);
         JsonObjectRequest jsonObjectRequest2 = new JsonObjectRequest(
                 com.android.volley.Request.Method.GET, url2, null,
                 response -> {
                     Toast.makeText(this, "Updated Successfully", Toast.LENGTH_SHORT).show();
-                    Friend_Adapter.notifyDataSetChanged();
-                    Request_Adapter.notifyDataSetChanged();
                 },
 
                 //Throwable::printStackTrace
@@ -360,14 +356,10 @@ public class Friends extends AppCompatActivity implements View.OnClickListener, 
                 }
         );
         requestQueue2.add(jsonObjectRequest2);
-
-        FetchFriends();
-
     }
 
     public void Remove_Friend(String requester)
     {
-
         String url;
         url = "http://10.0.2.2:4000/Remove_Friend?Requester_USERNAME=" + requester + "&Reciever_USERNAME=" + username;
         RequestQueue requestQueue = Volley.newRequestQueue(this);
@@ -375,18 +367,20 @@ public class Friends extends AppCompatActivity implements View.OnClickListener, 
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(
                 com.android.volley.Request.Method.GET, url, null,
                 response -> {
+                    Friend_Adapter.notifyDataSetChanged();
+                    Request_Adapter.notifyDataSetChanged();
                     Toast.makeText(this, "Updated Successfully", Toast.LENGTH_SHORT).show();
-
                 },
 
                 //Throwable::printStackTrace
                 error -> {
                     // Handle errors
                     error.printStackTrace();
-                    Toast.makeText(this, "Request failed", Toast.LENGTH_SHORT).show();
+                    Log.d("RequestAdapter", "Request1 failed");
                 }
         );
         requestQueue.add(jsonObjectRequest);
+
         String url2;
         url2 = "http://10.0.2.2:4000/Remove_Friend?Requester_USERNAME=" + username + "&Reciever_USERNAME=" + requester;
         RequestQueue requestQueue2 = Volley.newRequestQueue(this);
@@ -394,26 +388,23 @@ public class Friends extends AppCompatActivity implements View.OnClickListener, 
         JsonObjectRequest jsonObjectRequest2 = new JsonObjectRequest(
                 com.android.volley.Request.Method.GET, url2, null,
                 response -> {
-                    Toast.makeText(this, "Updated Successfully", Toast.LENGTH_SHORT).show();
                     Friend_Adapter.notifyDataSetChanged();
                     Request_Adapter.notifyDataSetChanged();
+                    Toast.makeText(this, "Updated Successfully", Toast.LENGTH_SHORT).show();
                 },
 
                 //Throwable::printStackTrace
                 error -> {
                     // Handle errors
                     error.printStackTrace();
-                    Toast.makeText(this, "Request failed", Toast.LENGTH_SHORT).show();
-
+                    Log.d("RequestAdapter", "Request2 failed");
                 }
         );
-      
         requestQueue2.add(jsonObjectRequest2);
-
         FetchFriends();
     }
 
-    public void RequestFriend(String Reciever)
+    public void RequestFriend(String Reciever, int position)
     {
         String url;
         url = "http://10.0.2.2:4000/Request_Friend?Requester_Username=" + username + "&Reciever_Username=" + Reciever;
@@ -425,6 +416,9 @@ public class Friends extends AppCompatActivity implements View.OnClickListener, 
                     Toast.makeText(this, "Friend Request Sent", Toast.LENGTH_SHORT).show();
                     Friend_Adapter.notifyDataSetChanged();
                     Request_Adapter.notifyDataSetChanged();
+                    req_search.remove(position);
+                    adapter.notifyItemRemoved(position);
+                    adapter.notifyDataSetChanged();
                 },
 
                 //Throwable::printStackTrace
@@ -436,7 +430,6 @@ public class Friends extends AppCompatActivity implements View.OnClickListener, 
         );
         requestQueue.add(jsonObjectRequest);
         FetchFriends();
-
 
     }
 
