@@ -413,22 +413,6 @@ srv.get('/Accept_Friend', function(req, res)
         {
             console.log("Request Accepted Successfully.");
 
-            var Retrieve_Query2= "INSERT INTO Friend_Requests (Accepted, Requester_Username,Reciever_Username) VALUES (1,?,?)" ;
-
-
-            mysqlcon.query(Retrieve_Query2,[Reciever_USERNAME,Requester_USERNAME], function (err, result)
-            {
-                if (err)
-                {
-                    console.log("Second Update Failed.");
-                    throw err;
-                }
-                else
-                {
-                    console.log("Second Update Successfull.");
-                    res.send(result);
-                }
-            });
         
         }
     });
@@ -460,6 +444,35 @@ srv.post('/Add_User', function(req, res)
             res.send(result);
         }
     });
+});
+
+srv.get('/Insert_Friend', function(req, res)
+{
+
+    console.log("Accepting Request...");
+    var q = url.parse(req.url, true).query;
+
+    var Requester_USERNAME = q.Requester_USERNAME;
+    var Reciever_USERNAME = q.Reciever_USERNAME;
+
+    var Retrieve_Query= "INSERT INTO Friend_Requests (Accepted, Requester_Username,Reciever_Username) VALUES (1,?,?)";
+
+
+    mysqlcon.query(Retrieve_Query,[Reciever_USERNAME,Requester_USERNAME], function (err, result)
+    {
+        if (err)
+        {
+            console.log("Update Failed.");
+            throw err;
+        }
+        else
+        {
+            console.log("Request Accepted Successfully.");
+            res.send(result);
+
+         } 
+    });
+    
 });
 
 
@@ -668,10 +681,37 @@ srv.get('/Remove_Friend', function(req, res)
         {
             console.log("Request removed Successfully.");
             console.log(result);
-            res.send(result);
 
         }
     });
+
+});
+
+srv.get('/Remove_Friend2', function(req, res)
+{
+
+    console.log("Removing Request...");
+    var q = url.parse(req.url, true).query;
+
+    var Requester_USERNAME = q.Requester_USERNAME;
+    var Reciever_USERNAME = q.Reciever_USERNAME;
+
+    var Retrieve_Query= "DELETE FROM Friend_Requests WHERE Requester_USERNAME = ? AND Reciever_USERNAME=?" ;
+
+
+    mysqlcon.query(Retrieve_Query,[Reciever_USERNAME,Requester_USERNAME], function (err, result)
+    {
+        if (err)
+        {
+            console.log("Update Failed.");
+            throw err;
+        }
+        else
+        {
+             res.send(result);
+        }
+
+      });
 
 });
 

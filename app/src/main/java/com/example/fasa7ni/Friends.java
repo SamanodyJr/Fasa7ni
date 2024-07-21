@@ -17,7 +17,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.RequestQueue;
+import com.android.volley.RetryPolicy;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
@@ -326,8 +328,6 @@ public class Friends extends AppCompatActivity implements View.OnClickListener, 
                 com.android.volley.Request.Method.GET, url, null,
                 response -> {
                     Toast.makeText(this, "Updated Successfully", Toast.LENGTH_SHORT).show();
-                    Friend_Adapter.notifyDataSetChanged();
-                    Request_Adapter.notifyDataSetChanged();
                 },
 
                 //Throwable::printStackTrace
@@ -338,6 +338,29 @@ public class Friends extends AppCompatActivity implements View.OnClickListener, 
                 }
         );
         requestQueue.add(jsonObjectRequest);
+
+        String url2;
+        url2 = "http://10.0.2.2:4000/Accept_Friend?Requester_USERNAME=" + username + "&Reciever_USERNAME=" + requester;
+        RequestQueue requestQueue2 = Volley.newRequestQueue(this);
+        Log.e("RequestAdapter", url2);
+        JsonObjectRequest jsonObjectRequest2 = new JsonObjectRequest(
+                com.android.volley.Request.Method.GET, url2, null,
+                response -> {
+                    Toast.makeText(this, "Updated Successfully", Toast.LENGTH_SHORT).show();
+                    Friend_Adapter.notifyDataSetChanged();
+                    Request_Adapter.notifyDataSetChanged();
+                },
+
+                //Throwable::printStackTrace
+                error -> {
+                    // Handle errors
+                    error.printStackTrace();
+                    Toast.makeText(this, "Request failed", Toast.LENGTH_SHORT).show();
+
+                }
+        );
+        requestQueue2.add(jsonObjectRequest2);
+
         FetchFriends();
 
     }
@@ -353,8 +376,7 @@ public class Friends extends AppCompatActivity implements View.OnClickListener, 
                 com.android.volley.Request.Method.GET, url, null,
                 response -> {
                     Toast.makeText(this, "Updated Successfully", Toast.LENGTH_SHORT).show();
-                    Friend_Adapter.notifyDataSetChanged();
-                    Request_Adapter.notifyDataSetChanged();
+
                 },
 
                 //Throwable::printStackTrace
@@ -365,6 +387,29 @@ public class Friends extends AppCompatActivity implements View.OnClickListener, 
                 }
         );
         requestQueue.add(jsonObjectRequest);
+        String url2;
+        url2 = "http://10.0.2.2:4000/Remove_Friend?Requester_USERNAME=" + username + "&Reciever_USERNAME=" + requester;
+        RequestQueue requestQueue2 = Volley.newRequestQueue(this);
+        Log.e("RequestAdapter", url2);
+        JsonObjectRequest jsonObjectRequest2 = new JsonObjectRequest(
+                com.android.volley.Request.Method.GET, url2, null,
+                response -> {
+                    Toast.makeText(this, "Updated Successfully", Toast.LENGTH_SHORT).show();
+                    Friend_Adapter.notifyDataSetChanged();
+                    Request_Adapter.notifyDataSetChanged();
+                },
+
+                //Throwable::printStackTrace
+                error -> {
+                    // Handle errors
+                    error.printStackTrace();
+                    Toast.makeText(this, "Request failed", Toast.LENGTH_SHORT).show();
+
+                }
+        );
+      
+        requestQueue2.add(jsonObjectRequest2);
+
         FetchFriends();
     }
 
@@ -378,6 +423,8 @@ public class Friends extends AppCompatActivity implements View.OnClickListener, 
                 com.android.volley.Request.Method.GET, url, null,
                 response -> {
                     Toast.makeText(this, "Friend Request Sent", Toast.LENGTH_SHORT).show();
+                    Friend_Adapter.notifyDataSetChanged();
+                    Request_Adapter.notifyDataSetChanged();
                 },
 
                 //Throwable::printStackTrace
@@ -388,6 +435,8 @@ public class Friends extends AppCompatActivity implements View.OnClickListener, 
                 }
         );
         requestQueue.add(jsonObjectRequest);
+        FetchFriends();
+
 
     }
 
