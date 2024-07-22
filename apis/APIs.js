@@ -28,11 +28,11 @@ srv.get('/Fetch_Places', function(req, res)
     var Category=q.Cat;
 
     if(Category=="All")
-        var Retrieve_Query= "SELECT Distinct * FROM Places P INNER JOIN ADDRESS A ON P.Place_Name = A.Place_Name";
+        var Retrieve_Query= "SELECT DISTINCT * FROM Places P INNER JOIN ADDRESS A ON P.Place_Name = A.Place_Name";
     else if(Category == "Sports" || Category == "Food" || Category == "Activities" || Category == "Sightseeing")
-        var Retrieve_Query= "SELECT Distinct P.*, A.Address FROM Places P INNER JOIN Place_Cats PC ON P.Place_Name=PC.Place_Name INNER JOIN ADDRESS A ON P.PLACE_NAME = A.PLACE_NAME WHERE PC.Cat_Name=?" ;
+        var Retrieve_Query= "SELECT DISTINCT P.*, A.Address FROM Places P INNER JOIN Place_Cats PC ON P.Place_Name=PC.Place_Name INNER JOIN ADDRESS A ON P.PLACE_NAME = A.PLACE_NAME WHERE PC.Cat_Name=?" ;
     else
-        var Retrieve_Query= "SELECT Distinct P.*, A.Address FROM Places P INNER JOIN ADDRESS A ON P.Place_Name = A.Place_Name INNER JOIN USER U ON A.AREA = U.AREA WHERE A.AREA = ?" ;
+        var Retrieve_Query= "SELECT DISTINCT P.*, A.Address FROM Places P INNER JOIN ADDRESS A ON P.Place_Name = A.Place_Name INNER JOIN USER U ON A.AREA = U.AREA WHERE A.AREA = ?" ;
 
 
     mysqlcon.query(Retrieve_Query,[Category], function (err, result)
