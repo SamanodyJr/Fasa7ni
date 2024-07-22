@@ -1,6 +1,7 @@
 package com.example.fasa7ni;
 
 import android.annotation.SuppressLint;
+import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
@@ -11,6 +12,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -32,6 +34,10 @@ import com.bumptech.glide.request.RequestOptions;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Locale;
+
 public class Profile extends AppCompatActivity implements View.OnClickListener
 {
     private String username;
@@ -48,6 +54,7 @@ public class Profile extends AppCompatActivity implements View.OnClickListener
     private EditText MobileNumber;
     private Button EditIntrest;
     private Spinner spinner;
+    private Calendar calendar;
 
     @SuppressLint("SourceLockedOrientationActivity")
     @Override
@@ -75,11 +82,11 @@ public class Profile extends AppCompatActivity implements View.OnClickListener
         EditButton= findViewById(R.id.editButton);
         EditIntrest= findViewById(R.id.addInterests);
         User = findViewById(R.id.username);
+        calendar = Calendar.getInstance();
 
         spinner.setEnabled(false);
         EditButton.setOnClickListener(this);
         BackButton.setOnClickListener(this);
-        DOB.setOnClickListener(this);
         MobileNumber.setOnClickListener(this);
         EditIntrest.setOnClickListener(this);
 
@@ -237,6 +244,35 @@ public class Profile extends AppCompatActivity implements View.OnClickListener
                 Throwable::printStackTrace
         );
         requestQueue.add(jsonArrayRequest);
+    }
+
+
+    public void showDatePickerDialog(View v)
+    {
+        int year = calendar.get(Calendar.YEAR);
+        int month = calendar.get(Calendar.MONTH);
+        int day = calendar.get(Calendar.DAY_OF_MONTH);
+
+
+        DatePickerDialog datePickerDialog = new DatePickerDialog(this, R.style.CustomDatePickerDialogTheme,
+                (view, year1, month1, day1) ->
+                {
+                    calendar.set(year1, month1, day1);
+                    updateDateTextView();
+                }, year, month, day);
+        Calendar maxDate = Calendar.getInstance();
+        maxDate.add(Calendar.YEAR, -16);
+        datePickerDialog.getDatePicker().setMaxDate(maxDate.getTimeInMillis() - 1000);
+        datePickerDialog.show();
+    }
+
+
+
+    private void updateDateTextView()
+    {
+        String myFormat = "YYYY-MM-dd";
+        SimpleDateFormat sdf = new SimpleDateFormat(myFormat, Locale.getDefault());
+        DOB.setText(sdf.format(calendar.getTime()));
     }
 
 }

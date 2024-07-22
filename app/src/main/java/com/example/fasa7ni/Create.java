@@ -18,8 +18,10 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -27,19 +29,23 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+
 import java.io.IOException;
 import java.util.Locale;
 import java.util.concurrent.atomic.AtomicBoolean;
+
 
 public class Create extends AppCompatActivity implements View.OnClickListener
 {
@@ -73,6 +79,10 @@ public class Create extends AppCompatActivity implements View.OnClickListener
 
 
 
+
+
+
+
     @SuppressLint("SourceLockedOrientationActivity")
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -83,8 +93,10 @@ public class Create extends AppCompatActivity implements View.OnClickListener
         Start();
     }
 
+
     private void Start()
     {
+
 
         Bundle bundle = getIntent().getExtras();
         if (bundle != null)
@@ -93,7 +105,9 @@ public class Create extends AppCompatActivity implements View.OnClickListener
             place_name = bundle.getString("Place_Name");
         }
 
+
         calendar = Calendar.getInstance();
+
 
         Listat = findViewById(R.id.small_list_btn);
         Events = findViewById(R.id.small_event_btn);
@@ -101,22 +115,28 @@ public class Create extends AppCompatActivity implements View.OnClickListener
         Recommender = findViewById(R.id.small_recommender_btn);
         Home = findViewById(R.id.small_home_btn);
 
+
         Listat.setOnClickListener(this);
         Events.setOnClickListener(this);
         Friends.setOnClickListener(this);
         Recommender.setOnClickListener(this);
         Home.setOnClickListener(this);
 
+
         Public = findViewById(R.id.public_info_select);
         Public.setOnClickListener(this);
+
 
         Private = findViewById(R.id.private_info_select);
         Private.setOnClickListener(this);
 
+
         Message = findViewById(R.id.Message);
+
 
         Create = findViewById(R.id.create_btn);
         Create.setOnClickListener(this);
+
 
         NameText = findViewById(R.id.Fos7a_Name);
         LocText = findViewById(R.id.Fos7a_Location);
@@ -126,7 +146,9 @@ public class Create extends AppCompatActivity implements View.OnClickListener
         DescriptionText = findViewById(R.id.Fos7a_Desc);
         CapText = findViewById(R.id.Fos7a_Cap);
 
+
         LocText.setOnClickListener(this);
+
 
         if (place_name != null)
         {
@@ -138,24 +160,56 @@ public class Create extends AppCompatActivity implements View.OnClickListener
             LocText.setText(place_name);
         }
 
+
     }
 
-    public void showDatePickerDialog(View v) {
+
+    public void showDatePickerDialog(View v)
+    {
         int year = calendar.get(Calendar.YEAR);
         int month = calendar.get(Calendar.MONTH);
         int day = calendar.get(Calendar.DAY_OF_MONTH);
 
-        DatePickerDialog datePickerDialog = new DatePickerDialog(this,
+
+        DatePickerDialog datePickerDialog = new DatePickerDialog(this, R.style.CustomDatePickerDialogTheme,
                 new DatePickerDialog.OnDateSetListener() {
                     @Override
                     public void onDateSet(DatePicker view, int year, int month, int day) {
                         calendar.set(year, month, day);
                         updateDateTextView();
+
+
+                        Calendar currentCalendar = Calendar.getInstance();
+                        boolean isToday = (calendar.get(Calendar.YEAR) == currentCalendar.get(Calendar.YEAR) &&
+                                calendar.get(Calendar.MONTH) == currentCalendar.get(Calendar.MONTH) &&
+                                calendar.get(Calendar.DAY_OF_MONTH) == currentCalendar.get(Calendar.DAY_OF_MONTH));
+
+
+                        if (isToday) {
+                            int currentHour = currentCalendar.get(Calendar.HOUR_OF_DAY);
+                            int currentMinute = currentCalendar.get(Calendar.MINUTE);
+
+
+                            int selectedHour = calendar.get(Calendar.HOUR_OF_DAY);
+                            int selectedMinute = calendar.get(Calendar.MINUTE);
+
+
+                            if (selectedHour < currentHour || (selectedHour == currentHour && selectedMinute < currentMinute)) {
+                                calendar.set(Calendar.HOUR_OF_DAY, currentHour);
+                                calendar.set(Calendar.MINUTE, currentMinute);
+                                updateTimeTextView();
+                                Toast.makeText(getApplicationContext(), "Fos7a time cannot be before current time", Toast.LENGTH_SHORT).show();
+                            }
+                        }
+                        showTimePickerDialog(null);
                     }
                 }, year, month, day);
-
+        datePickerDialog.getDatePicker().setMinDate(System.currentTimeMillis() - 1000);
         datePickerDialog.show();
     }
+
+
+
 
     private void updateDateTextView()
     {
@@ -164,28 +218,57 @@ public class Create extends AppCompatActivity implements View.OnClickListener
         DateText.setText(sdf.format(calendar.getTime()));
     }
 
-    public void showTimePickerDialog(View v)
-    {
+
+    public void showTimePickerDialog(View v) {
         int hour = calendar.get(Calendar.HOUR_OF_DAY);
         int minute = calendar.get(Calendar.MINUTE);
 
-        TimePickerDialog timePickerDialog = new TimePickerDialog(this,
-                (view, hourOfDay, minute1) ->
-                {
-                    calendar.set(Calendar.HOUR_OF_DAY, hourOfDay);
-                    calendar.set(Calendar.MINUTE, minute1);
-                    updateTimeTextView();
+
+        Calendar currentCalendar = Calendar.getInstance();
+        int currentYear = currentCalendar.get(Calendar.YEAR);
+        int currentMonth = currentCalendar.get(Calendar.MONTH);
+        int currentDay = currentCalendar.get(Calendar.DAY_OF_MONTH);
+        int currentHour = currentCalendar.get(Calendar.HOUR_OF_DAY);
+        int currentMinute = currentCalendar.get(Calendar.MINUTE);
+
+
+        boolean isToday = (calendar.get(Calendar.YEAR) == currentYear &&
+                calendar.get(Calendar.MONTH) == currentMonth &&
+                calendar.get(Calendar.DAY_OF_MONTH) == currentDay);
+
+
+        TimePickerDialog timePickerDialog = new TimePickerDialog(this, R.style.CustomTimePickerDialogTheme,
+                new TimePickerDialog.OnTimeSetListener() {
+                    @Override
+                    public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
+                        calendar.set(Calendar.HOUR_OF_DAY, hourOfDay);
+                        calendar.set(Calendar.MINUTE, minute);
+                        if (isToday && (hourOfDay < currentHour || (hourOfDay == currentHour && minute < currentMinute))) {
+                            Toast.makeText(getApplicationContext(), "Fos7a time cannot be before current time", Toast.LENGTH_SHORT).show();
+                            calendar.set(Calendar.HOUR_OF_DAY, currentHour);
+                            calendar.set(Calendar.MINUTE, currentMinute);
+                            updateTimeTextView();
+                            return;
+                        }
+
+
+                        updateTimeTextView();
+                    }
                 }, hour, minute, true);
+
 
         timePickerDialog.show();
     }
 
+
     private void updateTimeTextView()
     {
-        String myFormat = "HH:mm"; // 24-hour format
+        String myFormat = "HH:mm";
         SimpleDateFormat sdf = new SimpleDateFormat(myFormat, Locale.getDefault());
-        TimeText.setText(sdf.format(calendar.getTime())+":00");
+        TimeText.setText(sdf.format(calendar.getTime()));
     }
+
+
 
 
     @Override
@@ -193,17 +276,22 @@ public class Create extends AppCompatActivity implements View.OnClickListener
         if(v.getId()==Listat.getId())
             Go_List();
 
+
         else if (v.getId()==Events.getId())
             Go_Events();
+
 
         else if (v.getId()==Friends.getId())
             Go_Friends();
 
+
         else if (v.getId()==Recommender.getId())
             Go_Recommender();
 
+
         else if (v.getId()==Home.getId())
             Go_Home();
+
 
         else if (v.getId()==LocText.getId()){
             LocText.setVisibility(View.GONE);
@@ -212,8 +300,11 @@ public class Create extends AppCompatActivity implements View.OnClickListener
         }
 
 
+
+
         else if (v.getId()==Create.getId())
         {
+
 
             Name = NameText.getText().toString().trim();
             Location = Loc_Spinner.getSelectedItem().toString().trim();
@@ -250,10 +341,13 @@ public class Create extends AppCompatActivity implements View.OnClickListener
             }
         }
 
+
         else
             Go_Filter(v.getId());
 
+
     }
+
 
     private void Go_List()
     {
@@ -262,12 +356,14 @@ public class Create extends AppCompatActivity implements View.OnClickListener
         startActivity(CE_L);
     }
 
+
     private void Go_Events()
     {
         Intent CE_E = new Intent(Create.this, Events.class);
         CE_E.putExtra("Username", username);
         startActivity(CE_E);
     }
+
 
     private void Go_Friends()
     {
@@ -276,6 +372,7 @@ public class Create extends AppCompatActivity implements View.OnClickListener
         startActivity(CE_F);
     }
 
+
     private void Go_Recommender()
     {
         Intent CE_R = new Intent(Create.this, Recommender.class);
@@ -283,12 +380,14 @@ public class Create extends AppCompatActivity implements View.OnClickListener
         startActivity(CE_R);
     }
 
+
     private void Go_Home()
     {
         Intent CE_H = new Intent(Create.this, Home.class);
         CE_H.putExtra("Username", username);
         startActivity(CE_H);
     }
+
 
     public void Go_Filter(int id)
     {
@@ -298,8 +397,10 @@ public class Create extends AppCompatActivity implements View.OnClickListener
             Public.setBackgroundColor(Color.parseColor("#2C2B2B"));
             Public.setTextColor(Color.parseColor("#41F2F8"));
 
+
             Private.setBackgroundColor(Color.parseColor("#41F2F8"));
             Private.setTextColor(Color.parseColor("#2C2B2B"));
+
 
         }
         else if (id==Private.getId())
@@ -308,15 +409,18 @@ public class Create extends AppCompatActivity implements View.OnClickListener
             Private.setBackgroundColor(Color.parseColor("#2C2B2B"));
             Private.setTextColor(Color.parseColor("#41F2F8"));
 
+
             Public.setBackgroundColor(Color.parseColor("#41F2F8"));
             Public.setTextColor(Color.parseColor("#2C2B2B"));
         }
     }
 
+
     private void Add_Fos7a(String Name,String Location,String Desc,String Date,String Time,int Cap) throws IOException, JSONException
     {
         String url = "http://10.0.2.2:4000/Create_Fos7a";
         RequestQueue requestQueue = Volley.newRequestQueue(this);
+
 
         JSONObject jsonObject = new JSONObject();
         try
@@ -335,6 +439,7 @@ public class Create extends AppCompatActivity implements View.OnClickListener
             e.printStackTrace();
         }
 
+
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(
                 Request.Method.POST, url, jsonObject,
                 response ->
@@ -343,5 +448,6 @@ public class Create extends AppCompatActivity implements View.OnClickListener
         );
         requestQueue.add(jsonObjectRequest);
     }
+
 
 }

@@ -151,7 +151,7 @@ public class EventProfile extends AppCompatActivity implements View.OnClickListe
             fos7aTitle.setText(Fos7a_Name);
             fos7aDescription.setText(Description);
             fos7aCapacity.setText(Capacity);
-            fos7aDate.setText(Fos7a_Date);
+            fos7aDate.setText(Fos7a_Date + ", " + Fos7a_Time);
             fos7aPublic.setText(Is_Public == 1 ? "Public" : "Private");
             fos7aHost.setText(Host_Username);
             Fos7a_Location.setText(Place_Name);

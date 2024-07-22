@@ -7,11 +7,14 @@
     tools:context=".Create">
 
 
+
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
         android:background="@color/main_grey">
+
 
         <LinearLayout
             android:id="@+id/EventHeader"
@@ -22,6 +25,7 @@
             android:orientation="vertical"
             android:background="@color/main_grey">
 
+
             <ImageView
                 android:id="@+id/imageView"
                 android:layout_width="wrap_content"
@@ -31,7 +35,9 @@
                 android:layout_marginBottom="8dp"
                 app:srcCompat="@drawable/logo"  />
 
+
         </LinearLayout>
+
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -42,12 +48,15 @@
             android:orientation="vertical"
             android:background="@drawable/container_radius">
 
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
 
+
                 >
+
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -61,7 +70,10 @@
                     android:fontFamily="sans-serif"/>
 
 
+
+
             </LinearLayout>
+
 
             <RelativeLayout
                 android:layout_width="wrap_content"
@@ -72,7 +84,9 @@
                 android:layout_marginEnd="25dp"
                 >
 
+
                 <!-- Left Buttons -->
+
 
                 <TextView
                     android:id="@+id/eventtype"
@@ -87,7 +101,9 @@
                     android:textColor="@color/light_grey"
                     android:textStyle="bold" />
 
+
                 <!-- Right ImageButton -->
+
 
                 <Button
                     android:id="@+id/private_info_select"
@@ -102,6 +118,7 @@
                     android:textColor="@color/blue"
                     android:textStyle="bold" />
 
+
                 <Button
                     android:id="@+id/public_info_select"
                     android:layout_width="wrap_content"
@@ -115,29 +132,8 @@
                     android:textColor="@color/main_grey"
                     android:textStyle="bold" />
 
-                <ImageButton
-                    android:id="@+id/camera_btn"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
-                    android:layout_alignParentEnd="true"
-                    android:layout_marginEnd="0dp"
-                    android:backgroundTint="@color/support_grey"
-                    app:srcCompat="@drawable/camera" />
-
-                <TextView
-                    android:id="@+id/nid"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@+id/camera_btn"
-                    android:layout_alignParentEnd="true"
-                    android:layout_marginTop="-10dp"
-                    android:layout_marginEnd="19dp"
-                    android:text="NID"
-                    android:textColor="@color/light_grey"
-                    android:textSize="8sp"
-                    android:textStyle="bold" />
             </RelativeLayout>
+
 
             <ScrollView
                 android:layout_width="match_parent"
@@ -161,6 +157,7 @@
                         android:hint="Name"
                         android:textSize="20sp"/>
 
+
                     <TextView
                         android:id="@+id/Fos7a_Location"
                         android:layout_width="match_parent"
@@ -173,6 +170,7 @@
                         android:paddingLeft="20dp"
                         android:gravity="center_vertical"
                         android:textSize="20sp" />
+
 
                     <Spinner
                         android:id="@+id/spinnerPlaces"
@@ -188,6 +186,7 @@
                         app:cornerRadius = "20dp"
                         android:visibility="gone"
                         android:textSize="20sp"/>
+
 
                     <EditText
                         android:id="@+id/Fos7a_Date"
@@ -205,6 +204,7 @@
                         android:clickable="true"
                         android:textSize="20sp"/>
 
+
                     <EditText
                         android:id="@+id/Fos7a_Time"
                         android:layout_width="match_parent"
@@ -221,6 +221,7 @@
                         android:clickable="true"
                         android:onClick="showTimePickerDialog"/>
 
+
                     <EditText
                         android:id="@+id/Fos7a_Desc"
                         android:layout_width="match_parent"
@@ -233,6 +234,7 @@
                         android:hint="Description"
                         android:textSize="20sp"/>
 
+
                     <EditText
                         android:id="@+id/Fos7a_Cap"
                         android:layout_width="match_parent"
@@ -244,6 +246,7 @@
                         android:paddingLeft="20dp"
                         android:hint="Capacity"
                         android:textSize="20sp"/>
+
 
                 </LinearLayout>
             </ScrollView>
@@ -269,7 +272,9 @@
                     android:paddingTop="12dp"
                     >
 
+
                 </TextView>
+
 
                 <Button
                     android:id="@+id/create_btn"
@@ -287,7 +292,9 @@
                     />
             </LinearLayout>
 
+
         </LinearLayout>
+
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -295,6 +302,7 @@
             android:layout_weight="0.2"
             android:orientation="horizontal"
             android:gravity="center">
+
 
             <ImageButton
                 android:id="@+id/small_list_btn"
@@ -305,6 +313,7 @@
                 android:background="@android:color/transparent"
                 app:srcCompat="@drawable/small_list_btn" />
 
+
             <ImageButton
                 android:id="@+id/small_event_btn"
                 android:layout_width="wrap_content"
@@ -313,6 +322,7 @@
                 android:layout_marginStart="8dp"
                 android:layout_marginEnd="8dp"
                 app:srcCompat="@drawable/small_event_btn" />
+
 
             <ImageButton
                 android:id="@+id/small_home_btn"
@@ -324,6 +334,7 @@
                 android:layout_marginEnd="8dp"
                 app:srcCompat="@drawable/small_home_btn" />
 
+
             <ImageButton
                 android:id="@+id/small_friends_btn"
                 android:layout_width="wrap_content"
@@ -332,6 +343,7 @@
                 android:layout_marginStart="8dp"
                 android:layout_marginEnd="8dp"
                 app:srcCompat="@drawable/small_friends_btn" />
+
 
             <ImageButton
                 android:id="@+id/small_recommender_btn"
@@ -343,7 +355,10 @@
                 app:srcCompat="@drawable/small_recommender_btn" />
         </LinearLayout>
 
+
     </LinearLayout>
+
+
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

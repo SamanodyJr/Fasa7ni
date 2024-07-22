@@ -1,0 +1,48 @@
+<!-- res/values/styles.xml -->
+<resources>
+    <!-- Base application theme -->
+    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+        <!-- Customize your theme here -->
+        <item name="colorPrimary">@color/support_grey</item>
+        <item name="colorPrimaryDark">@color/support_grey</item>
+        <item name="colorAccent">@color/support_grey</item>
+    </style>
+
+    <!-- Custom DatePickerDialog Theme -->
+    <style name="CustomDatePickerDialogTheme" parent="Theme.MaterialComponents.Light.Dialog">
+        <item name="colorPrimary">@color/support_grey</item>
+        <item name="colorPrimaryDark">@color/support_grey</item>
+        <item name="colorAccent">@color/main_grey</item>
+        <item name="android:background">@color/offwhite</item>
+        <item name="materialCalendarFullscreenTheme">@style/CustomDatePickerMaterialCalendarTheme</item>
+        <item name="materialCalendarTheme">@style/CustomDatePickerMaterialCalendarTheme</item>
+        <item name="buttonBarPositiveButtonStyle">@style/CustomDialogButton</item>
+        <item name="buttonBarNegativeButtonStyle">@style/CustomDialogButton</item>
+    </style>
+
+    <style name="CustomDatePickerMaterialCalendarTheme" parent="Widget.MaterialComponents.MaterialCalendar">
+        <item name="colorPrimary">@color/support_grey</item>
+        <item name="colorPrimaryDark">@color/main_grey</item>
+        <item name="colorAccent">@color/main_grey</item>
+        <item name="materialCalendarDay">@style/CustomDatePickerMaterialCalendarDay</item>
+    </style>
+
+    <style name="CustomDatePickerMaterialCalendarDay" parent="Widget.MaterialComponents.MaterialCalendar.Day">
+        <item name="android:textColor">@android:color/white</item>
+    </style>
+
+    <!-- Custom TimePickerDialog Theme -->
+    <style name="CustomTimePickerDialogTheme" parent="Theme.MaterialComponents.Light.Dialog">
+        <item name="colorPrimary">@color/support_grey</item>
+        <item name="colorPrimaryDark">@color/support_grey</item>
+        <item name="colorAccent">@color/offwhite</item>
+        <item name="android:background">@color/offwhite</item>
+        <item name="buttonBarPositiveButtonStyle">@style/CustomDialogButton</item>
+        <item name="buttonBarNegativeButtonStyle">@style/CustomDialogButton</item>
+    </style>
+
+    <!-- Custom Dialog Button Style -->
+    <style name="CustomDialogButton" parent="Widget.MaterialComponents.Button.TextButton.Dialog">
+        <item name="android:textColor">@color/support_grey</item>
+    </style>
+</resources>

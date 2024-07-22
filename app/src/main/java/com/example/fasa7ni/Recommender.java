@@ -1,5 +1,6 @@
 package com.example.fasa7ni;
 
+
 import android.annotation.SuppressLint;
 import android.app.DatePickerDialog;
 import android.content.Intent;
@@ -11,17 +12,22 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.util.Log;
 
+
 import androidx.appcompat.app.AppCompatActivity;
 import android.widget.Button;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
+
 
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.Volley;
 
+
 import org.json.JSONException;
 import org.json.JSONObject;
+
 
 import java.io.IOException;
 import java.text.SimpleDateFormat;
@@ -30,6 +36,8 @@ import java.util.Calendar;
 import java.util.Collections;
 import java.util.List;
 import java.util.Locale;
+
+
 
 
 public class Recommender extends AppCompatActivity implements View.OnClickListener
@@ -55,6 +63,8 @@ public class Recommender extends AppCompatActivity implements View.OnClickListen
     private List<Place> results = new ArrayList<Place>();
 
 
+
+
     @SuppressLint("SourceLockedOrientationActivity")
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -65,6 +75,7 @@ public class Recommender extends AppCompatActivity implements View.OnClickListen
         Start();
     }
 
+
     private void Start()
     {
         Bundle bundle = getIntent().getExtras();
@@ -73,7 +84,9 @@ public class Recommender extends AppCompatActivity implements View.OnClickListen
             username = bundle.getString("Username");
         }
 
+
         calendar = Calendar.getInstance();
+
 
         List = findViewById(R.id.small_list_btn);
         Events = findViewById(R.id.small_event_btn);
@@ -88,6 +101,8 @@ public class Recommender extends AppCompatActivity implements View.OnClickListen
         Message = findViewById(R.id.Message);
 
 
+
+
         List.setOnClickListener(this);
         Events.setOnClickListener(this);
         Friends.setOnClickListener(this);
@@ -95,24 +110,32 @@ public class Recommender extends AppCompatActivity implements View.OnClickListen
         Profile.setOnClickListener(this);
         Home.setOnClickListener(this);
 
+
     }
+
 
     public void showDatePickerDialog(View v) {
         int year = calendar.get(Calendar.YEAR);
         int month = calendar.get(Calendar.MONTH);
         int day = calendar.get(Calendar.DAY_OF_MONTH);
 
-        DatePickerDialog datePickerDialog = new DatePickerDialog(this,
+
+        DatePickerDialog datePickerDialog = new DatePickerDialog(this, R.style.CustomDatePickerDialogTheme,
                 new DatePickerDialog.OnDateSetListener() {
                     @Override
                     public void onDateSet(DatePicker view, int year, int month, int day) {
                         calendar.set(year, month, day);
                         updateDateTextView();
+
+
                     }
                 }, year, month, day);
-
+        datePickerDialog.getDatePicker().setMinDate(System.currentTimeMillis() - 1000);
         datePickerDialog.show();
     }
+
+
+
 
     private void updateDateTextView()
     {
@@ -122,22 +145,31 @@ public class Recommender extends AppCompatActivity implements View.OnClickListen
     }
 
 
+
+
+
+
     @Override
     public void onClick(View v) {
         if(v.getId()==List.getId())
             Go_List();
 
+
         else if (v.getId()==Events.getId())
             Go_Events();
 
+
         else if (v.getId()==Friends.getId())
             Go_Friends();
+
 
         else if (v.getId()==Generate.getId()) {
             Loc = Spinner_Loc.getSelectedItem().toString().trim();
             Date = DateText.getText().toString().trim();
             Cat = Spinner_Cat.getSelectedItem().toString().trim();
             Cap = Spinner_Cap.getSelectedItem().toString().trim();
+
+
 
 
             if(Date.equals("") ||Loc.equals("")||Cat.equals("") ||Cap.equals(""))
@@ -149,23 +181,29 @@ public class Recommender extends AppCompatActivity implements View.OnClickListen
                 Message.setVisibility(View.INVISIBLE);
                 Place_Name=Recommend(Loc, Date, Cat, Cap);
 
+
             }
         }
         else if (v.getId()==Profile.getId())
             Go_Profile();
+
 
         else if (v.getId()==Home.getId())
             Go_Home();
         else
             return;
 
+
     }
 
-    private String Recommend(String loc, String date, String cat, String cap) {
+
+    private String Recommend(String loc, String date, String cat, String cap)
+    {
         results.clear();
         String url;
         url = "http://10.0.2.2:4000/Recommend?Cat="+cat+"&Locat="+loc;
         RequestQueue requestQueue = Volley.newRequestQueue(this);
+
 
         JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(
                 com.android.volley.Request.Method.GET, url, null,
@@ -198,7 +236,9 @@ public class Recommender extends AppCompatActivity implements View.OnClickListen
         return "";
     }
 
-    private void Go_Recommended() {
+
+    private void Go_Recommended()
+    {
         Collections.shuffle(results);
         Intent intent = new Intent(this, PlaceProfile.class);
         Place place = results.get(0);
@@ -214,7 +254,9 @@ public class Recommender extends AppCompatActivity implements View.OnClickListen
         intent.putExtra("page", "recommender");
         startActivity(intent);
 
+
     }
+
 
     private void Go_Home()
     {
@@ -223,6 +265,7 @@ public class Recommender extends AppCompatActivity implements View.OnClickListen
         startActivity(R_H);
     }
 
+
     private void Go_List()
     {
         Intent R_L = new Intent(Recommender.this, Listat.class);
@@ -230,7 +273,9 @@ public class Recommender extends AppCompatActivity implements View.OnClickListen
         R_L.putExtra("Username", username);
         startActivity(R_L);
 
+
     }
+
 
     private void Go_Events()
     {
@@ -239,12 +284,14 @@ public class Recommender extends AppCompatActivity implements View.OnClickListen
         startActivity(R_E);
     }
 
+
     private void Go_Friends()
     {
         Intent R_F = new Intent(Recommender.this, Friends.class);
         R_F.putExtra("Username", username);
         startActivity(R_F);
     }
+
 
     private void Go_Profile()
     {
