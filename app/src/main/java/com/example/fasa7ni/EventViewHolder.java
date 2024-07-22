@@ -42,6 +42,7 @@ public class EventViewHolder extends RecyclerView.ViewHolder
         name.setText(event.getName());
         location.setText(event.getLocation());
         hostName.setText(event.getHostName());
+        openingHours.setText(event.getDate());
        String imagePath = "file:///android_asset/" + event.getImage();
 
         Glide.with(context)
